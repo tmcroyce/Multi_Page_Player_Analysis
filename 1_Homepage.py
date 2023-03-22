@@ -46,6 +46,15 @@ players_22 = np.sort(players_22)
 #create select box for player
 player = st.sidebar.selectbox('Select Player', players_22, index = 2)
 
+# Assign Session States
+
+st.session_state['player'] = player
+st.session_state['team'] = team
+# assign team num, which is index of team in teams
+team_num = np.where(teams == team)[0][0]
+st.session_state['team_num'] = team_num
+
+
 player_nba_id = player_numbers[player_numbers['Player'] == player]['nba_id'].iloc[0]
 
 
@@ -57,6 +66,17 @@ st.sidebar.image(player_photo, width = 200)
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 position = st.sidebar.selectbox('Select Position to evaluate the player at', position_options)
+
+# Assign Session States
+st.session_state['position'] = position
+
+#get index of position in position_options, 0 if PG, 1 if SG, etc.
+position_index_dict = {'PG': 0, 'SG': 1, 'SF': 2, 'PF': 3, 'C': 4}
+position_index = position_index_dict[position]
+
+st.sidebar.write('Position Index: ', position_index)
+
+st.session_state['position_index'] = position_index
 
 
 st.title('Welcome!')

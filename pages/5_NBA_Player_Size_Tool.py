@@ -51,29 +51,6 @@ df_sizes = pd.read_csv('data/player/aggregates_of_aggregates/New_Sizes_and_Posit
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
 
-# Load tracking and other data
-catch_shoot = pd.read_csv('data/player/nba_com_playerdata/tracking/catch_shoot_' + today + '_.csv')
-defensive_impact = pd.read_csv('data/player/nba_com_playerdata/tracking/defensive_impact_' + today + '_.csv')
-drives = pd.read_csv('data/player/nba_com_playerdata/tracking/drives_' + today + '_.csv')
-elbow_touches = pd.read_csv('data/player/nba_com_playerdata/tracking/elbow_touches_' + today + '_.csv')
-paint_touches = pd.read_csv('data/player/nba_com_playerdata/tracking/paint_touches_' + today + '_.csv')
-passing = pd.read_csv('data/player/nba_com_playerdata/tracking/passing_' + today + '_.csv')
-pull_up_shooting = pd.read_csv('data/player/nba_com_playerdata/tracking/pull_up_shots_' + today + '_.csv')
-rebounding = pd.read_csv('data/player/nba_com_playerdata/tracking/rebounds_' + today + '_.csv')
-speed_distance = pd.read_csv('data/player/nba_com_playerdata/tracking/speed_distance_' + today + '_.csv')
-touches = pd.read_csv('data/player/nba_com_playerdata/tracking/touches_' + today + '_.csv')
-shooting_efficiency = pd.read_csv('data/player/nba_com_playerdata/tracking/shooting_efficiency_' + today + '_.csv')
-
-# Load Shooting Data
-catch_shoot_shooting = pd.read_csv('data/player/nba_com_playerdata/shooting/catch_and_shoot_' + today + '_.csv')
-opp_shooting_5ft = pd.read_csv('data/player/nba_com_playerdata/shooting/opp_shooting_5ft_' + today + '_.csv')
-opp_shooting_by_zone = pd.read_csv('data/player/nba_com_playerdata/shooting/opp_shooting_by_zone_' + today + '_.csv')
-pullups = pd.read_csv('data/player/nba_com_playerdata/shooting/pullups_' + today + '_.csv')
-shooting_splits_5ft = pd.read_csv('data/player/nba_com_playerdata/shooting/shooting_splits_5ft_' + today + '_.csv')
-shooting_splits_by_zone = pd.read_csv('data/player/nba_com_playerdata/shooting/shooting_splits_by_zone_' + today + '_.csv')
-shot_dash_general = pd.read_csv('data/player/nba_com_playerdata/shooting/shot_dash_general_' + today + '_.csv')
-
-
 
 # check last date
 gbg_df['Date'] = pd.to_datetime(gbg_df['trad_game date'])
@@ -83,34 +60,33 @@ gbg_df['Date'] = gbg_df['Date'].dt.date
 gbg_df = gbg_df.sort_values(by = 'Date', ascending = False)
 # get last date
 last_date = gbg_df['Date'].iloc[0]
-st.sidebar.write('Last Date of Box Score Data: ' + str(last_date))
 
 st.title('NBA Player Analytics Tool')
 
 st.write('This application compares a player\'s performance to the league average and to other players at their position. The data is pulled from a variety of sources, and is updated daily. ')
 st.write('The data for positions is pulled from BasketballReference.com and is the actual position they play on the floor, as opposed to the NBA listed position.')
 
-st.sidebar.subheader('Instructions')
-st.sidebar.write('Please first select a Team, then a Player, then the position you would like to compare the player statistics against.')
-st.sidebar.write(' ')
-st.write('---')
-
-
 st.subheader('Player Size Data')
 
+# load game by game data
+gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
 
 # select team
 teams = gbg_df['trad_team'].unique()
+
 # sort teams
 teams = np.sort(teams)
-team = st.sidebar.selectbox('Select Team', teams, index = 25)
 
-# select player
-gbg_22 = gbg_df[gbg_df['adv_season'] == 2022]
-players_22 = gbg_22[gbg_22['trad_team'] == team]['trad_player'].unique()
-# sort players
-players_22 = np.sort(players_22)
-player = st.sidebar.selectbox('Select Player', players_22, index = 2)
+team_number = st.session_state.team_num
+# make int
+team_number = int(team_number)
+
+# select team
+team = st.sidebar.selectbox('Select Team', teams, index = team_number)
+
+team = st.session_state.team
+
+player = st.session_state.player
 
 player_nba_id = player_numbers[player_numbers['Player'] == player]['nba_id'].iloc[0]
 
@@ -123,7 +99,11 @@ st.sidebar.image(player_photo, width = 200)
 
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
-position = st.sidebar.selectbox('Select Position to evaluate the player at', position_options)
+position_index = st.session_state['position_index']
+
+# make int
+position_index_dict = {'PG': 0, 'SG': 1, 'SF': 2, 'PF': 3, 'C': 4}
+position = st.sidebar.selectbox('Select Position to evaluate the player at', position_index)
 
 # load player data
 player_gbg = gbg_df[gbg_df['trad_player'] == player]
