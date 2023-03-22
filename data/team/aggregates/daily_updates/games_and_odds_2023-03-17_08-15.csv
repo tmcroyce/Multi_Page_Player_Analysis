@@ -1,0 +1,8 @@
+,team1,team2,time,opening_spread_t1,opening_spread_t2,current_spread_t1,current_spread_t2,opening_moneyline_t1,opening_moneyline_t2,current_moneyline_t1,current_moneyline_t2
+0,Philadelphia,Charlotte,16:00:00,-10,+10,-10.5,+10.5,-588,+375,-475,+385
+1,Washington,Cleveland,16:30:00,+4,-4,+5.5,-5.5,+140,-182,+175,-205
+2,Golden State,Atlanta,16:30:00,+4,-4,+4,-4,-111,-111,+153,-173
+3,Minnesota,Chicago,17:00:00,+2,-2,+2.5,-2.5,+110,-135,+127,-147
+4,New Orleans,Houston,17:00:00,-6.5,+6.5,-5.5,+5.5,-286,+205,-205,+175
+5,Memphis,San Antonio,17:00:00,-8.5,+8.5,-8.5,+8.5,-400,+290,-350,+280
+6,Boston,Portland,19:00:00,-5,+5,-4.5,+4.5,-217,+165,-190,+165

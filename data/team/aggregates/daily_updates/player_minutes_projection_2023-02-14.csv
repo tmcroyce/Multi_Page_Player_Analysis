@@ -1,0 +1,148 @@
+name,minutes,OUT,GTD,team
+Derrick White,32.0,0,0,Celtics
+Al Horford,29.0,0,0,Celtics
+Robert Williams,27.0,0,1,Celtics
+Grant Williams,26.0,0,1,Celtics
+Sam Hauser,20.0,0,0,Celtics
+Jayson Tatum,38.0,0,1,Celtics
+Malcolm Brogdon,25.0,0,1,Celtics
+Payton Pritchard,14.0,0,0,Celtics
+Mike Muscala,13.0,0,0,Celtics
+Luke Kornet,8.0,0,0,Celtics
+Blake Griffin,8.0,0,0,Celtics
+Jaylen Brown,0.0,1,0,Celtics
+D. Gallinari,0.0,1,0,Celtics
+Marcus Smart,0.0,1,0,Celtics
+G. Antetokounmpo,34.0,0,1,Bucks
+Jrue Holiday,33.0,0,0,Bucks
+Brook Lopez,31.0,0,0,Bucks
+Grayson Allen,28.0,0,0,Bucks
+Pat Connaughton,24.0,0,1,Bucks
+Khris Middleton,26.0,0,0,Bucks
+Joe Ingles,22.0,0,0,Bucks
+Wesley Matthews,16.0,0,0,Bucks
+Jevon Carter,16.0,0,0,Bucks
+MarJon Beauchamp,10.0,0,0,Bucks
+Sandro Mamukelashvili,0.0,0,0,Bucks
+T. Antetokounmpo,0.0,0,0,Bucks
+Bobby Portis,0.0,1,0,Bucks
+Jae Crowder,0.0,1,0,Bucks
+Franz Wagner,35.0,0,0,Magic
+Paolo Banchero,34.0,0,0,Magic
+Markelle Fultz,33.0,0,0,Magic
+Gary Harris,32.0,0,0,Magic
+Wendell Carter,30.0,0,0,Magic
+Jalen Suggs,25.0,0,0,Magic
+Moritz Wagner,18.0,0,0,Magic
+Bol Bol,18.0,0,0,Magic
+Jonathan Isaac,15.0,0,0,Magic
+Cole Anthony,0.0,0,1,Magic
+Caleb Houstan,0.0,0,0,Magic
+Goga Bitadze,0.0,0,0,Magic
+Chuma Okeke,0.0,0,0,Magic
+R.J. Hampton,0.0,1,0,Magic
+Scottie Barnes,38.0,0,0,Raptors
+Fred VanVleet,37.0,0,0,Raptors
+Pascal Siakam,37.0,0,0,Raptors
+Gary Trent,34.0,0,1,Raptors
+P. Achiuwa,28.0,0,1,Raptors
+Jakob Poeltl,23.0,0,0,Raptors
+Chris Boucher,22.0,0,0,Raptors
+Thaddeus Young,12.0,0,0,Raptors
+Malachi Flynn,6.0,0,0,Raptors
+Juancho Hernangomez,3.0,0,0,Raptors
+Dalano Banton,0.0,0,0,Raptors
+Joe Wieskamp,0.0,0,0,Raptors
+OG Anunoby,0.0,1,0,Raptors
+Domantas Sabonis,37.0,0,0,Kings
+De'Aaron Fox,37.0,0,0,Kings
+Kevin Huerter,34.0,0,0,Kings
+Harrison Barnes,33.0,0,0,Kings
+Keegan Murray,33.0,0,0,Kings
+Trey Lyles,20.0,0,0,Kings
+Davion Mitchell,20.0,0,0,Kings
+Terence Davis,15.0,0,0,Kings
+Chimezie Metu,11.0,0,0,Kings
+Alex Len,0.0,0,0,Kings
+Matthew Dellavedova,0.0,0,0,Kings
+Keon Ellis,0.0,0,0,Kings
+Richaun Holmes,0.0,0,0,Kings
+Kessler Edwards,0.0,0,0,Kings
+Malik Monk,0.0,1,0,Kings
+KZ Okpala,0.0,1,0,Kings
+Chris Paul,33.0,0,0,Suns
+Deandre Ayton,33.0,0,0,Suns
+Devin Booker,32.0,0,0,Suns
+Torrey Craig,32.0,0,0,Suns
+Josh Okogie,24.0,0,0,Suns
+Damion Lee,21.0,0,0,Suns
+Ish Wainright,19.0,0,0,Suns
+T.J. Warren,16.0,0,0,Suns
+Jock Landale,15.0,0,0,Suns
+Saben Lee,15.0,0,0,Suns
+Bismack Biyombo,0.0,0,0,Suns
+Darius Bazley,0.0,0,0,Suns
+Kevin Durant,0.0,1,0,Suns
+Cameron Payne,0.0,1,0,Suns
+Landry Shamet,0.0,1,0,Suns
+Andrew Wiggins,34.0,0,0,Warriors
+Klay Thompson,34.0,0,1,Warriors
+Jordan Poole,34.0,0,0,Warriors
+Draymond Green,32.0,0,0,Warriors
+Kevon Looney,25.0,0,0,Warriors
+Donte DiVincenzo,26.0,0,0,Warriors
+Ty Jerome,18.0,0,0,Warriors
+Jonathan Kuminga,14.0,0,0,Warriors
+JaMychal Green,14.0,0,1,Warriors
+Moses Moody,9.0,0,0,Warriors
+Andre Iguodala,0.0,0,1,Warriors
+Patrick Baldwin,0.0,0,0,Warriors
+Stephen Curry,0.0,1,0,Warriors
+Gary Payton,0.0,1,0,Warriors
+Paul George,37.0,0,0,Clippers
+Kawhi Leonard,34.0,0,0,Clippers
+Marcus Morris,29.0,0,0,Clippers
+Ivica Zubac,24.0,0,0,Clippers
+Terance Mann,22.0,0,0,Clippers
+Mason Plumlee,18.0,0,0,Clippers
+Nicolas Batum,17.0,0,0,Clippers
+Norman Powell,17.0,0,0,Clippers
+Eric Gordon,16.0,0,0,Clippers
+Bones Hyland,15.0,0,0,Clippers
+Robert Covington,11.0,0,0,Clippers
+Moses Brown,0.0,0,0,Clippers
+Amir Coffey,0.0,0,0,Clippers
+Brandon Boston,0.0,0,0,Clippers
+Jason Preston,0.0,0,0,Clippers
+Moussa Diabate,0.0,0,0,Clippers
+Bradley Beal,34.0,0,0,Wizards
+Kristaps Porzingis,34.0,0,0,Wizards
+Kyle Kuzma,33.0,0,1,Wizards
+Monte Morris,28.0,0,0,Wizards
+Daniel Gafford,26.0,0,0,Wizards
+Deni Avdija,25.0,0,0,Wizards
+Kendrick Nunn,21.0,0,0,Wizards
+Delon Wright,20.0,0,0,Wizards
+Corey Kispert,19.0,0,0,Wizards
+Anthony Gill,0.0,0,0,Wizards
+Taj Gibson,0.0,0,0,Wizards
+Jordan Goodwin,0.0,0,0,Wizards
+Johnny Davis,0.0,0,0,Wizards
+Vernon Carey,0.0,0,0,Wizards
+Damian Lillard,36.0,0,0,Trail Blazers
+Jerami Grant,34.0,0,1,Trail Blazers
+Anfernee Simons,33.0,0,0,Trail Blazers
+Drew Eubanks,25.0,0,0,Trail Blazers
+Cam Reddish,18.0,0,0,Trail Blazers
+Shaedon Sharpe,23.0,0,0,Trail Blazers
+Matisse Thybulle,22.0,0,0,Trail Blazers
+Nassir Little,22.0,0,0,Trail Blazers
+Trendon Watford,19.0,0,0,Trail Blazers
+Jabari Walker,8.0,0,0,Trail Blazers
+Kevin Knox,0.0,0,0,Trail Blazers
+Ryan Arcidiacono,0.0,0,0,Trail Blazers
+Keon Johnson,0.0,0,0,Trail Blazers
+John Butler,0.0,0,0,Trail Blazers
+Ibou Badji,0.0,0,1,Trail Blazers
+Justise Winslow,0.0,0,1,Trail Blazers
+Jusuf Nurkic,0.0,1,0,Trail Blazers

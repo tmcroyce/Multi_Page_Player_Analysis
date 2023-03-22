@@ -1,0 +1,7 @@
+,team1,team2,time,opening_spread_t1,opening_spread_t2,current_spread_t1,current_spread_t2,opening_moneyline_t1,opening_moneyline_t2,current_moneyline_t1,current_moneyline_t2
+0,LA Lakers,Indiana,16:00:00,-2,+2,-2.5,+2.5,-127,+117,-138,+118
+1,Memphis,Cleveland,16:30:00,+2,-2,+5.5,-5.5,+117,-127,+187,-217
+2,Miami,New York,16:30:00,-1.5,+1.5,-2,+2,-125,-105,-135,+115
+3,Charlotte,Chicago,17:00:00,+6.5,-6.5,+6,-6,+195,-286,+195,-225
+4,New Orleans,Dallas,17:30:00,+5,-5,+4.5,-4.5,+160,-227,+165,-190
+5,Golden State,Denver,18:00:00,+9.5,-9.5,+12,-12,+420,-556,+455,-575

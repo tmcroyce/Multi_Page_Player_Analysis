@@ -1,0 +1,175 @@
+name,minutes,OUT,GTD,team
+Mikal Bridges,38.0,0,0,Nets
+Spencer Dinwiddie,35.0,0,0,Nets
+Dorian Finney-Smith,33.0,0,0,Nets
+Cameron Johnson,30.0,0,0,Nets
+Nic Claxton,28.0,0,0,Nets
+Royce O'Neale,22.0,0,0,Nets
+Seth Curry,17.0,0,0,Nets
+Nerlens Noel,16.0,0,0,Nets
+Joe Harris,13.0,0,0,Nets
+Cam Thomas,8.0,0,0,Nets
+Patty Mills,0.0,0,0,Nets
+Ben Simmons,0.0,0,1,Nets
+Day'Ron Sharpe,0.0,0,0,Nets
+Yuta Watanabe,0.0,0,0,Nets
+Edmond Sumner,0.0,0,0,Nets
+Nikola Jokic,34.0,0,0,Nuggets
+Jamal Murray,33.0,0,0,Nuggets
+K. Caldwell-Pope,29.0,0,0,Nuggets
+Aaron Gordon,29.0,0,0,Nuggets
+Michael Porter,29.0,0,0,Nuggets
+Bruce Brown,23.0,0,0,Nuggets
+Reggie Jackson,23.0,0,0,Nuggets
+Vlatko Cancar,14.0,0,0,Nuggets
+Jeff Green,13.0,0,0,Nuggets
+Thomas Bryant,13.0,0,0,Nuggets
+DeAndre Jordan,0.0,0,0,Nuggets
+Christian Braun,0.0,0,0,Nuggets
+Ish Smith,0.0,0,0,Nuggets
+Jack White,0.0,0,0,Nuggets
+C. Gillespie,0.0,0,1,Nuggets
+Zeke Nnaji,0.0,1,0,Nuggets
+Donovan Mitchell,35.0,0,0,Cavaliers
+Evan Mobley,35.0,0,0,Cavaliers
+Darius Garland,34.0,0,1,Cavaliers
+Isaac Okoro,23.0,0,0,Cavaliers
+Dean Wade,8.0,0,0,Cavaliers
+Jarrett Allen,34.0,0,1,Cavaliers
+Caris LeVert,26.0,0,0,Cavaliers
+Ricky Rubio,19.0,0,0,Cavaliers
+Lamar Stevens,15.0,0,0,Cavaliers
+Cedi Osman,11.0,0,0,Cavaliers
+Sam Merrill,0.0,0,0,Cavaliers
+Danny Green,0.0,0,0,Cavaliers
+Raul Neto,0.0,0,0,Cavaliers
+Robin Lopez,0.0,0,0,Cavaliers
+Kelly Oubre,36.0,0,0,Hornets
+Terry Rozier,36.0,0,0,Hornets
+Gordon Hayward,34.0,0,0,Hornets
+P.J. Washington,32.0,0,0,Hornets
+Mark Williams,26.0,0,1,Hornets
+Dennis Smith,25.0,0,0,Hornets
+Nick Richards,22.0,0,0,Hornets
+Bryce McGowens,12.0,0,0,Hornets
+JT Thor,10.0,0,0,Hornets
+Svi Mykhailiuk,7.0,0,0,Hornets
+Kai Jones,0.0,0,0,Hornets
+Cody Martin,0.0,0,1,Hornets
+Kyle Kuzma,35.0,0,0,Wizards
+Bradley Beal,35.0,0,0,Wizards
+Kristaps Porzingis,32.0,0,0,Wizards
+Monte Morris,22.0,0,0,Wizards
+Daniel Gafford,22.0,0,0,Wizards
+Corey Kispert,28.0,0,0,Wizards
+Deni Avdija,27.0,0,0,Wizards
+Delon Wright,25.0,0,0,Wizards
+Kendrick Nunn,9.0,0,0,Wizards
+Jordan Goodwin,5.0,0,0,Wizards
+Anthony Gill,0.0,0,0,Wizards
+Taj Gibson,0.0,0,0,Wizards
+Jamaree Bouyea,0.0,0,0,Wizards
+Xavier Cooks,0.0,0,0,Wizards
+Jay Huff,0.0,0,0,Wizards
+James Harden,38.0,0,0,76ers
+Joel Embiid,36.0,0,0,76ers
+Tyrese Maxey,34.0,0,0,76ers
+Tobias Harris,32.0,0,0,76ers
+P.J. Tucker,21.0,0,0,76ers
+De'Anthony Melton,27.0,0,0,76ers
+Georges Niang,17.0,0,0,76ers
+Jalen McDaniels,14.0,0,0,76ers
+Paul Reed,11.0,0,0,76ers
+Shake Milton,10.0,0,0,76ers
+Furkan Korkmaz,0.0,0,0,76ers
+Danuel House,0.0,0,0,76ers
+Montrezl Harrell,0.0,0,0,76ers
+Dewayne Dedmon,0.0,0,0,76ers
+Damian Lillard,36.0,0,1,Trail Blazers
+Jerami Grant,36.0,0,0,Trail Blazers
+Anfernee Simons,30.0,0,0,Trail Blazers
+Jusuf Nurkic,26.0,0,0,Trail Blazers
+Matisse Thybulle,26.0,0,0,Trail Blazers
+Shaedon Sharpe,25.0,0,0,Trail Blazers
+Drew Eubanks,20.0,0,0,Trail Blazers
+Cam Reddish,17.0,0,0,Trail Blazers
+Nassir Little,12.0,0,0,Trail Blazers
+Trendon Watford,12.0,0,0,Trail Blazers
+Kevin Knox,1.0,0,0,Trail Blazers
+Jabari Walker,1.0,0,0,Trail Blazers
+R. Arcidiacono,0.0,0,1,Trail Blazers
+Keon Johnson,0.0,0,0,Trail Blazers
+Justise Winslow,0.0,1,0,Trail Blazers
+Ibou Badji,0.0,1,0,Trail Blazers
+CJ McCollum,37.0,0,0,Pelicans
+Brandon Ingram,36.0,0,1,Pelicans
+Trey Murphy,35.0,0,0,Pelicans
+Herbert Jones,28.0,0,0,Pelicans
+Jonas Valanciunas,23.0,0,0,Pelicans
+Josh Richardson,23.0,0,0,Pelicans
+Naji Marshall,23.0,0,0,Pelicans
+Jaxson Hayes,20.0,0,0,Pelicans
+Dyson Daniels,15.0,0,0,Pelicans
+Garrett Temple,0.0,0,0,Pelicans
+Willy Hernangomez,0.0,0,0,Pelicans
+Kira Lewis,0.0,0,0,Pelicans
+Jose Alvarado,0.0,1,0,Pelicans
+Larry Nance,0.0,1,0,Pelicans
+E.J. Liddell,0.0,1,0,Pelicans
+Zion Williamson,0.0,1,0,Pelicans
+S. Gilgeous-Alexander,36.0,0,0,Thunder
+Jalen Williams,34.0,0,0,Thunder
+Luguentz Dort,34.0,0,0,Thunder
+Josh Giddey,33.0,0,0,Thunder
+Jaylin Williams,21.0,0,0,Thunder
+Isaiah Joe,26.0,0,0,Thunder
+Dario Saric,19.0,0,0,Thunder
+Lindy Waters,13.0,0,0,Thunder
+Ousmane Dieng,13.0,0,0,Thunder
+Aaron Wiggins,11.0,0,0,Thunder
+J. Robinson-Earl,0.0,0,0,Thunder
+Tre Mann,0.0,0,0,Thunder
+Jared Butler,0.0,0,0,Thunder
+Olivier Sarr,0.0,0,0,Thunder
+Keldon Johnson,30.0,0,1,Spurs
+Devin Vassell,29.0,0,0,Spurs
+Zach Collins,28.0,0,0,Spurs
+Jeremy Sochan,28.0,0,1,Spurs
+Malaki Branham,19.0,0,0,Spurs
+Tre Jones,27.0,0,0,Spurs
+Devonte' Graham,19.0,0,0,Spurs
+Keita Bates-Diop,18.0,0,0,Spurs
+Romeo Langford,14.0,0,0,Spurs
+Doug McDermott,14.0,0,0,Spurs
+Charles Bassey,14.0,0,0,Spurs
+Blake Wesley,0.0,0,0,Spurs
+Sandro Mamukelashvili,0.0,0,0,Spurs
+Gorgui Dieng,0.0,0,0,Spurs
+Khem Birch,0.0,1,0,Spurs
+Jalen Brunson,37.0,0,1,Knicks
+Julius Randle,36.0,0,0,Knicks
+RJ Barrett,31.0,0,0,Knicks
+Mitchell Robinson,27.0,0,0,Knicks
+Quentin Grimes,24.0,0,0,Knicks
+Josh Hart,27.0,0,0,Knicks
+Immanuel Quickley,27.0,0,0,Knicks
+Isaiah Hartenstein,19.0,0,0,Knicks
+Obi Toppin,12.0,0,0,Knicks
+Derrick Rose,0.0,0,0,Knicks
+Jericho Sims,0.0,0,0,Knicks
+Miles McBride,0.0,0,0,Knicks
+DaQuan Jeffries,0.0,0,0,Knicks
+Evan Fournier,0.0,0,0,Knicks
+Anthony Davis,36.0,0,1,Lakers
+D'Angelo Russell,32.0,0,0,Lakers
+Troy Brown,28.0,0,0,Lakers
+Malik Beasley,25.0,0,0,Lakers
+Jarred Vanderbilt,24.0,0,0,Lakers
+Dennis Schroder,29.0,0,0,Lakers
+Austin Reaves,26.0,0,0,Lakers
+Rui Hachimura,22.0,0,0,Lakers
+Wenyen Gabriel,13.0,0,0,Lakers
+Lonnie Walker,10.0,0,0,Lakers
+Davon Reed,2.0,0,0,Lakers
+LeBron James,0.0,1,0,Lakers
+Mo Bamba,0.0,1,0,Lakers

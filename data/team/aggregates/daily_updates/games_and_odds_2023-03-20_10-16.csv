@@ -1,0 +1,6 @@
+,team1,team2,time,opening_spread_t1,opening_spread_t2,current_spread_t1,current_spread_t2,opening_moneyline_t1,opening_moneyline_t2,current_moneyline_t1,current_moneyline_t2
+0,Indiana,Charlotte,16:00:00,-2.5,+2.5,-1.5,+1.5,-147,+115,-125,+105
+1,Chicago,Philadelphia,16:00:00,+6.5,-6.5,+8.5,-8.5,+205,-286,+295,-365
+2,Minnesota,New York,16:30:00,+8,-8,+8.5,-8.5,+260,-370,+290,-360
+3,Dallas,Memphis,17:00:00,+1.5,-1.5,+3,-3,+105,-123,+125,-145
+4,Golden State,Houston,17:00:00,-10,+10,-11,+11,-588,+370,-625,+485

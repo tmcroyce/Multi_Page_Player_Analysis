@@ -1,0 +1,177 @@
+name,minutes,OUT,GTD,team
+Jerami Grant,39.0,0,0,Trail Blazers
+Damian Lillard,36.0,0,0,Trail Blazers
+Matisse Thybulle,28.0,0,0,Trail Blazers
+Anfernee Simons,27.0,0,1,Trail Blazers
+Jusuf Nurkic,23.0,0,0,Trail Blazers
+Cam Reddish,26.0,0,0,Trail Blazers
+Trendon Watford,20.0,0,0,Trail Blazers
+Shaedon Sharpe,16.0,0,0,Trail Blazers
+Drew Eubanks,14.0,0,0,Trail Blazers
+Nassir Little,11.0,0,0,Trail Blazers
+Jabari Walker,0.0,0,0,Trail Blazers
+Keon Johnson,0.0,0,0,Trail Blazers
+Kevin Knox,0.0,0,0,Trail Blazers
+R. Arcidiacono,0.0,1,0,Trail Blazers
+Ibou Badji,0.0,1,0,Trail Blazers
+Justise Winslow,0.0,1,0,Trail Blazers
+James Harden,38.0,0,0,76ers
+Joel Embiid,36.0,0,0,76ers
+Tyrese Maxey,34.0,0,0,76ers
+Tobias Harris,32.0,0,0,76ers
+P.J. Tucker,21.0,0,0,76ers
+De'Anthony Melton,27.0,0,0,76ers
+Georges Niang,17.0,0,0,76ers
+Jalen McDaniels,14.0,0,0,76ers
+Paul Reed,11.0,0,0,76ers
+Shake Milton,10.0,0,0,76ers
+Furkan Korkmaz,0.0,0,0,76ers
+Danuel House,0.0,0,0,76ers
+Montrezl Harrell,0.0,0,0,76ers
+Dewayne Dedmon,0.0,0,0,76ers
+Dejounte Murray,35.0,0,0,Hawks
+Trae Young,34.0,0,0,Hawks
+De'Andre Hunter,31.0,0,0,Hawks
+John Collins,27.0,0,0,Hawks
+Clint Capela,26.0,0,0,Hawks
+Saddiq Bey,27.0,0,0,Hawks
+Bogdan Bogdanovic,25.0,0,0,Hawks
+Onyeka Okongwu,21.0,0,0,Hawks
+Jalen Johnson,14.0,0,0,Hawks
+AJ Griffin,0.0,0,0,Hawks
+Aaron Holiday,0.0,0,0,Hawks
+Bruno Fernando,0.0,0,0,Hawks
+Garrison Mathews,0.0,0,0,Hawks
+Vit Krejci,0.0,0,0,Hawks
+Trent Forrest,0.0,0,0,Hawks
+Kyle Kuzma,35.0,0,0,Wizards
+Bradley Beal,35.0,0,0,Wizards
+Kristaps Porzingis,32.0,0,0,Wizards
+Delon Wright,25.0,0,0,Wizards
+Daniel Gafford,22.0,0,0,Wizards
+Corey Kispert,28.0,0,0,Wizards
+Deni Avdija,27.0,0,0,Wizards
+Monte Morris,22.0,0,0,Wizards
+Kendrick Nunn,9.0,0,0,Wizards
+Jordan Goodwin,5.0,0,0,Wizards
+Anthony Gill,0.0,0,0,Wizards
+Taj Gibson,0.0,0,0,Wizards
+Jamaree Bouyea,0.0,0,0,Wizards
+Xavier Cooks,0.0,0,0,Wizards
+Jay Huff,0.0,0,0,Wizards
+Donovan Mitchell,35.0,0,0,Cavaliers
+Evan Mobley,35.0,0,0,Cavaliers
+Jarrett Allen,34.0,0,0,Cavaliers
+Darius Garland,34.0,0,0,Cavaliers
+Isaac Okoro,23.0,0,0,Cavaliers
+Caris LeVert,26.0,0,0,Cavaliers
+Ricky Rubio,19.0,0,0,Cavaliers
+Lamar Stevens,15.0,0,0,Cavaliers
+Cedi Osman,11.0,0,0,Cavaliers
+Dean Wade,8.0,0,0,Cavaliers
+Sam Merrill,0.0,0,0,Cavaliers
+Danny Green,0.0,0,0,Cavaliers
+Raul Neto,0.0,0,0,Cavaliers
+Robin Lopez,0.0,0,0,Cavaliers
+Bam Adebayo,35.0,0,0,Heat
+Tyler Herro,34.0,0,0,Heat
+Jimmy Butler,33.0,0,0,Heat
+Gabe Vincent,28.0,0,0,Heat
+Kevin Love,22.0,0,1,Heat
+Victor Oladipo,27.0,0,0,Heat
+Caleb Martin,25.0,0,0,Heat
+Max Strus,22.0,0,0,Heat
+Cody Zeller,14.0,0,0,Heat
+Duncan Robinson,0.0,0,0,Heat
+Haywood Highsmith,0.0,0,0,Heat
+Udonis Haslem,0.0,0,0,Heat
+Omer Yurtseven,0.0,0,0,Heat
+Kyle Lowry,0.0,1,0,Heat
+Mikal Bridges,38.0,0,0,Nets
+Spencer Dinwiddie,35.0,0,0,Nets
+Dorian Finney-Smith,33.0,0,0,Nets
+Cameron Johnson,30.0,0,0,Nets
+Nic Claxton,28.0,0,0,Nets
+Royce O'Neale,22.0,0,0,Nets
+Seth Curry,17.0,0,0,Nets
+Nerlens Noel,16.0,0,0,Nets
+Joe Harris,13.0,0,0,Nets
+Cam Thomas,8.0,0,0,Nets
+Patty Mills,0.0,0,0,Nets
+Day'Ron Sharpe,0.0,0,0,Nets
+Edmond Sumner,0.0,0,0,Nets
+Yuta Watanabe,0.0,0,0,Nets
+Dru Smith,0.0,0,0,Nets
+Ben Simmons,0.0,1,0,Nets
+Anthony Edwards,38.0,0,0,Timberwolves
+Mike Conley,33.0,0,0,Timberwolves
+Jaden McDaniels,32.0,0,0,Timberwolves
+Rudy Gobert,31.0,0,0,Timberwolves
+Kyle Anderson,31.0,0,0,Timberwolves
+Taurean Prince,20.0,0,0,Timberwolves
+Naz Reid,18.0,0,0,Timberwolves
+N. Alexander-Walker,18.0,0,0,Timberwolves
+Jordan McLaughlin,15.0,0,0,Timberwolves
+Austin Rivers,4.0,0,0,Timberwolves
+Josh Minott,0.0,0,0,Timberwolves
+Nathan Knight,0.0,0,0,Timberwolves
+Wendell Moore,0.0,0,0,Timberwolves
+Jaylen Nowell,0.0,1,0,Timberwolves
+K. Towns,0.0,1,0,Timberwolves
+Nikola Jokic,34.0,0,0,Nuggets
+Jamal Murray,33.0,0,0,Nuggets
+Aaron Gordon,29.0,0,0,Nuggets
+Michael Porter,29.0,0,0,Nuggets
+K. Caldwell-Pope,29.0,0,0,Nuggets
+Bruce Brown,23.0,0,0,Nuggets
+Reggie Jackson,23.0,0,0,Nuggets
+Vlatko Cancar,14.0,0,1,Nuggets
+Jeff Green,13.0,0,0,Nuggets
+Thomas Bryant,13.0,0,0,Nuggets
+Christian Braun,0.0,0,0,Nuggets
+Ish Smith,0.0,0,0,Nuggets
+DeAndre Jordan,0.0,0,0,Nuggets
+Jack White,0.0,0,0,Nuggets
+C. Gillespie,0.0,0,1,Nuggets
+Zeke Nnaji,0.0,1,0,Nuggets
+Keldon Johnson,30.0,0,0,Spurs
+Devin Vassell,29.0,0,0,Spurs
+Zach Collins,28.0,0,0,Spurs
+Jeremy Sochan,28.0,0,1,Spurs
+Tre Jones,27.0,0,0,Spurs
+Malaki Branham,19.0,0,0,Spurs
+Devonte' Graham,19.0,0,0,Spurs
+Keita Bates-Diop,18.0,0,0,Spurs
+Doug McDermott,14.0,0,1,Spurs
+Romeo Langford,14.0,0,1,Spurs
+Charles Bassey,14.0,0,0,Spurs
+Dominick Barlow,0.0,0,0,Spurs
+Sandro Mamukelashvili,0.0,0,0,Spurs
+Gorgui Dieng,0.0,0,0,Spurs
+Julian Champagnie,0.0,0,0,Spurs
+Khem Birch,0.0,1,0,Spurs
+Fred VanVleet,38.0,0,0,Raptors
+OG Anunoby,36.0,0,0,Raptors
+Pascal Siakam,36.0,0,0,Raptors
+Scottie Barnes,35.0,0,0,Raptors
+Jakob Poeltl,30.0,0,0,Raptors
+Gary Trent,25.0,0,0,Raptors
+Precious Achiuwa,17.0,0,0,Raptors
+Chris Boucher,14.0,0,0,Raptors
+Will Barton,9.0,0,1,Raptors
+Malachi Flynn,0.0,0,0,Raptors
+Thaddeus Young,0.0,0,0,Raptors
+Anthony Davis,36.0,0,1,Lakers
+Troy Brown,30.0,0,0,Lakers
+D. Russell,28.0,0,1,Lakers
+Malik Beasley,25.0,0,0,Lakers
+Jarred Vanderbilt,24.0,0,0,Lakers
+Dennis Schroder,29.0,0,0,Lakers
+Austin Reaves,25.0,0,0,Lakers
+Rui Hachimura,22.0,0,0,Lakers
+Wenyen Gabriel,12.0,0,0,Lakers
+Lonnie Walker,9.0,0,0,Lakers
+Davon Reed,0.0,0,0,Lakers
+Max Christie,0.0,0,0,Lakers
+LeBron James,0.0,1,0,Lakers
+Mo Bamba,0.0,1,0,Lakers

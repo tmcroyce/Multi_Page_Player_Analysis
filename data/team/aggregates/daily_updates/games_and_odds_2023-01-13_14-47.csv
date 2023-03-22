@@ -1,0 +1,9 @@
+,team1,team2,time,opening_spread_t1,opening_spread_t2,current_spread_t1,current_spread_t2,opening_moneyline_t1,opening_moneyline_t2,current_moneyline_t1,current_moneyline_t2
+0,New York,Washington,7:00,-4 ,+4 ,-3.5 ,+3.5 ,-150,+125,-160,+140
+1,Atlanta,Indiana,7:00,-3 ,+3 ,-3 ,+3 ,-150,+125,-145,+125
+2,New Orleans,Detroit,7:00,-5 ,+5 ,-5.5 ,+5.5 ,-233,+165,-215,+185
+3,Golden State,San Antonio,7:30,-8.5 ,+8.5 ,-8.5 ,+8.5 ,-400,+260,-350,+280
+4,Oklahoma City,Chicago,8:00,+6 ,-6 ,+4.5 ,-4.5 ,+180,-263,+152,-172
+5,Phoenix,Minnesota,8:00,+2.5 ,-2.5 ,+5 ,-5 ,+120,-147,+170,-195
+6,Orlando,Utah,9:00,+5 ,-5 ,+6 ,-6 ,+165,-233,+195,-225
+7,Denver,LA Clippers,10:00,-0.5 ,+0.5 ,+5 ,-5 ,-111,-110,+167,-192

@@ -1,0 +1,7 @@
+,team1,team2,time,opening_spread_t1,opening_spread_t2,current_spread_t1,current_spread_t2,opening_moneyline_t1,opening_moneyline_t2,current_moneyline_t1,current_moneyline_t2
+0,Milwaukee,Miami,1:00,+1 ,-1 ,+4.5 ,-4.5 ,-116,-116,+155,-175
+1,Boston,Charlotte,7:00,-8 ,+8 ,-7.5 ,+7.5 ,-400,+260,-300,+250
+2,Memphis,Indiana,7:00,-7.5 ,+7.5 ,-7.5 ,+7.5 ,-333,+270,-300,+250
+3,Atlanta,Toronto,7:30,+5.5 ,-5.5 ,+7.5 ,-7.5 ,+170,-250,+235,-280
+4,Cleveland,Minnesota,8:00,-3 ,+3 ,-3.5 ,+3.5 ,-149,+126,-160,+140
+5,Philadelphia,Utah,9:00,-4 ,+4 ,-6.5 ,+6.5 ,-171,+139,-245,+205

@@ -1,0 +1,9 @@
+,team1,team2,time,opening_spread_t1,opening_spread_t2,current_spread_t1,current_spread_t2,opening_moneyline_t1,opening_moneyline_t2,current_moneyline_t1,current_moneyline_t2
+0,Live Phoenix,Milwaukee,10:00:00,+5,-5,+2.5,-2.5,+170,-200,+125,-145
+1,Brooklyn,Atlanta,12:00:00,+5,-5,+5.5,-5.5,+170,-200,+175,-205
+2,Washington,Chicago,12:30:00,+3.5,-3.5,+5,-5,+135,-175,+175,-205
+3,LA Lakers,Dallas,12:30:00,+4,-4,+4,-4,+145,-185,+151,-171
+4,Toronto,Cleveland,15:00:00,+6,-6,+7.5,-7.5,+185,-244,+235,-280
+5,Sacramento,Oklahoma City,16:00:00,-4,+4,-4,+4,-161,+125,-170,+150
+6,Minnesota,Golden State,16:30:00,+2,-2,+2.5,-2.5,+110,-135,+115,-135
+7,Houston,Portland,18:00:00,+10,-10,+9.5,-9.5,+360,-556,+345,-425
