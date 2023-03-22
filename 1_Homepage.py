@@ -54,17 +54,26 @@ st.session_state['team'] = team
 team_num = np.where(teams == team)[0][0]
 st.session_state['team_num'] = team_num
 
+# player number is index
+player_number = np.where(players_22 == player)[0][0]
 
+# Assign Session State for player number
+st.session_state['player_number'] = player_number
+
+# get player nba id
 player_nba_id = player_numbers[player_numbers['Player'] == player]['nba_id'].iloc[0]
 
-
+# get player photo
 player_photo = 'data/player/photos/photos/' + str(player_nba_id) + '.png'
+
 # add player photo to sidebar
 st.sidebar.image(player_photo, width = 200)
 
 
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
+
+# 
 position = st.sidebar.selectbox('Select Position to evaluate the player at', position_options)
 
 # Assign Session States
