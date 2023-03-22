@@ -33,6 +33,8 @@ teams = gbg_df['trad_team'].unique()
 # sort teams
 teams = np.sort(teams)
 
+cols = st.columns(2)
+
 # select team
 st.subheader('Select a Team')
 team = st.selectbox('', teams, index = 25)
@@ -45,8 +47,10 @@ players_22 = gbg_22[gbg_22['trad_team'] == team]['trad_player'].unique()
 # sort players
 players_22 = np.sort(players_22)
 
+st.subheader('Select a Player')
+
 #create select box for player
-player = st.selectbox('Select Player', players_22, index = 2)
+player = st.selectbox('', players_22, index = 2)
 
 
 #### Assign Session States ####
@@ -76,6 +80,8 @@ st.image(player_photo, width = 300)
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 
+st.subheader('Select a Position')
+
 # 
 position = st.selectbox('Select Position to evaluate the player at', position_options)
 
@@ -91,11 +97,35 @@ st.session_state['position_index'] = position_index
 ##### FINISHED SESSION STATES #####
 
 
+# Write session states out on sidebar
+# st.sidebar.write('Session States!')
+# st.sidebar.write('')
+# st.sidebar.write('Player: ' + st.session_state['player'])
+# st.sidebar.write('Player Number: ' + str(st.session_state['player_number']))
+# st.sidebar.write('Team: ' + st.session_state['team'])
+# st.sidebar.write('Team Number: ' + str(st.session_state['team_num']))
+# st.sidebar.write('Position: ' + st.session_state['position'])
+# st.sidebar.write('Position Index: ' + str(st.session_state['position_index']))
+
+
 
 st.write('''
 
 ''')
 
+# Create button to go to next page
+st.write('Click the button below to move to the Size Tool')
+# create button
+next_page = st.button('GO!')
 
+#if next_page:
+    # open next page
+    # TODO: ADD LINK HERE
+
+st.write('')
+st.write('')
+st.write('')
+st.write('')
+st.write('')
 st.write('Contact: [LinkedIn](https://www.linkedin.com/in/travis-royce/) | [GitHub](https://github.com/tmcroyce) | traviscroyce@gmail.com')
 

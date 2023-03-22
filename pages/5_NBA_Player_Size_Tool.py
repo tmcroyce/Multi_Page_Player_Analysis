@@ -35,6 +35,17 @@ pst = datetime.datetime.now(pst)
 
 today = pst.strftime('%Y-%m-%d')
 
+
+# # Write session states out on sidebar
+# st.sidebar.write('Session States')
+# st.sidebar.write('Player: ' + st.session_state['player'])
+# st.sidebar.write('Player Number: ' + str(st.session_state['player_number']))
+# st.sidebar.write('Team: ' + st.session_state['team'])
+# st.sidebar.write('Team Number: ' + str(st.session_state['team_num']))
+# st.sidebar.write('Position: ' + st.session_state['position'])
+# st.sidebar.write('Position Index: ' + str(st.session_state['position_index']))
+
+
 # Load Data
 
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
@@ -60,7 +71,10 @@ st.title('NBA Player Size Comparison Tool')
 
 st.write('The data for positions is pulled from BasketballReference.com and is the actual position they play on the floor, as opposed to the NBA listed position.')
 
+st.write('---')
+
 st.subheader('Player Size Data')
+st.write('')
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
@@ -89,6 +103,9 @@ team = st.session_state.team
 # get list of players on team
 players_22 = gbg_22[gbg_22['trad_team'] == team]['trad_player'].unique()
 
+# sort players
+players_22 = np.sort(players_22)
+
 # get player and player_num from session state
 player = st.session_state.player
 player_num = st.session_state.player_number
@@ -101,7 +118,7 @@ st.session_state.player = st.sidebar.selectbox('Select Player', players_22 , ind
 
 player_nba_id = player_numbers[player_numbers['Player'] == player]['nba_id'].iloc[0]
 
-st.sidebar.write('Player NBA_id: ' + str(player_nba_id))
+# st.sidebar.write('Player NBA_id: ' + str(player_nba_id))
 
 player_photo = 'data/player/photos/photos/' + str(player_nba_id) + '.png'
 # add player photo to sidebar
@@ -111,7 +128,7 @@ st.sidebar.image(player_photo, width = 200)
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 position_index = st.session_state['position_index']
-st.sidebar.write('Position Index: ' + str(position_index))
+# st.sidebar.write('Position Index: ' + str(position_index))
 # make int
 position_index_dict = {'PG': 0, 'SG': 1, 'SF': 2, 'PF': 3, 'C': 4}
 st.session_state.position = st.sidebar.selectbox('Select Position to evaluate the player at', options = position_options, index = position_index)
@@ -164,7 +181,7 @@ player_wingspan_height_ratio_percentile = norm.cdf(player_wingspan / player_heig
 
 
 # 3 columns
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4, col5 = st.columns([.3, .05, .3, .05, .3])
 # display player size data
 
 
@@ -186,6 +203,7 @@ def number_post(num):
 
 
 col1.metric('Player Height: ', str(player_height) + ' inches',  delta_color='off')
+col1.write('---')
 col1.write(player + ' is in the **' + str(int(player_height_percentile)) + number_post(int(player_height_percentile))+'** percentile for height at the ' + position + ' position.')
 
 def color_def():
@@ -214,9 +232,10 @@ def plot_height_percentile():
 plot_height_percentile()
 
 def plot_wingspan_percentile():
-    col2.metric('Player Wingspan', str(player_wingspan) + ' inches')
-    col2.write(player + ' is in the **' + str(int(player_wingspan_percentile)) + number_post(int(player_wingspan_percentile))+'** percentile for wingspan at the ' + position + ' position.')
-
+    col3.metric('Player Wingspan', str(player_wingspan) + ' inches')
+    col3.write('---')
+    col3.write(player + ' is in the **' + str(int(player_wingspan_percentile)) + number_post(int(player_wingspan_percentile))+'** percentile for wingspan at the ' + position + ' position.')
+    
     def color_def():
         if player_wingspan_percentile < 50:
             return 'red'
@@ -236,15 +255,16 @@ def plot_wingspan_percentile():
     fig.update_yaxes(showticklabels = False)
     fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
 
-    return col2.plotly_chart(fig, use_container_width = True)
+    return col3.plotly_chart(fig, use_container_width = True)
 
 plot_wingspan_percentile()
 
 
 def plot_wing_height_rate():
 
-    col3.metric('Player Wingspan / Height Ratio', str(round(player_wingspan / player_height,2)))
-    col3.write(player + ' is in the **' + str(int(player_wingspan_height_ratio_percentile)) + number_post(int(player_wingspan_height_ratio_percentile))+'** percentile for wingspan / height ratio at the ' + position + ' position.')
+    col5.metric('Player Wingspan / Height Ratio', str(round(player_wingspan / player_height,2)))
+    col5.write('---')
+    col5.write(player + ' is in the **' + str(int(player_wingspan_height_ratio_percentile)) + number_post(int(player_wingspan_height_ratio_percentile))+'** percentile for wingspan / height ratio at the ' + position + ' position.')
 
     def color_def():
         if player_wingspan_height_ratio_percentile < 50:
@@ -265,7 +285,7 @@ def plot_wing_height_rate():
     fig.update_yaxes(showticklabels = False)
     fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
 
-    return col3.plotly_chart(fig, use_container_width = True)
+    return col5.plotly_chart(fig, use_container_width = True)
 
 plot_wing_height_rate()
 
@@ -302,8 +322,64 @@ def plot_height_wingspan():
 
     return st.plotly_chart(fig, use_container_width=True)
 
-plot_height_wingspan()
 
 
 # div
 st.markdown('---')
+
+
+import plotly.graph_objs as go
+import plotly.express as px
+import base64
+
+def plot_height_wingspan2():
+    # plot height vs wingspan with plotly
+
+    fig = px.scatter(positional_df, x='height_final', y='wingspan_final', hover_name='player', color='season',
+                    hover_data=['height_final', 'wingspan_final', 'player'])
+    fig.update_traces(marker_size=10)
+    fig.update_layout(title='Height vs Wingspan for ' + position + 's', width=800, height=800)
+    fig.update_xaxes(title='Height (inches)')
+    fig.update_yaxes(title='Wingspan (inches)')
+    fig.update_traces(marker_line_width=1, marker_line_color='black')
+    fig.add_trace(go.Scatter(x=[player_height], y=[player_wingspan], text=[player],
+                            mode='markers', marker=dict(size=20, color='red'),
+                            hoverinfo='x+y+text', name='Selected Player', showlegend=False))
+
+    # add a line for the average wingspan at the position
+    fig.add_trace(go.Scatter(x=[positional_df['height_final'].min(), positional_df['height_final'].max()],
+                            y=[positional_df['wingspan_final'].mean(), positional_df['wingspan_final'].mean()],
+                            mode='lines', line=dict(color='red', width=1, dash='dash'),
+                            name='Average Wingspan', showlegend=False))
+
+    # add a line for the average height at the position
+    fig.add_trace(go.Scatter(x=[positional_df['height_final'].mean(), positional_df['height_final'].mean()],
+                            y=[positional_df['wingspan_final'].min(), positional_df['wingspan_final'].max()],
+                            mode='lines', line=dict(color='red', width=1, dash='dash'),
+                            name='Average Height', showlegend=False))
+
+    # encode the png image to base64
+    with open(player_photo, "rb") as f:
+        encoded_image = base64.b64encode(f.read()).decode("ascii")
+
+    # add player photo to the plot
+    fig.add_layout_image(
+        dict(
+            source='data:image/png;base64,{}'.format(encoded_image),
+            xref="x",
+            yref="y",
+            x=player_height,
+            y=player_wingspan,
+            sizex=1.25,  # adjust image size as needed
+            sizey=2,  # adjust image size as needed
+            xanchor="center",
+            yanchor="middle",
+            sizing="stretch",
+            opacity=1,
+            layer="above")
+    )
+
+    return st.plotly_chart(fig, use_container_width=True)
+
+
+plot_height_wingspan2()
