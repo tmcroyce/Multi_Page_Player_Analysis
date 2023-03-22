@@ -26,7 +26,7 @@ from sklearn.cluster import KMeans
 import plotly.figure_factory as ff
 
 
-st.set_page_config(page_title='Player Analyzer Tool', page_icon=None, layout="wide", initial_sidebar_state="auto", menu_items=None, )
+st.set_page_config(page_title='Player Analyzer Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
 # get current time in pst
 pst = datetime.timezone(datetime.timedelta(hours=-8))
@@ -80,14 +80,12 @@ team_number = st.session_state.team_num
 # make int
 team_number = int(team_number)
 
-# get team from session state
-team = st.session_state.team
-
 # select team box
-team = st.sidebar.selectbox('Select Team', teams, index = team_number)
+st.session_state.team = st.sidebar.selectbox('Select Team', teams, index = team_number)
 
 # reassign team to correct
 team = st.session_state.team
+
 # get list of players on team
 players_22 = gbg_22[gbg_22['trad_team'] == team]['trad_player'].unique()
 
@@ -98,7 +96,7 @@ player_num = st.session_state.player_number
 #player num to int
 player_num = int(player_num)
 
-st.sidebar.selectbox('Select Player', players_22 , index = player_num)
+st.session_state.player = st.sidebar.selectbox('Select Player', players_22 , index = player_num)
 
 
 player_nba_id = player_numbers[player_numbers['Player'] == player]['nba_id'].iloc[0]
@@ -116,7 +114,9 @@ position_index = st.session_state['position_index']
 st.sidebar.write('Position Index: ' + str(position_index))
 # make int
 position_index_dict = {'PG': 0, 'SG': 1, 'SF': 2, 'PF': 3, 'C': 4}
-position = st.sidebar.selectbox('Select Position to evaluate the player at', options = position_options, index = position_index)
+st.session_state.position = st.sidebar.selectbox('Select Position to evaluate the player at', options = position_options, index = position_index)
+
+position = st.session_state.position
 
 # load player data
 player_gbg = gbg_df[gbg_df['trad_player'] == player]
