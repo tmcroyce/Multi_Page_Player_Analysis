@@ -202,6 +202,9 @@ player_photo =st.session_state.player_photo
 
 import base64
 
+player_assist_to_ratio = player_avg['adv_ast/to'].iloc[0]
+player_adv_ast_percent = player_avg['adv_ast%'].iloc[0]
+
 # add player photo
 with open(player_photo, "rb") as f:
     encoded_image = base64.b64encode(f.read()).decode("ascii")
@@ -212,16 +215,15 @@ fig.add_layout_image(
         source='data:image/png;base64,{}'.format(encoded_image),
         yref="y",
         xref = "x",
-        y=player_avg['adv_ast/to'],
-        x = player_avg['adv_ast%'],
-        sizex=4,  # adjust image size as needed
-        sizey=4,  # adjust image size as needed
+        y = player_assist_to_ratio,
+        x = player_adv_ast_percent,
+        sizex=10,  # adjust image size as needed
+        sizey=10,  # adjust image size as needed
         xanchor="center",
         yanchor="middle",
         opacity=1,
         layer="above")
 )
-
 
 
 col1.plotly_chart(fig, use_container_width = True)

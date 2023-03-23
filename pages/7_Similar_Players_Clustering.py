@@ -217,7 +217,10 @@ st.write(f'''The following chart shows the clusters of players who are similar t
 # Select columns to use for cluster analysis
 cl_cols = ['ppm', 'trad_pts', 'trad_3p%', 'trad_ast', 'trad_reb', 'trad_stl', 'adv_efg%', 'adv_ts%', 'adv_usg%', 'adv_offrtg', 'adv_defrtg']
 
-cluster_cols = st.multiselect('Select Cluster Variables', options = cl_cols)
+st.write('')
+st.subheader('Select Cluster Variables Here:')
+
+cluster_cols = st.multiselect('', options = cl_cols, default = cl_cols)
 
 from sklearn.cluster import KMeans
 
