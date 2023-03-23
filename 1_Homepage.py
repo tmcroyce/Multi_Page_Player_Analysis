@@ -116,14 +116,8 @@ st.write('''
 
 ''')
 
-# Create button to go to next page
-st.write('Click the button below to move to the Size Tool')
-# create button
-next_page = st.button('GO!')
+st.write('Click the buttons from the menu to move through the tools')
 
-#if next_page:
-    # open next page
-    # TODO: ADD LINK HERE
 
 st.write('')
 st.write('')
