@@ -4,7 +4,7 @@ import numpy as np
 import datetime as datetime
 
 # Title
-st.title('NBA Player Analyzer')
+st.title('NBA Player Analytics Toolkit')
 st.write('Please select a team, player, and position to get started!')
 
 
