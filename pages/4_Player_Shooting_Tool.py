@@ -565,7 +565,7 @@ def color_code_percentile2(val):
 
 # add third row
 st.table(only_third_row.style.format('{:.1f}').applymap(color_code_percentile2))
-
+import base64
 
 
 
@@ -579,12 +579,33 @@ fig = px.scatter(filt_position_shot_dash_general, x = 'FGA', y = 'EFG%', hover_n
 fig.update_layout(title = 'Field Goal Attempts vs Effective Field Goal % for Position (Min 10 FGA)')
 # make plot bigger
 fig.update_traces(marker = dict(size = 10))
-# add player names
-fig.add_annotation(x = position_shot_dash_general_comp['FGA'].values[0], y = position_shot_dash_general_comp['EFG%'].values[0], text = player, showarrow = True, arrowhead = 1)
+
 # add average for x and y
 x_avg = position_shot_dash_general_comp['FGA'].mean()
 y_avg = position_shot_dash_general_comp['EFG%'].mean()
-# add lines for each average
+
+player_photo =st.session_state.player_photo
+
+# add player photo
+with open(player_photo, "rb") as f:
+    encoded_image = base64.b64encode(f.read()).decode("ascii")
+
+# add player photo to the plot
+fig.add_layout_image(
+    dict(
+        source='data:image/png;base64,{}'.format(encoded_image),
+        yref="y",
+        xref = "x",
+        y=position_shot_dash_general_comp['EFG%'].values[0],
+        x = position_shot_dash_general_comp['FGA'].values[0],
+        sizex=4,  # adjust image size as needed
+        sizey=4,  # adjust image size as needed
+        xanchor="center",
+        yanchor="middle",
+        opacity=1,
+        layer="above")
+)
+
 
 # fig.add_annotation(x = max_FGA, y = position_shot_dash_general_comp['EFG%'].values[0], text = 'Position Average', showarrow = False)
 st.plotly_chart(fig, use_container_width = True)
@@ -609,19 +630,24 @@ st.plotly_chart(fig, use_container_width = True)
 
 # st.plotly_chart(fig, use_container_width = True)
 
-import base64
+
 # Add a plotly chart for the distribution of a chosen data point
 data_point = 'EFG%'
-st.subheader('Distribution of ' + data_point)
+
+# Add violin plot for the distribution of a chosen data point
+data_point = 'EFG%'
+st.subheader('Distribution of ' + data_point + ' for Position')
 
 # get player data point
 player_datapoint = position_shot_dash_general_comp[data_point].values[0]
 
-fig = px.box(position_shot_dash_general, x = data_point, 
-             color_discrete_sequence = px.colors.qualitative.Dark24)
+fig = px.violin(position_shot_dash_general, y = data_point,
+                color_discrete_sequence = px.colors.qualitative.Dark24, 
+                box = True, points = 'all', width=600, height=600)
+
 fig.update_layout(title = 'Distribution of ' + data_point)
 
-player_photo =st.session_state.player_photo
+
 
 with open(player_photo, "rb") as f:
     encoded_image = base64.b64encode(f.read()).decode("ascii")
@@ -630,25 +656,30 @@ with open(player_photo, "rb") as f:
 fig.add_layout_image(
     dict(
         source='data:image/png;base64,{}'.format(encoded_image),
-        xref="x",
         yref="y",
-        x=player_datapoint,
-        sizex=1,  # adjust image size as needed
-        sizey=3,  # adjust image size as needed
+        xref = "paper",
+        y=player_datapoint,
+        x = 0.5,
+        sizex=8,  # adjust image size as needed
+        sizey=8,  # adjust image size as needed
         xanchor="center",
         yanchor="middle",
         opacity=1,
         layer="above")
 )
+
+# # add vertical line at player data point
+# fig.add_shape(type = 'line',  y0 = player_datapoint,  y1 = player_datapoint, line = dict(color = 'red', dash = 'dash'))
+
 # view individual player data points
 # add all player data points
-fig.add_trace(go.Scatter(x = position_shot_dash_general[data_point], 
-                         y = [0] * len(position_shot_dash_general[data_point]), 
-                         mode = 'markers', hover_name= 'PLAYER' ,marker = dict(size = 10, color = 'grey')))
-
-
+# fig.add_trace(go.Scatter(y = position_shot_dash_general[data_point],
+#                             x = [0] * len(position_shot_dash_general[data_point]),
+#                             mode = 'markers', hovertext = position_shot_dash_general.PLAYER, hoveron= 'points', marker = dict(size = 10, color = 'grey')))
 
 st.plotly_chart(fig, use_container_width = True)
+
+
 
 
 
@@ -699,28 +730,28 @@ player_gbg.columns = new_col_names
 
 # try 2 with color options
 
-# plot shots taken vs points scored with a line of best fit in plotly
-fig = px.scatter(player_gbg, x='fga', y='pts', trendline='ols', hover_name='game date',  color_discrete_sequence = px.colors.qualitative.Dark24)
-fig.update_layout(title='Shots Taken vs Points Scored for ' + player)
-fig.update_traces(marker=dict(size=10))
+# # plot shots taken vs points scored with a line of best fit in plotly
+# fig = px.scatter(player_gbg, x='fga', y='pts', trendline='ols', hover_name='game date',  color_discrete_sequence = px.colors.qualitative.Dark24)
+# fig.update_layout(title='Shots Taken vs Points Scored for ' + player)
+# fig.update_traces(marker=dict(size=10))
 
-# add r squared
-z = np.polyfit(player_gbg['fga'], player_gbg['pts'], 1)
-p = np.poly1d(z)
-r_squared = r2_score(player_gbg['pts'], p(player_gbg['fga']))
-fig.add_annotation(x=player_gbg['fga'].max(), y=player_gbg['pts'].max(),
-                    text='R Squared: ' + str(round(r_squared, 2)), showarrow=False)
+# # add r squared
+# z = np.polyfit(player_gbg['fga'], player_gbg['pts'], 1)
+# p = np.poly1d(z)
+# r_squared = r2_score(player_gbg['pts'], p(player_gbg['fga']))
+# fig.add_annotation(x=player_gbg['fga'].max(), y=player_gbg['pts'].max(),
+#                     text='R Squared: ' + str(round(r_squared, 2)), showarrow=False)
 
-col1.plotly_chart(fig, use_container_width=True, theme = None)
+# col1.plotly_chart(fig, use_container_width=True, theme = None)
 
 
-# plot minutes played vs points scored with a line of best fit in plotly
-fig = px.scatter(player_gbg, x = 'min', y = 'pts', trendline = 'ols',  hover_name = 'game date', color_discrete_sequence = px.colors.qualitative.Dark24)
-fig.update_layout(title = 'Minutes Played vs Points Scored for ' + player)
-fig.update_traces(marker = dict(size = 10))
-# add r squared
-z = np.polyfit(player_gbg['min'], player_gbg['pts'], 1)
-p = np.poly1d(z)
-r_squared = r2_score(player_gbg['pts'], p(player_gbg['min']))
-fig.add_annotation(x = player_gbg['min'].max(), y = player_gbg['pts'].max(), text = 'R Squared: ' + str(round(r_squared, 2)), showarrow = False)
-col2.plotly_chart(fig, use_container_width = True)
+# # plot minutes played vs points scored with a line of best fit in plotly
+# fig = px.scatter(player_gbg, x = 'min', y = 'pts', trendline = 'ols',  hover_name = 'game date', color_discrete_sequence = px.colors.qualitative.Dark24)
+# fig.update_layout(title = 'Minutes Played vs Points Scored for ' + player)
+# fig.update_traces(marker = dict(size = 10))
+# # add r squared
+# z = np.polyfit(player_gbg['min'], player_gbg['pts'], 1)
+# p = np.poly1d(z)
+# r_squared = r2_score(player_gbg['pts'], p(player_gbg['min']))
+# fig.add_annotation(x = player_gbg['min'].max(), y = player_gbg['pts'].max(), text = 'R Squared: ' + str(round(r_squared, 2)), showarrow = False)
+# col2.plotly_chart(fig, use_container_width = True)

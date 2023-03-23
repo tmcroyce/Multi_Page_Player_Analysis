@@ -37,7 +37,7 @@ cols = st.columns(2)
 
 # select team
 st.subheader('Select a Team')
-team = st.selectbox('', teams, index = 25)
+team = st.selectbox('', teams, index = 24)
 
 # select player
 gbg_22 = gbg_df[gbg_df['adv_season'] == 2022]
