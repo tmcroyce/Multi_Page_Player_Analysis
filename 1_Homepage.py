@@ -116,7 +116,7 @@ st.write('''
 
 ''')
 
-st.subheader('Click the buttons from the left menu to move through the tools')
+st.subheader('Select from the left menu to move through the tools')
 
 
 st.write('')
