@@ -162,12 +162,34 @@ positional_df = df_sizes[df_sizes['primary_position_bbref'] == position]
 
 
 
+# ADD PLAYER CLUSTER AND ELBOW METHOD TO FIND OPTIMAL K
+numcols = [ col for col in gbg_22.columns if gbg_22[col].dtype in ['int64', 'float64'] ]
+std_cols = [col for col in gbg_22.columns if col not in numcols]
+# player averages, group by player
+player_avgs_22 = gbg_22.groupby('trad_player').mean()
+# add ppm
+player_avgs_22['ppm'] = player_avgs_22['trad_pts'] / player_avgs_22['trad_min']
+
+# reset index, add player column
+player_avgs_22 = player_avgs_22.reset_index()
+
+# only keep 2021 season
+primary_positions = primary_positions[primary_positions['position_season'] == 2021]
+# drop duplicates, keep first
+primary_positions = primary_positions.drop_duplicates(subset = 'player', keep = 'first')
+
 # ADD POSITIONS
 player_avgs_22['position'] = player_avgs_22['trad_player'].map(primary_positions.set_index('player')['primary_position_bbref'])
 
-# get just players position
+chosen_player_avgs_22 = player_avgs_22[player_avgs_22['trad_player'] == player] 
+
+# get just selected position
 position_avgs_22 = player_avgs_22[player_avgs_22['position'] == position]
 
+if player not in position_avgs_22['trad_player'].values:
+    # add player to dataframe using chosen_player_avgs_22
+    position_avgs_22 = position_avgs_22.append(chosen_player_avgs_22)
+#
 
 # add position column to shooting_efficiency
 #shooting_efficiency['position'] = shooting_efficiency['PLAYER'].map(primary_positions.set_index('player')['primary_position_bbref'])
@@ -199,6 +221,7 @@ from sklearn.cluster import KMeans
 
 # cluster
 kmeans = KMeans(n_clusters = 5, random_state = 0).fit(position_avgs_22[cluster_cols])
+
 # add cluster column to player averages
 position_avgs_22['cluster'] = kmeans.labels_
 
@@ -211,6 +234,7 @@ for i in range(1, 20):
     kmeans = KMeans(n_clusters = i, random_state = 0).fit(position_avgs_22[cluster_cols])
     # append wcss to list
     wcss.append(kmeans.inertia_)
+
 # plot wcss
 fig = px.line(x = range(1, 20), y = wcss, title = 'Elbow Method')
 fig.update_layout(xaxis_title = 'Number of Clusters', yaxis_title = 'WCSS')
@@ -220,12 +244,14 @@ st.plotly_chart(fig, use_container_width = True)
 # the sum of the squared distance between each member of the cluster and its centroid
 # the smaller the WCSS, the denser the cluster
 
-# Choose cluster number
+# Choose cluster number in streamlit
 cluster_num = st.selectbox('Choose Cluster Number based on chart elbow (typically 4)', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 40], index = 3)
 
 kmeans_fin = KMeans(n_clusters = cluster_num, random_state = 0).fit(position_avgs_22[cluster_cols])
-# add cluster column to player averages
+
+# add cluster column to players averages
 position_avgs_22['cluster'] = kmeans_fin.labels_
+
 # Chart clusters with plotly express in a scatter plot
 fig = px.scatter(position_avgs_22, x = 'ppm', y = 'trad_pts', color = 'cluster', title = 'Player Clusters', hover_data = position_avgs_22.columns)
 fig.update_layout(xaxis_title = 'Points Per Minute', yaxis_title = 'Points')
@@ -233,10 +259,16 @@ st.plotly_chart(fig, use_container_width = True)
 
 # show list of players in same cluster as selected player
 st.write('Players in Same Cluster')
-cluster_mates = position_avgs_22[position_avgs_22['cluster'] == position_avgs_22[position_avgs_22['trad_player'] == player]['cluster'].values[0]]
+
+player_cluster = position_avgs_22[position_avgs_22['trad_player'] == player]['cluster'].values[0]
+
+cluster_mates = position_avgs_22[position_avgs_22['cluster'] == player_cluster]
+
+
 # everything from third column on to numeric
 num_colz = cluster_mates.columns[2:]
 cluster_mates[num_colz] = cluster_mates[num_colz].apply(pd.to_numeric, errors = 'coerce')
+
 # drop unnamed cols
 unnamed = [col for col in cluster_mates.columns if 'Unnamed' in col]
 cluster_mates = cluster_mates.drop(unnamed, axis = 1)
