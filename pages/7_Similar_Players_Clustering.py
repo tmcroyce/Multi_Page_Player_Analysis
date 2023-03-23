@@ -215,7 +215,9 @@ st.write(f'''The following chart shows the clusters of players who are similar t
          ''')
 
 # Select columns to use for cluster analysis
-cluster_cols = ['ppm', 'trad_pts', 'trad_3p%', 'trad_ast', 'trad_reb', 'trad_stl', 'adv_efg%', 'adv_ts%', 'adv_usg%', 'adv_offrtg', 'adv_defrtg']
+cl_cols = ['ppm', 'trad_pts', 'trad_3p%', 'trad_ast', 'trad_reb', 'trad_stl', 'adv_efg%', 'adv_ts%', 'adv_usg%', 'adv_offrtg', 'adv_defrtg']
+
+cluster_cols = st.multiselect('Select Cluster Variables', options = cl_cols)
 
 from sklearn.cluster import KMeans
 
@@ -253,7 +255,7 @@ kmeans_fin = KMeans(n_clusters = cluster_num, random_state = 0).fit(position_avg
 position_avgs_22['cluster'] = kmeans_fin.labels_
 
 # Chart clusters with plotly express in a scatter plot
-fig = px.scatter(position_avgs_22, x = 'ppm', y = 'trad_pts', color = 'cluster', title = 'Player Clusters', hover_data = position_avgs_22.columns)
+fig = px.scatter(position_avgs_22, x = 'ppm', y = 'trad_pts', color = 'cluster', title = 'Player Clusters', hover_data = ['trad_player'])
 fig.update_layout(xaxis_title = 'Points Per Minute', yaxis_title = 'Points')
 st.plotly_chart(fig, use_container_width = True)
 
@@ -280,7 +282,7 @@ cluster_mates.columns = [col.replace('trad_', '') for col in cluster_mates.colum
 # drop adv_season
 cluster_mates = cluster_mates.drop(['adv_season', 'season', 'adv_min', 'position'], axis = 1)
 
-st.table(cluster_mates.style.format('{:.1f}', subset = cluster_mates.columns[1:]))
+st.dataframe(cluster_mates.style.format('{:.1f}', subset = cluster_mates.columns[1:]))
 
 
 # iterate through clusters until only two players remain
