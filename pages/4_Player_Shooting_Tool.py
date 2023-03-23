@@ -173,8 +173,12 @@ player_shooting_efficiency = player_shooting_efficiency.iloc[8:]
 # rename columns
 player_shooting_efficiency.columns = ['Shooting Efficiency Metrics']
 
+primary_positions = primary_positions[primary_positions['position_season'] == 2022]
+
+
 # add position column to shooting_efficiency
 shooting_efficiency['position'] = shooting_efficiency['PLAYER'].map(primary_positions.set_index('player')['primary_position_bbref'])
+
 # get averages for player position
 position_shooting_efficiency = shooting_efficiency[shooting_efficiency['position'] == position]
 position_shooting_efficiency_mean = position_shooting_efficiency.groupby('position').mean().reset_index()
@@ -428,6 +432,14 @@ shooting_by_distance()
 
 ####################################################################################################################
 
+
+
+
+
+
+
+
+
 ######### SHOT DASHBOARD #########
 
 st.write('Shot Dashboard (General)')
@@ -555,6 +567,8 @@ def color_code_percentile2(val):
 st.table(only_third_row.style.format('{:.1f}').applymap(color_code_percentile2))
 
 
+
+
 # get player percentile for each column
 for col in sdg_numcols:
     position_shot_dash_general[col + '_percentile'] = position_shot_dash_general[col].rank(pct = True, method = 'first')
@@ -567,6 +581,10 @@ fig.update_layout(title = 'Field Goal Attempts vs Effective Field Goal % for Pos
 fig.update_traces(marker = dict(size = 10))
 # add player names
 fig.add_annotation(x = position_shot_dash_general_comp['FGA'].values[0], y = position_shot_dash_general_comp['EFG%'].values[0], text = player, showarrow = True, arrowhead = 1)
+# add average for x and y
+x_avg = position_shot_dash_general_comp['FGA'].mean()
+y_avg = position_shot_dash_general_comp['EFG%'].mean()
+# add lines for each average
 
 # fig.add_annotation(x = max_FGA, y = position_shot_dash_general_comp['EFG%'].values[0], text = 'Position Average', showarrow = False)
 st.plotly_chart(fig, use_container_width = True)
@@ -591,6 +609,51 @@ st.plotly_chart(fig, use_container_width = True)
 
 # st.plotly_chart(fig, use_container_width = True)
 
+import base64
+# Add a plotly chart for the distribution of a chosen data point
+data_point = 'EFG%'
+st.subheader('Distribution of ' + data_point)
+
+# get player data point
+player_datapoint = position_shot_dash_general_comp[data_point].values[0]
+
+fig = px.box(position_shot_dash_general, x = data_point, 
+             color_discrete_sequence = px.colors.qualitative.Dark24)
+fig.update_layout(title = 'Distribution of ' + data_point)
+
+player_photo =st.session_state.player_photo
+
+with open(player_photo, "rb") as f:
+    encoded_image = base64.b64encode(f.read()).decode("ascii")
+
+# add player photo to the plot
+fig.add_layout_image(
+    dict(
+        source='data:image/png;base64,{}'.format(encoded_image),
+        xref="x",
+        yref="y",
+        x=player_datapoint,
+        sizex=1,  # adjust image size as needed
+        sizey=3,  # adjust image size as needed
+        xanchor="center",
+        yanchor="middle",
+        opacity=1,
+        layer="above")
+)
+# view individual player data points
+# add all player data points
+fig.add_trace(go.Scatter(x = position_shot_dash_general[data_point], 
+                         y = [0] * len(position_shot_dash_general[data_point]), 
+                         mode = 'markers', hover_name= 'PLAYER' ,marker = dict(size = 10, color = 'grey')))
+
+
+
+st.plotly_chart(fig, use_container_width = True)
+
+
+
+
+
 player_specific_shottype = 'https://www.nba.com/stats/player/' + str(player_nba_id)+'/shooting'
 st.sidebar.markdown('[Specific Shot Types]('+ player_specific_shottype + ')')
 
@@ -599,6 +662,28 @@ st.sidebar.markdown('[NBA Stats Glossary](https://www.nba.com/stats/help/glossar
 # 2 columns
 col1, col2 = st.columns(2)
 
+
+# fix column names in player_gbg
+old_col_names = ['trad_player', 'trad_team', 'trad_match up', 'trad_game date', 
+                 'trad_w/l', 'trad_min', 'trad_pts', 'trad_fgm', 'trad_fga', 'trad_fg%', 
+                 'trad_3pm', 'trad_3pa', 'trad_3p%', 'trad_ftm', 'trad_fta', 'trad_ft%', 
+                 'trad_oreb', 'trad_dreb', 'trad_reb', 'trad_ast', 'trad_stl', 'trad_blk', 
+                 'trad_tov', 'trad_pf', 'trad_+/-', 'trad_season', 'trad_season_type', 
+                 'adv_player', 'adv_team', 'adv_match up', 'adv_game date', 'adv_w/l', 
+                 'adv_min', 'adv_offrtg', 'adv_defrtg', 'adv_netrtg', 'adv_ast%', 
+                 'adv_ast/to', 'adv_ast\xa0ratio', 'adv_oreb%', 'adv_dreb%', 
+                 'adv_reb%', 'adv_to\xa0ratio', 'adv_efg%', 'adv_ts%', 'adv_usg%', 
+                 'adv_pace', 'adv_pie', 'adv_season', 'adv_season_type']
+
+new_col_names = ['player', 'team', 'match up', 'game date', 'w/l', 'min', 'pts', 'fgm',
+                    'fga', 'fg%', '3pm', '3pa', '3p%', 'ftm', 'fta', 'ft%', 'oreb', 'dreb',
+                    'reb', 'ast', 'stl', 'blk', 'tov', 'pf', '+/-', 'season', 'season_type',
+                    'adv_player', 'adv_team', 'adv_match up', 'adv_game date', 'adv_w/l',
+                    'adv_min', 'offrtg', 'defrtg', 'netrtg', 'ast%', 'ast/to', 'ast\xa0ratio',
+                    'oreb%', 'dreb%', 'reb%', 'to\xa0ratio', 'efg%', 'ts%', 'usg%', 'pace',
+                    'pie', 'adv_season', 'adv_season_type']
+
+player_gbg.columns = new_col_names
 
 # # plot shots taken vs points scored with a line of best fit in plotly
 # fig = px.scatter(player_gbg, x = 'fga', y = 'pts', trendline = 'ols', color = 'Home', hover_name = 'Date', color_discrete_sequence = ['darkblue', 'llightblue'])
@@ -615,7 +700,7 @@ col1, col2 = st.columns(2)
 # try 2 with color options
 
 # plot shots taken vs points scored with a line of best fit in plotly
-fig = px.scatter(player_gbg, x='fga', y='pts', trendline='ols', color='Home', hover_name='Date',  color_discrete_sequence = px.colors.qualitative.Dark24)
+fig = px.scatter(player_gbg, x='fga', y='pts', trendline='ols', hover_name='game date',  color_discrete_sequence = px.colors.qualitative.Dark24)
 fig.update_layout(title='Shots Taken vs Points Scored for ' + player)
 fig.update_traces(marker=dict(size=10))
 
@@ -629,9 +714,8 @@ fig.add_annotation(x=player_gbg['fga'].max(), y=player_gbg['pts'].max(),
 col1.plotly_chart(fig, use_container_width=True, theme = None)
 
 
-
 # plot minutes played vs points scored with a line of best fit in plotly
-fig = px.scatter(player_gbg, x = 'min', y = 'pts', trendline = 'ols', color = 'Home', hover_name = 'Date', color_discrete_sequence = px.colors.qualitative.Dark24)
+fig = px.scatter(player_gbg, x = 'min', y = 'pts', trendline = 'ols',  hover_name = 'game date', color_discrete_sequence = px.colors.qualitative.Dark24)
 fig.update_layout(title = 'Minutes Played vs Points Scored for ' + player)
 fig.update_traces(marker = dict(size = 10))
 # add r squared

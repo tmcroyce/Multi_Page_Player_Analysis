@@ -25,6 +25,7 @@ today = pst.strftime('%Y-%m-%d')
 # Load Data
 
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
+
 # add capitalized player name
 player_numbers['Player'] = player_numbers['player_name'].str.title()
 
@@ -43,13 +44,10 @@ gbg_df = gbg_df.sort_values(by = 'Date', ascending = False)
 # get last date
 last_date = gbg_df['Date'].iloc[0]
 
-st.title('NBA Player Size Comparison Tool')
-
-st.write('The data for positions is pulled from BasketballReference.com and is the actual position they play on the floor, as opposed to the NBA listed position.')
+st.title('NBA Player Game Data')
 
 st.write('---')
 
-st.subheader('Player Size Data')
 st.write('')
 
 # load game by game data
@@ -146,7 +144,7 @@ positional_df = df_sizes[df_sizes['primary_position_bbref'] == position]
 ##### LOAD DATA END #############################################################################
 
 
-st.subheader('Player Game Data')
+st.subheader('Player Game Data: Season')
 
 player_gbg_22 = player_gbg[player_gbg['adv_season'] == 2022]
 
@@ -181,7 +179,15 @@ player_gbg = player_gbg.drop(columns = to_drop)
 # set index to player
 player_gbg = player_gbg.set_index('player')
 
+# fix game date, sort by game date
+player_gbg['game_date'] = pd.to_datetime(player_gbg['game date']).dt.date
+player_gbg = player_gbg.sort_values(by = 'game_date', ascending = False)
+
+
+
 st.dataframe(player_gbg.style.format('{:.1f}', subset = numeric_cols))
+
+
 
 # calculate averages for player
 player_gbg_avg = player_gbg.groupby('player').mean().reset_index()

@@ -74,6 +74,9 @@ player_nba_id = player_numbers[player_numbers['Player'] == player]['nba_id'].ilo
 # get player photo
 player_photo = 'data/player/photos/photos/' + str(player_nba_id) + '.png'
 
+#set
+st.session_state['player_photo'] = player_photo
+
 # add player photo
 st.image(player_photo, width = 300)
 
