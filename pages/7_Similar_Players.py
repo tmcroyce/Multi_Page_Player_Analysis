@@ -160,127 +160,123 @@ positional_df = df_sizes[df_sizes['primary_position_bbref'] == position]
 
 ################ END OF INTRO CODE ####################
 
-st.subheader('Player Playtype Breakdown')
-playtype_folder = 'data/player/nba_com_playerdata/playtypes/'
-pt_fold = os.listdir(playtype_folder)
-# check if today's date is in file names
-if 'pt_cut_' + str(today) + '_.csv' in pt_fold:
-    # read in today's data
-    pt_cut = pd.read_csv(playtype_folder + 'pt_cut_' + str(today) + '_.csv')
-    pt_hand_off = pd.read_csv(playtype_folder + 'pt_hand_off_' + str(today) + '_.csv')
-    pt_isolation = pd.read_csv(playtype_folder + 'pt_isolation_' + str(today) + '_.csv')
-    pt_off_screen = pd.read_csv(playtype_folder + 'pt_off_screen_' + str(today) + '_.csv')
-    pt_post_up = pd.read_csv(playtype_folder + 'pt_post_up_' + str(today) + '_.csv')
-    pt_pr_ball_handler = pd.read_csv(playtype_folder + 'pt_pr_ball_handler_' + str(today) + '_.csv')
-    pt_pr_roll_man = pd.read_csv(playtype_folder + 'pt_pr_roll_man_' + str(today) + '_.csv')
-    pt_spot_up = pd.read_csv(playtype_folder + 'pt_spot_up_' + str(today) + '_.csv')
-    pt_transition = pd.read_csv(playtype_folder + 'pt_transition_' + str(today) + '_.csv')
-    pt_putbacks = pd.read_csv(playtype_folder + 'pt_putbacks_' + str(today) + '_.csv')
-else:
-    st.write('Todays Data Needs to be Collected')
 
 
-# Load available playtype data
+# ADD POSITIONS
+player_avgs_22['position'] = player_avgs_22['trad_player'].map(primary_positions.set_index('player')['primary_position_bbref'])
 
-player_iso = pt_isolation[pt_isolation['PLAYER'] == player]
-if player_iso.empty:
-    st.write('No Isolation Data for ' + player)
-else:
-    player_iso.index = ['Isolation Offense']
-
-player_cut = pt_cut[pt_cut['PLAYER'] == player]
-if player_cut.empty:
-    st.write('No Cut Data for ' + player)
-else:
-    player_cut.index = ['Cut Offense']
-
-player_hand_off = pt_hand_off[pt_hand_off['PLAYER'] == player]
-if player_hand_off.empty:
-    st.write('No Hand Off Data for ' + player)
-else:
-    player_hand_off.index = ['Hand Off Offense']
-
-player_off_screen = pt_off_screen[pt_off_screen['PLAYER'] == player]
-if player_off_screen.empty:
-    st.write('No Off Screen Data for ' + player)
-else:
-    player_off_screen.index = ['Off Screen Offense']
-
-player_post_up = pt_post_up[pt_post_up['PLAYER'] == player]
-if player_post_up.empty:
-    st.write('No Post Up Data for ' + player)
-else:
-    player_post_up.index = ['Post Up Offense']
-
-player_pr_ball_handler = pt_pr_ball_handler[pt_pr_ball_handler['PLAYER'] == player]
-if player_pr_ball_handler.empty:
-    st.write('No Pick and Roll Ball Handler Data for ' + player)
-else:
-    player_pr_ball_handler.index = ['Pick and Roll Ball Handler Offense']
-
-player_spot_up = pt_spot_up[pt_spot_up['PLAYER'] == player]
-if player_spot_up.empty:
-    st.write('No Spot Up Data for ' + player)
-else:
-    player_spot_up.index = ['Spot Up Offense']
-
-player_transition = pt_transition[pt_transition['PLAYER'] == player]
-if player_transition.empty:
-    st.write('No Transition Data for ' + player)
-else:
-    player_transition.index = ['Transition Offense']
-
-player_putbacks = pt_putbacks[pt_putbacks['PLAYER'] == player]
-if player_putbacks.empty:
-    st.write('No Putback Data for ' + player)
-else:
-    player_putbacks.index = ['Putback Offense']
-
-# combine all the dataframes that have data
-playtypes = pd.concat([player_iso, player_cut, player_hand_off, player_off_screen, player_post_up, player_pr_ball_handler, player_spot_up, player_transition, player_putbacks], axis = 0)
-
-unnamed = [col for col in playtypes.columns if 'Unnamed' in col]
-playtypes.drop(columns = unnamed, inplace = True)
-
-def color_code_percentile2(val):
-    if val < 40:
-        color = 'red'
-    elif val < 45 and val > 40:
-        color = 'orange'
-    elif val < 55 and val > 45:
-        color = 'white',
-    elif val > 55 and val < 75:
-        color = 'lightgreen'
-    elif val > 75:
-        color = 'green'
-    else:
-        color = 'white'
-    # return highlight color (background)
-    return 'background-color: %s' % color
-
-st.table(playtypes.style.format('{:.2f}', subset= playtypes.columns[3:]).applymap(color_code_percentile2, subset = 'Percentile'))
-
-# identify num cols (last 14 cols)
-num_cols = player_iso.columns[-14:]
+# get just players position
+position_avgs_22 = player_avgs_22[player_avgs_22['position'] == position]
 
 
-colz  = st.columns(2)
-col1 = colz[0]
-col2 = colz[1]
-# plotly scatterplot of FREQ% vs Percentile, sized by Percentile
-fig = px.scatter(playtypes, x = 'Percentile', y = 'Freq%', size = 'Percentile', color = playtypes.index, 
-                                                            hover_name = playtypes.index, opacity = 0.5,
-                                                            size_max = 40, width = 600, height = 600)
-fig.update_layout(title = 'Frequency of Playtype vs Percentile for ' + player)
-# get rid of legend
-fig.update_layout(showlegend = False)
-fig.update_layout(xaxis_title = 'Player NBA Percentile', yaxis_title = 'Frequency of Playtype')
-# add annotations
-for i in range(len(playtypes)):
-    fig.add_annotation(x = playtypes['Percentile'][i], y = playtypes['Freq%'][i], text = playtypes.index[i])
-col1.plotly_chart(fig, use_container_width = True)
+# add position column to shooting_efficiency
+#shooting_efficiency['position'] = shooting_efficiency['PLAYER'].map(primary_positions.set_index('player')['primary_position_bbref'])
 
-# add playtype breakdwon donut chart with Freq%
-fig = go.Figure(data = [go.Pie(labels = playtypes.index, values = playtypes['Freq%'], hole = 0.5)])
-fig.update_layout(title = 'Playtype Breakdown for ' + player)
-col2.plotly_chart(fig, use_container_width = True)
+# position_avgs_22 = player_avgs_22[player_avgs_22['trad_pos'] == position]
+
+st.subheader('Player Clustering for Similar Players')
+st.write(f'''The following chart shows the clusters of players who are similar to {player} based on their advanced and traditional stats.
+         \n These stats included: 
+         \n - Points Per Minute (PPM), 
+         \n - Points, 
+         \n - 3P%, 
+         \n - Assists, 
+         \n - Rebounds, 
+         \n - Steals, 
+         \n - Effective Field Goal Percentage (eFG%), 
+         \n - True Shooting Percentage (TS%), 
+         \n - Usage, 
+         \n - Offensive Rating, and 
+         \n - Defensive Rating.
+         \n The clusters are based on the elbow method, which typically shows (in my experience) the optimal number of clusters being four. 
+         \n You can change the number of clusters to see how the clusters change. Change the value to 20 to see the most-detailed clusters.
+         ''')
+
+# Select columns to use for cluster analysis
+cluster_cols = ['ppm', 'trad_pts', 'trad_3p%', 'trad_ast', 'trad_reb', 'trad_stl', 'adv_efg%', 'adv_ts%', 'adv_usg%', 'adv_offrtg', 'adv_defrtg']
+
+from sklearn.cluster import KMeans
+
+# cluster
+kmeans = KMeans(n_clusters = 5, random_state = 0).fit(position_avgs_22[cluster_cols])
+# add cluster column to player averages
+position_avgs_22['cluster'] = kmeans.labels_
+
+# elbow method
+# create empty list to store wcss
+wcss = []
+# loop through 1 to 10 clusters
+for i in range(1, 20):
+    # fit kmeans
+    kmeans = KMeans(n_clusters = i, random_state = 0).fit(position_avgs_22[cluster_cols])
+    # append wcss to list
+    wcss.append(kmeans.inertia_)
+# plot wcss
+fig = px.line(x = range(1, 20), y = wcss, title = 'Elbow Method')
+fig.update_layout(xaxis_title = 'Number of Clusters', yaxis_title = 'WCSS')
+st.plotly_chart(fig, use_container_width = True)
+
+# what is WCSS? -> Within Cluster Sum of Squares
+# the sum of the squared distance between each member of the cluster and its centroid
+# the smaller the WCSS, the denser the cluster
+
+# Choose cluster number
+cluster_num = st.selectbox('Choose Cluster Number based on chart elbow (typically 4)', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 40], index = 3)
+
+kmeans_fin = KMeans(n_clusters = cluster_num, random_state = 0).fit(position_avgs_22[cluster_cols])
+# add cluster column to player averages
+position_avgs_22['cluster'] = kmeans_fin.labels_
+# Chart clusters with plotly express in a scatter plot
+fig = px.scatter(position_avgs_22, x = 'ppm', y = 'trad_pts', color = 'cluster', title = 'Player Clusters', hover_data = position_avgs_22.columns)
+fig.update_layout(xaxis_title = 'Points Per Minute', yaxis_title = 'Points')
+st.plotly_chart(fig, use_container_width = True)
+
+# show list of players in same cluster as selected player
+st.write('Players in Same Cluster')
+cluster_mates = position_avgs_22[position_avgs_22['cluster'] == position_avgs_22[position_avgs_22['trad_player'] == player]['cluster'].values[0]]
+# everything from third column on to numeric
+num_colz = cluster_mates.columns[2:]
+cluster_mates[num_colz] = cluster_mates[num_colz].apply(pd.to_numeric, errors = 'coerce')
+# drop unnamed cols
+unnamed = [col for col in cluster_mates.columns if 'Unnamed' in col]
+cluster_mates = cluster_mates.drop(unnamed, axis = 1)
+unnamed2 = [col for col in cluster_mates.columns if 'unnamed' in col]
+cluster_mates = cluster_mates.drop(unnamed2, axis = 1)
+
+# rename columns, anything with trad_ remove trad_
+cluster_mates.columns = [col.replace('trad_', '') for col in cluster_mates.columns]
+# drop adv_season
+cluster_mates = cluster_mates.drop(['adv_season', 'season', 'adv_min', 'position'], axis = 1)
+
+st.table(cluster_mates.style.format('{:.1f}', subset = cluster_mates.columns[1:]))
+
+
+# iterate through clusters until only two players remain
+for i in range(1, 50):
+    kmeans_find_two = KMeans(n_clusters = i, random_state = 0).fit(position_avgs_22[cluster_cols])
+    # add cluster column to player averages
+    position_avgs_22['cluster'] = kmeans_find_two.labels_
+    # show list of players in same cluster as selected player
+    cluster_mates = position_avgs_22[position_avgs_22['cluster'] == position_avgs_22[position_avgs_22['trad_player'] == player]['cluster'].values[0]]
+    # get length of cluster_mates
+    cluster_mates_len = len(cluster_mates)
+    # if cluster_mates_len is 2, break
+    if cluster_mates_len == 2:
+        break
+
+st.subheader('Most Similar Player:')
+st.write('The player you selected is in a final cluster with the following player:')
+
+#fix columns in cluster_mates
+# drop unnamed
+unnamed = [col for col in cluster_mates.columns if 'Unnamed' in col]
+cluster_mates = cluster_mates.drop(unnamed, axis = 1)
+unnamed2 = [col for col in cluster_mates.columns if 'unnamed' in col]
+cluster_mates = cluster_mates.drop(unnamed2, axis = 1)
+# rename columns, anything with trad_ remove trad_
+cluster_mates.columns = [col.replace('trad_', '') for col in cluster_mates.columns]
+# drop adv_season
+cluster_mates = cluster_mates.drop(['adv_season', 'season', 'adv_min', 'position'], axis = 1)
+
+
+st.table(cluster_mates.style.format('{:.1f}', subset = cluster_mates.columns[1:]))
