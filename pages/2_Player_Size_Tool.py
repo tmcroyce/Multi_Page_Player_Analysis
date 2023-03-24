@@ -369,7 +369,9 @@ def plot_height_wingspan2():
             xref="x",
             yref="y",
             x=player_height,
-            y=player_wingspan,  # adjust image size as needed
+            y=player_wingspan,
+            sizex=1,  # adjust image size as needed
+            sizey=1,  # adjust image size as needed
             xanchor="center",
             yanchor="middle",
             sizing="stretch",
