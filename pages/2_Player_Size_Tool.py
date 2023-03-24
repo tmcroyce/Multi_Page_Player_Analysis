@@ -383,7 +383,7 @@ def plot_height_wingspan2():
 
 
 # add option to filter by season
-seasons = st.multi_select('Season', positional_df['season'].unique(), positional_df['season'].unique())
+seasons = st.multiselect('Season', positional_df['season'].unique(), positional_df['season'].unique())
 
 
 # keep only selected seasons
