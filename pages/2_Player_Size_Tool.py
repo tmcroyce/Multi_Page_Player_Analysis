@@ -24,6 +24,9 @@ import sklearn as sk
 from sklearn.metrics import r2_score
 from sklearn.cluster import KMeans
 import plotly.figure_factory as ff
+import plotly.graph_objs as go
+import plotly.express as px
+import base64
 
 
 st.set_page_config(page_title='Player Analyzer Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
@@ -328,14 +331,11 @@ def plot_height_wingspan():
 st.markdown('---')
 
 
-import plotly.graph_objs as go
-import plotly.express as px
-import base64
 
 def plot_height_wingspan2():
     # plot height vs wingspan with plotly
 
-    fig = px.scatter(positional_df, x='height_final', y='wingspan_final', hover_name='player', color='season',
+    fig = px.scatter(positional_df_season_selected, x='height_final', y='wingspan_final', hover_name='player', color='season',
                     hover_data=['height_final', 'wingspan_final', 'player'])
     fig.update_traces(marker_size=10)
     fig.update_layout(title='Height vs Wingspan for ' + position + 's', width=800, height=800)
@@ -347,14 +347,14 @@ def plot_height_wingspan2():
                             hoverinfo='x+y+text', name='Selected Player', showlegend=False))
 
     # add a line for the average wingspan at the position
-    fig.add_trace(go.Scatter(x=[positional_df['height_final'].min(), positional_df['height_final'].max()],
-                            y=[positional_df['wingspan_final'].mean(), positional_df['wingspan_final'].mean()],
+    fig.add_trace(go.Scatter(x=[positional_df_season_selected['height_final'].min(), positional_df_season_selected['height_final'].max()],
+                            y=[positional_df_season_selected['wingspan_final'].mean(), positional_df_season_selected['wingspan_final'].mean()],
                             mode='lines', line=dict(color='red', width=1, dash='dash'),
                             name='Average Wingspan', showlegend=False))
 
     # add a line for the average height at the position
-    fig.add_trace(go.Scatter(x=[positional_df['height_final'].mean(), positional_df['height_final'].mean()],
-                            y=[positional_df['wingspan_final'].min(), positional_df['wingspan_final'].max()],
+    fig.add_trace(go.Scatter(x=[positional_df_season_selected['height_final'].mean(), positional_df_season_selected['height_final'].mean()],
+                            y=[positional_df_season_selected['wingspan_final'].min(), positional_df_season_selected['wingspan_final'].max()],
                             mode='lines', line=dict(color='red', width=1, dash='dash'),
                             name='Average Height', showlegend=False))
 
@@ -381,5 +381,12 @@ def plot_height_wingspan2():
 
     return st.plotly_chart(fig, use_container_width=True)
 
+
+# add option to filter by season
+seasons = st.multi_select('Season', positional_df['season'].unique(), positional_df['season'].unique())
+
+
+# keep only selected seasons
+positional_df_season_selected = positional_df[positional_df['season'].isin(seasons)]
 
 plot_height_wingspan2()
