@@ -274,7 +274,11 @@ fig = px.scatter(playtypes, x = 'Percentile', y = 'Freq%', size = 'Percentile', 
 fig.update_layout(title = 'Frequency of Playtype vs Percentile for ' + player)
 # get rid of legend
 fig.update_layout(showlegend = False)
-fig.update_layout(xaxis_title = 'Player NBA Percentile (How Good They Are At Play)', yaxis_title = 'Frequency of Playtype (How Often They Run It))')
+fig.update_layout(xaxis_title = 'Player NBA Percentile (How Good They Are At Play)', yaxis_title = 'Frequency of Playtype (How Often They Run It)')
+# make axis titles bold and larger
+fig.update_xaxes(title_font = dict(size = 16, family = 'Arial', color = 'white'))
+fig.update_yaxes(title_font = dict(size = 16, family = 'Arial', color = 'white'))
+
 # add annotations
 for i in range(len(playtypes)):
     fig.add_annotation(x = playtypes['Percentile'][i], y = playtypes['Freq%'][i], text = playtypes.index[i])

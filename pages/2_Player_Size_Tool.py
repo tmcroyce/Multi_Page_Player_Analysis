@@ -381,9 +381,21 @@ def plot_height_wingspan2():
 
     return st.plotly_chart(fig, use_container_width=True)
 
+pos_seasons = positional_df['season'].unique()
+# turn into df
+pos_seasons = pd.DataFrame(pos_seasons)
+# drop nans
+pos_seasons = pos_seasons.dropna()
+# make int
+pos_seasons = pos_seasons.astype(int)
+# turn back into list
+pos_seasons = pos_seasons[0].tolist()
+
+
+
 
 # add option to filter by season
-seasons = st.multiselect('Season', positional_df['season'].unique(), positional_df['season'].unique())
+seasons = st.multiselect('Season Select', pos_seasons, default = pos_seasons )
 
 
 # keep only selected seasons

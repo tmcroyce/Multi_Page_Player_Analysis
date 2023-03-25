@@ -229,12 +229,77 @@ def color_code_percentile(val):
     # return highlight color (background)
     return 'background-color: %s' % color
 
+#Test -- Radar chart of player shooting efficiencies percentiles
+efficiency_rows = [row for row in player_shooting_efficiency2.index if '%' in row ]
+volume_rows = [row for row in player_shooting_efficiency2.index if '%' not in row ]
+
+col2.subheader('Efficiency Metrics')
+
+# radar chart efficiency rows player percentile
+fig = go.Figure()
+
+radar_fill_color = 'rgba(34, 97, 153, 0.6)'
+fig.add_trace(go.Scatterpolar(
+        r=player_shooting_efficiency2.loc[efficiency_rows, 'Player Percentile'],
+        theta=efficiency_rows,
+        fill='toself',
+        fillcolor=radar_fill_color,
+        name='Player Percentile'
+))
+
+
+fig.update_layout(
+        polar=dict(
+        radialaxis=dict(
+            visible=True,
+            range=[0, 1]
+        )),
+        showlegend=True
+)
+# Increase text size
+fig.update_layout(font_size=16)
+
+
+
+col2.plotly_chart(fig)
+
+# radar chart volume rows player percentile
+col3.subheader('Volume / Scoring Metrics')
+fig = go.Figure()
+
+fig.add_trace(go.Scatterpolar(
+        r=player_shooting_efficiency2.loc[volume_rows, 'Player Percentile'],
+        theta=volume_rows,
+        fill='toself',
+        fillcolor=radar_fill_color,
+        name='Player Percentile'
+))
+
+
+fig.update_layout(
+        polar=dict(
+        radialaxis=dict(
+            visible=True,
+            range=[0, 1]
+        )),
+        showlegend=True
+)
+# Increase text size
+fig.update_layout(font_size=16)
+
+col3.plotly_chart(fig)
+
+
+
+
+
 col1.table(player_shooting_efficiency2.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
 
 #############################################################################################################
 
-
-col2.write('Shooting by Zone')
+col1, col2, col3 = st.columns(3)
+st.write('---')
+col1.subheader('Player Shooting by Zone')
 
 def shooting_by_zone():
 
@@ -331,15 +396,78 @@ def shooting_by_zone():
     player_shooting_splits_by_zone['Position Average'] = player_shooting_splits_by_zone['Position Average'].apply(pd.to_numeric, errors = 'coerce').round(2)
 
     # show df
-    return col2.table(player_shooting_splits_by_zone.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
+    return player_shooting_splits_by_zone
 
-shooting_by_zone()
+
+player_shooting_splits_by_zone = shooting_by_zone()
+col1.table(player_shooting_splits_by_zone.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
+
+# efficiency rows by zone
+efficiency_rows_zone = [row for row in player_shooting_splits_by_zone.index if "%" in row]
+# volume rows by zone
+volume_rows_zone = [row for row in player_shooting_splits_by_zone.index if "%" not in row]
+
+# radar chart efficiency by zone
+fig = go.Figure()
+
+fig.add_trace(go.Scatterpolar(
+        r = player_shooting_splits_by_zone.loc[efficiency_rows_zone, 'Player Percentile'],
+        theta = efficiency_rows_zone,
+        fill = 'toself',
+        fillcolor= radar_fill_color,
+        name = 'Player'
+    ))
+
+
+fig.update_layout(
+    polar = dict(
+        radialaxis = dict(
+            visible = True,
+            range = [0, 1]
+        )),
+    showlegend = False
+)
+
+fig.update_layout(font_size = 16)
+
+col2.plotly_chart(fig, use_container_width = True)
+
+# radar chart volume by zone
+fig = go.Figure()
+
+fig.add_trace(go.Scatterpolar(
+        r = player_shooting_splits_by_zone.loc[volume_rows_zone, 'Player Percentile'],
+        theta = volume_rows_zone,
+        fill = 'toself',
+        fillcolor= radar_fill_color,
+        name = 'Player'
+    ))
+
+fig.update_layout(
+    polar = dict(
+        radialaxis = dict(
+            visible = True,
+            range = [0, 1]
+        )),
+    showlegend = False
+)
+
+# larger text
+fig.update_layout(font_size = 16)
+
+col3.plotly_chart(fig, use_container_width = True)
+
+
 
 
 ####################################################################################################################
 
+col1, col2, col3 = st.columns(3)
+col1.subheader('Shooting by Distance (5ft)')
+st.write('---')
+
 def shooting_by_distance():
-    col3.write('Shooting by Distance (5ft)')
+
     # shooting_splits_5ft
     player_shooting_splits_5ft_init = shooting_splits_5ft[shooting_splits_5ft['Player'] == player]
     # drop fgm cols
@@ -426,15 +554,66 @@ def shooting_by_distance():
 
 
     # show df
-    return col3.table(player_shooting_splits_5ft.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
+    return player_shooting_splits_5ft
 
-shooting_by_distance()
+player_shooting_splits_5ft = shooting_by_distance()
+col1.table(player_shooting_splits_5ft.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
+
+efficiency_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' in row]
+volume_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' not in row]
+
+# plot radar chart
+fig = go.Figure()
+
+fig.add_trace(go.Scatterpolar(
+        r = player_shooting_splits_5ft.loc[efficiency_rows_5ft, 'Player Percentile'],
+        theta = efficiency_rows_5ft,
+        fill = 'toself',
+        fillcolor = radar_fill_color,
+        name = 'Player'
+    ))
+
+fig.update_layout(
+    polar = dict(
+        radialaxis = dict(
+            visible = True,
+            range = [0, 1]
+        )),
+    showlegend = False
+)
+
+# larger text
+fig.update_layout(font_size = 16)
+
+col2.plotly_chart(fig)
+
+# volume
+fig = go.Figure()
+
+fig.add_trace(go.Scatterpolar(
+        r = player_shooting_splits_5ft.loc[volume_rows_5ft, 'Player Percentile'],
+        theta = volume_rows_5ft,
+        fill = 'toself',
+        fillcolor = radar_fill_color,
+        name = 'Player'
+    ))
+
+fig.update_layout(
+    polar = dict(
+        radialaxis = dict(
+            visible = True,
+            range = [0, 1]
+        )),
+    showlegend = False
+)
+
+# larger text
+fig.update_layout(font_size = 16)
+
+col3.plotly_chart(fig)
+
 
 ####################################################################################################################
-
-
-
-
 
 
 
