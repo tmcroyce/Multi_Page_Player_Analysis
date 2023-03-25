@@ -753,9 +753,11 @@ for col in sdg_numcols:
     position_shot_dash_general[col + '_percentile'] = position_shot_dash_general[col].rank(pct = True, method = 'first')
 
 # plot position FGA vs EFG% with plotly
-filt_position_shot_dash_general = position_shot_dash_general[position_shot_dash_general['FGA'] > 10]
-fig = px.scatter(filt_position_shot_dash_general, x = 'FGA', y = 'EFG%', hover_name = 'PLAYER', color_discrete_sequence = px.colors.qualitative.Dark24)
-fig.update_layout(title = 'Field Goal Attempts vs Effective Field Goal % for Position (Min 10 FGA)')
+filt_position_shot_dash_general = position_shot_dash_general[position_shot_dash_general['FGA'] > 1]
+fig = px.scatter(filt_position_shot_dash_general, x = 'FGA', y = 'EFG%', 
+                 hover_name = 'PLAYER', color_discrete_sequence = px.colors.qualitative.Dark24,
+                 height= 800, width = 800)
+fig.update_layout(title = 'Field Goal Attempts vs Effective Field Goal % for Position ')
 # make plot bigger
 fig.update_traces(marker = dict(size = 10))
 
@@ -777,54 +779,38 @@ fig.add_layout_image(
         xref = "x",
         y=position_shot_dash_general_comp['EFG%'].values[0],
         x = position_shot_dash_general_comp['FGA'].values[0],
-        sizex=4,  # adjust image size as needed
-        sizey=4,  # adjust image size as needed
+        sizex=6,  # adjust image size as needed
+        sizey=6,  # adjust image size as needed
         xanchor="center",
         yanchor="middle",
         opacity=1,
         layer="above")
 )
 
-
-# fig.add_annotation(x = max_FGA, y = position_shot_dash_general_comp['EFG%'].values[0], text = 'Position Average', showarrow = False)
 st.plotly_chart(fig, use_container_width = True)
 
-# # plot position 3PA vs 3P% with plotly
-# filt_position_shot_dash_general = position_shot_dash_general[position_shot_dash_general['3PA'] > 3]
-# fig = px.scatter(filt_position_shot_dash_general, x = '3PA', y = '3P%', hover_name = 'PLAYER', color_discrete_sequence = px.colors.qualitative.Dark24)
-# fig.update_layout(title = '3 Point Attempts vs 3 Point % for Position (Min 3 3PA)')
-# fig.update_traces(marker = dict(size = 10))
-# # add player names
-# fig.add_annotation(x = position_shot_dash_general_comp['3PA'].values[0], y = position_shot_dash_general_comp['3P%'].values[0], text = player, showarrow = True, arrowhead = 1)
-# # get min 3PA
-# min_3PA = filt_position_shot_dash_general['3PA'].min()
-# # get max 3PA
-# max_3PA = filt_position_shot_dash_general['3PA'].max()
-# # add one to max_3PA
-# max_3PA = max_3PA + 1
-# # add average line
-# fig.add_shape(type = 'line', x0 = min_3PA, y0 = position_shot_dash_general['3P%'].mean(), x1 = max_3PA, y1 = position_shot_dash_general['3P%'].mean(), line = dict(color = 'black', dash = 'dash'))
-# # add average text
-# fig.add_annotation(x = max_3PA, y = position_shot_dash_general['3P%'].mean(), text = 'Average', showarrow = False)
-
-# st.plotly_chart(fig, use_container_width = True)
 
 
 # Add a plotly chart for the distribution of a chosen data point
-data_point = 'EFG%'
+#data_point = 'EFG%'
+
+st.write('---')
+st.subheader('Select a data point to plot the distribution for the position')
 
 # Add violin plot for the distribution of a chosen data point
-data_point = 'EFG%'
-st.subheader('Distribution of ' + data_point + ' for Position')
+data_point = st.selectbox('Choose a data point to plot', position_shot_dash_general.columns[1:10])
+
+st.subheader('Distribution of ' + str(data_point) + ' for Position')
 
 # get player data point
 player_datapoint = position_shot_dash_general_comp[data_point].values[0]
 
 fig = px.violin(position_shot_dash_general, y = data_point,
                 color_discrete_sequence = px.colors.qualitative.Dark24, 
-                box = True, points = 'all', width=600, height=600)
+                box = True, points = 'all', hover_data = ['PLAYER', data_point], 
+                width=800, height=800)
 
-fig.update_layout(title = 'Distribution of ' + data_point)
+fig.update_layout(title = 'Distribution of ' + str(data_point))
 
 
 
@@ -838,23 +824,14 @@ fig.add_layout_image(
         yref="y",
         xref = "paper",
         y=player_datapoint,
-        x = 0.5,
-        sizex=8,  # adjust image size as needed
-        sizey=8,  # adjust image size as needed
+        x = 0.125,
+        sizex=3,  # adjust image size as needed
+        sizey=3,  # adjust image size as needed
         xanchor="center",
         yanchor="middle",
         opacity=1,
         layer="above")
 )
-
-# # add vertical line at player data point
-# fig.add_shape(type = 'line',  y0 = player_datapoint,  y1 = player_datapoint, line = dict(color = 'red', dash = 'dash'))
-
-# view individual player data points
-# add all player data points
-# fig.add_trace(go.Scatter(y = position_shot_dash_general[data_point],
-#                             x = [0] * len(position_shot_dash_general[data_point]),
-#                             mode = 'markers', hovertext = position_shot_dash_general.PLAYER, hoveron= 'points', marker = dict(size = 10, color = 'grey')))
 
 st.plotly_chart(fig, use_container_width = True)
 

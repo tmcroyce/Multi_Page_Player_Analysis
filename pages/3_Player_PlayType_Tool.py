@@ -263,28 +263,25 @@ st.table(playtypes.style.format('{:.2f}', subset= playtypes.columns[3:]).applyma
 # identify num cols (last 14 cols)
 num_cols = player_iso.columns[-14:]
 
+# add PPP normalized column
+playtypes['PPP_norm'] = playtypes['PPP'] / playtypes['PPP'].max()
 
-colz  = st.columns(2)
-col1 = colz[0]
-col2 = colz[1]
-# plotly scatterplot of FREQ% vs Percentile, sized by Percentile
-fig = px.scatter(playtypes, x = 'Percentile', y = 'Freq%', size = 'Percentile', color = playtypes.index, 
-                                                            hover_name = playtypes.index, opacity = 0.5,
-                                                            size_max = 40, width = 600, height = 600)
+# plotly scatterplot of FREQ% vs Percentile, sized by PPP (min size 10, max size 50), colored by playtype
+fig = px.scatter(playtypes, x = 'Percentile', y = 'Freq%', size = 'PPP_norm', color = playtypes.index, size_max = 50)
+                 
+
 fig.update_layout(title = 'Frequency of Playtype vs Percentile for ' + player)
-# get rid of legend
-fig.update_layout(showlegend = False)
 fig.update_layout(xaxis_title = 'Player NBA Percentile (How Good They Are At Play)', yaxis_title = 'Frequency of Playtype (How Often They Run It)')
-# make axis titles bold and larger
-fig.update_xaxes(title_font = dict(size = 16, family = 'Arial', color = 'white'))
-fig.update_yaxes(title_font = dict(size = 16, family = 'Arial', color = 'white'))
+
 
 # add annotations
 for i in range(len(playtypes)):
     fig.add_annotation(x = playtypes['Percentile'][i], y = playtypes['Freq%'][i], text = playtypes.index[i])
-col1.plotly_chart(fig, use_container_width = True)
+
+st.plotly_chart(fig, use_container_width = True)
+
 
 # add playtype breakdwon donut chart with Freq%
 fig = go.Figure(data = [go.Pie(labels = playtypes.index, values = playtypes['Freq%'], hole = 0.5)])
 fig.update_layout(title = 'Playtype Breakdown for ' + player)
-col2.plotly_chart(fig, use_container_width = True)
+st.plotly_chart(fig, use_container_width = True)
