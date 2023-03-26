@@ -31,6 +31,12 @@ def clean_name(n):
     # Convert to lowercase
     name = name.lower()
 
+    # if 'ii' or 'iii' in name, remove it
+    if ' ii' in name:
+        name = name.replace(' ii', '')
+    if ' iii' in name:
+        name = name.replace(' iii', '')
+
     # Remove international characters
     name = unidecode.unidecode(name)
 

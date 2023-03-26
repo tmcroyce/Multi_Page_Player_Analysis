@@ -24,8 +24,48 @@ import sklearn as sk
 from sklearn.metrics import r2_score
 from sklearn.cluster import KMeans
 import plotly.figure_factory as ff
+import unidecode
+import re
+import base64
 
 st.set_page_config(page_title='Player Shooting Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
+
+
+def clean_name(n):
+    # Remove any extra spaces
+    name = n
+    name = " ".join(name.split())
+
+    # Convert to lowercase
+    name = name.lower()
+
+    # if 'ii' or 'iii' in name, remove it
+    if ' ii' in name:
+        name = name.replace(' ii', '')
+    if ' iii' in name:
+        name = name.replace(' iii', '')
+
+    # Remove international characters
+    name = unidecode.unidecode(name)
+
+    # Remove periods
+    name = name.replace(".", "")
+
+    # Remove 'jr' or 'sr' from the name
+    name_parts = name.split()
+    name_parts = [part for part in name_parts if part not in ['jr', 'sr']]
+    name = " ".join(name_parts)
+
+    # Capitalize each part of the name
+    name = name.title()
+
+    # Special case: names like "McGregor"
+    name_parts = re.split(' |-', name)
+    name_parts = [part[:2] + part[2:].capitalize() if part.startswith("Mc") else part for part in name_parts]
+    name = " ".join(name_parts)
+
+    return name
+
 
 # get current time in pst
 pst = datetime.timezone(datetime.timedelta(hours=-8))
@@ -38,13 +78,17 @@ today = pst.strftime('%Y-%m-%d')
 
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
 # add capitalized player name
-player_numbers['Player'] = player_numbers['player_name'].str.title()
+player_numbers['Player'] = player_numbers['player_name'].apply(clean_name)
 
 # Load Sizes
 df_sizes = pd.read_csv('data/player/aggregates_of_aggregates/New_Sizes_and_Positions.csv')
+# fix names
+df_sizes['player'] = df_sizes['player'].apply(clean_name)
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
+# fix names
+gbg_df['trad_player'] = gbg_df['trad_player'].apply(clean_name)
 
 # Load tracking and other data
 catch_shoot = pd.read_csv('data/player/nba_com_playerdata/tracking/catch_shoot_' + today + '_.csv')
@@ -68,8 +112,6 @@ shooting_splits_5ft = pd.read_csv('data/player/nba_com_playerdata/shooting/shoot
 shooting_splits_by_zone = pd.read_csv('data/player/nba_com_playerdata/shooting/shooting_splits_by_zone_' + today + '_.csv')
 shot_dash_general = pd.read_csv('data/player/nba_com_playerdata/shooting/shot_dash_general_' + today + '_.csv')
 
-# load game by game data
-gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
 
 # select team
 teams = gbg_df['trad_team'].unique()
@@ -200,7 +242,6 @@ fig.update_layout(xaxis_title = x_title, yaxis_title = y_title)
 # Add player photo to scatter
 player_photo =st.session_state.player_photo
 
-import base64
 
 player_assist_to_ratio = player_avg['adv_ast/to'].iloc[0]
 player_adv_ast_percent = player_avg['adv_ast%'].iloc[0]
