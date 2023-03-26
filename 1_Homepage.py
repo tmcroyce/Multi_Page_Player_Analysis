@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import datetime as datetime
+import unidecode
+import re
 
 # Title
 st.title('NBA Player Analytics Toolkit')
@@ -18,14 +20,49 @@ today = pst.strftime('%Y-%m-%d')
 # Load Data
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
 
-# add capitalized player name TODO: THIS MESSES UP SOME PLAYER NAMES WITH NON-TITLE RULES
+# add capitalized player name column
 player_numbers['Player'] = player_numbers['player_name'].str.title()
+
+def clean_name(n):
+    # Remove any extra spaces
+    name = n
+    name = " ".join(name.split())
+
+    # Convert to lowercase
+    name = name.lower()
+
+    # Remove international characters
+    name = unidecode.unidecode(name)
+
+    # Remove periods
+    name = name.replace(".", "")
+
+    # Remove 'jr' or 'sr' from the name
+    name_parts = name.split()
+    name_parts = [part for part in name_parts if part not in ['jr', 'sr']]
+    name = " ".join(name_parts)
+
+    # Capitalize each part of the name
+    name = name.title()
+
+    # Special case: names like "McGregor"
+    name_parts = re.split(' |-', name)
+    name_parts = [part[:2] + part[2:].capitalize() if part.startswith("Mc") else part for part in name_parts]
+    name = " ".join(name_parts)
+
+    return name
+
+player_numbers['Player'] = player_numbers['Player'].apply(clean_name)
+
 
 # Load Sizes
 df_sizes = pd.read_csv('data/player/aggregates_of_aggregates/New_Sizes_and_Positions.csv')
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
+
+# fix fighter names
+gbg_df['trad_player'] = gbg_df['trad_player'].apply(clean_name)
 
 # select team
 teams = gbg_df['trad_team'].unique()
