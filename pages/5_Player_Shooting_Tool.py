@@ -24,8 +24,48 @@ import sklearn as sk
 from sklearn.metrics import r2_score
 from sklearn.cluster import KMeans
 import plotly.figure_factory as ff
+import unidecode
+import re
+
 
 st.set_page_config(page_title='Player Shooting Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
+
+
+# Name Cleaning Function
+def clean_name(n):
+    # Remove any extra spaces
+    name = n
+    name = " ".join(name.split())
+
+    # Convert to lowercase
+    name = name.lower()
+
+    # if 'ii' or 'iii' in name, remove it
+    if ' ii' in name:
+        name = name.replace(' ii', '')
+    if ' iii' in name:
+        name = name.replace(' iii', '')
+
+    # Remove international characters
+    name = unidecode.unidecode(name)
+
+    # Remove periods
+    name = name.replace(".", "")
+
+    # Remove 'jr' or 'sr' from the name
+    name_parts = name.split()
+    name_parts = [part for part in name_parts if part not in ['jr', 'sr']]
+    name = " ".join(name_parts)
+
+    # Capitalize each part of the name
+    name = name.title()
+
+    # Special case: names like "McGregor"
+    name_parts = re.split(' |-', name)
+    name_parts = [part[:2] + part[2:].capitalize() if part.startswith("Mc") else part for part in name_parts]
+    name = " ".join(name_parts)
+
+    return name
 
 # get current time in pst
 pst = datetime.timezone(datetime.timedelta(hours=-8))
@@ -49,6 +89,8 @@ gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
 # Load tracking and other data
 catch_shoot = pd.read_csv('data/player/nba_com_playerdata/tracking/catch_shoot_' + today + '_.csv')
 defensive_impact = pd.read_csv('data/player/nba_com_playerdata/tracking/defensive_impact_' + today + '_.csv')
+
+
 drives = pd.read_csv('data/player/nba_com_playerdata/tracking/drives_' + today + '_.csv')
 elbow_touches = pd.read_csv('data/player/nba_com_playerdata/tracking/elbow_touches_' + today + '_.csv')
 paint_touches = pd.read_csv('data/player/nba_com_playerdata/tracking/paint_touches_' + today + '_.csv')
@@ -70,6 +112,30 @@ shot_dash_general = pd.read_csv('data/player/nba_com_playerdata/shooting/shot_da
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
+
+# Fix names in loaded data
+gbg_df['trad_player'] = gbg_df['trad_player'].apply(clean_name)
+gbg_df['adv_player'] = gbg_df['adv_player'].apply(clean_name)
+catch_shoot['PLAYER'] = catch_shoot['PLAYER'].apply(clean_name)
+defensive_impact['Player'] = defensive_impact['Player'].apply(clean_name)
+drives['PLAYER'] = drives['PLAYER'].apply(clean_name)
+elbow_touches['PLAYER'] = elbow_touches['PLAYER'].apply(clean_name)
+paint_touches['PLAYER'] = paint_touches['PLAYER'].apply(clean_name)
+passing['PLAYER'] = passing['PLAYER'].apply(clean_name)
+pull_up_shooting['PLAYER'] = pull_up_shooting['PLAYER'].apply(clean_name)
+rebounding['PLAYER'] = rebounding['PLAYER'].apply(clean_name)
+speed_distance['PLAYER'] = speed_distance['PLAYER'].apply(clean_name)
+touches['Player'] = touches['Player'].apply(clean_name)
+shooting_efficiency['PLAYER'] = shooting_efficiency['PLAYER'].apply(clean_name)
+catch_shoot_shooting['PLAYER'] = catch_shoot_shooting['PLAYER'].apply(clean_name)
+opp_shooting_5ft['Player'] = opp_shooting_5ft['Player'].apply(clean_name)
+opp_shooting_by_zone['Player'] = opp_shooting_by_zone['Player'].apply(clean_name)
+pullups['PLAYER'] = pullups['PLAYER'].apply(clean_name)
+shooting_splits_5ft['Player'] = shooting_splits_5ft['Player'].apply(clean_name)
+shooting_splits_by_zone['Player'] = shooting_splits_by_zone['Player'].apply(clean_name)
+shot_dash_general['PLAYER'] = shot_dash_general['PLAYER'].apply(clean_name)
+
+
 
 # select team
 teams = gbg_df['trad_team'].unique()
@@ -799,6 +865,8 @@ st.subheader('Select a data point to plot the distribution for the position')
 
 # Add violin plot for the distribution of a chosen data point
 data_point = st.selectbox('Choose a data point to plot', position_shot_dash_general.columns[1:10])
+
+
 
 st.subheader('Distribution of ' + str(data_point) + ' for Position')
 

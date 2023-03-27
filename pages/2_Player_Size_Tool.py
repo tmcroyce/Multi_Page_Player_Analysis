@@ -27,7 +27,8 @@ import plotly.figure_factory as ff
 import plotly.graph_objs as go
 import plotly.express as px
 import base64
-
+import unidecode
+import re
 
 st.set_page_config(page_title='Player Analyzer Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
@@ -39,21 +40,59 @@ pst = datetime.datetime.now(pst)
 today = pst.strftime('%Y-%m-%d')
 
 
-# # Write session states out on sidebar
-# st.sidebar.write('Session States')
-# st.sidebar.write('Player: ' + st.session_state['player'])
-# st.sidebar.write('Player Number: ' + str(st.session_state['player_number']))
-# st.sidebar.write('Team: ' + st.session_state['team'])
-# st.sidebar.write('Team Number: ' + str(st.session_state['team_num']))
-# st.sidebar.write('Position: ' + st.session_state['position'])
-# st.sidebar.write('Position Index: ' + str(st.session_state['position_index']))
+
+# Name Cleaning Function
+def clean_name(n):
+    # Remove any extra spaces
+    name = n
+    name = " ".join(name.split())
+
+    # Convert to lowercase
+    name = name.lower()
+
+    # if 'ii' or 'iii' in name, remove it
+    if ' ii' in name:
+        name = name.replace(' ii', '')
+    if ' iii' in name:
+        name = name.replace(' iii', '')
+
+    # Remove international characters
+    name = unidecode.unidecode(name)
+
+    # Remove periods
+    name = name.replace(".", "")
+
+    # Remove 'jr' or 'sr' from the name
+    name_parts = name.split()
+    name_parts = [part for part in name_parts if part not in ['jr', 'sr']]
+    name = " ".join(name_parts)
+
+    # Capitalize each part of the name
+    name = name.title()
+
+    # Special case: names like "McGregor"
+    name_parts = re.split(' |-', name)
+    name_parts = [part[:2] + part[2:].capitalize() if part.startswith("Mc") else part for part in name_parts]
+    name = " ".join(name_parts)
+
+    return name
+
+def show_sidebar():
+     # Write session states out on sidebar
+    st.sidebar.write('Session States')
+    st.sidebar.write('Player: ' + st.session_state['player'])
+    st.sidebar.write('Player Number: ' + str(st.session_state['player_number']))
+    st.sidebar.write('Team: ' + st.session_state['team'])
+    st.sidebar.write('Team Number: ' + str(st.session_state['team_num']))
+    st.sidebar.write('Position: ' + st.session_state['position'])
+    st.sidebar.write('Position Index: ' + str(st.session_state['position_index']))
 
 
 # Load Data
 
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
 # add capitalized player name
-player_numbers['Player'] = player_numbers['player_name'].str.title()
+player_numbers['Player'] = player_numbers['player_name'].apply(clean_name)
 
 # Load Sizes
 df_sizes = pd.read_csv('data/player/aggregates_of_aggregates/New_Sizes_and_Positions.csv')
@@ -73,7 +112,6 @@ last_date = gbg_df['Date'].iloc[0]
 st.title('NBA Player Size Comparison Tool')
 
 st.write('The data for positions is pulled from BasketballReference.com and is the actual position they play on the floor, as opposed to the NBA listed position.')
-
 st.write('---')
 
 st.subheader('Player Size Data')
@@ -81,6 +119,10 @@ st.write('')
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
+
+# fix names in loaded data
+gbg_df['trad_player'] = gbg_df['trad_player'].apply(clean_name)
+df_sizes['player'] = df_sizes['player'].apply(clean_name)
 
 # select team
 teams = gbg_df['trad_team'].unique()
@@ -90,6 +132,9 @@ teams = np.sort(teams)
 
 # 2022-23 season only
 gbg_22 = gbg_df[gbg_df['adv_season'] == 2022]
+
+
+
 
 # read team number from session state
 team_number = st.session_state.team_num
@@ -118,10 +163,8 @@ player_num = int(player_num)
 
 st.session_state.player = st.sidebar.selectbox('Select Player', players_22 , index = player_num)
 
-
 player_nba_id = player_numbers[player_numbers['Player'] == player]['nba_id'].iloc[0]
 
-# st.sidebar.write('Player NBA_id: ' + str(player_nba_id))
 
 player_photo = 'data/player/photos/photos/' + str(player_nba_id) + '.png'
 # add player photo to sidebar

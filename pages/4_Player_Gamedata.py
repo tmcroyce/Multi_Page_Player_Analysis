@@ -9,7 +9,8 @@ import sklearn as sk
 from sklearn.metrics import r2_score
 from sklearn.cluster import KMeans
 import plotly.figure_factory as ff
-
+import unidecode
+import re
 
 st.set_page_config(page_title='Player Game Data Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
@@ -19,6 +20,40 @@ pst = datetime.timezone(datetime.timedelta(hours=-8))
 pst = datetime.datetime.now(pst)
 today = pst.strftime('%Y-%m-%d')
 
+def clean_name(n):
+    # Remove any extra spaces
+    name = n
+    name = " ".join(name.split())
+
+    # Convert to lowercase
+    name = name.lower()
+
+    # if 'ii' or 'iii' in name, remove it
+    if ' ii' in name:
+        name = name.replace(' ii', '')
+    if ' iii' in name:
+        name = name.replace(' iii', '')
+
+    # Remove international characters
+    name = unidecode.unidecode(name)
+
+    # Remove periods
+    name = name.replace(".", "")
+
+    # Remove 'jr' or 'sr' from the name
+    name_parts = name.split()
+    name_parts = [part for part in name_parts if part not in ['jr', 'sr']]
+    name = " ".join(name_parts)
+
+    # Capitalize each part of the name
+    name = name.title()
+
+    # Special case: names like "McGregor"
+    name_parts = re.split(' |-', name)
+    name_parts = [part[:2] + part[2:].capitalize() if part.startswith("Mc") else part for part in name_parts]
+    name = " ".join(name_parts)
+
+    return name
 
 ###### LOAD DATA -- SAME EVERY PAGE #############################################################################
 
@@ -27,13 +62,17 @@ today = pst.strftime('%Y-%m-%d')
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
 
 # add capitalized player name
-player_numbers['Player'] = player_numbers['player_name'].str.title()
+player_numbers['Player'] = player_numbers['player_name'].apply(clean_name)
 
 # Load Sizes
 df_sizes = pd.read_csv('data/player/aggregates_of_aggregates/New_Sizes_and_Positions.csv')
+# fix names
+df_sizes['player'] = df_sizes['player'].apply(clean_name)
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
+# fix names
+gbg_df['trad_player'] = gbg_df['trad_player'].apply(clean_name)
 
 # check last date
 gbg_df['Date'] = pd.to_datetime(gbg_df['trad_game date'])
@@ -49,9 +88,6 @@ st.title('NBA Player Game Data')
 st.write('---')
 
 st.write('')
-
-# load game by game data
-gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
 
 # select team
 teams = gbg_df['trad_team'].unique()

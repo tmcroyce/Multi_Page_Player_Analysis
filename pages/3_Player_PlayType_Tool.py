@@ -24,6 +24,9 @@ import sklearn as sk
 from sklearn.metrics import r2_score
 from sklearn.cluster import KMeans
 import plotly.figure_factory as ff
+import unidecode
+import re
+
 
 st.set_page_config(page_title='Player Shooting Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
@@ -34,17 +37,61 @@ pst = datetime.datetime.now(pst)
 
 today = pst.strftime('%Y-%m-%d')
 
+
+# Name Cleaning Function
+def clean_name(n):
+    # Remove any extra spaces
+    name = n
+    name = " ".join(name.split())
+
+    # Convert to lowercase
+    name = name.lower()
+
+    # if 'ii' or 'iii' in name, remove it
+    if ' ii' in name:
+        name = name.replace(' ii', '')
+    if ' iii' in name:
+        name = name.replace(' iii', '')
+
+    # Remove international characters
+    name = unidecode.unidecode(name)
+
+    # Remove periods
+    name = name.replace(".", "")
+
+    # Remove 'jr' or 'sr' from the name
+    name_parts = name.split()
+    name_parts = [part for part in name_parts if part not in ['jr', 'sr']]
+    name = " ".join(name_parts)
+
+    # Capitalize each part of the name
+    name = name.title()
+
+    # Special case: names like "McGregor"
+    name_parts = re.split(' |-', name)
+    name_parts = [part[:2] + part[2:].capitalize() if part.startswith("Mc") else part for part in name_parts]
+    name = " ".join(name_parts)
+
+    return name
+
 # Load Data
 
+
+
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
-# add capitalized player name
-player_numbers['Player'] = player_numbers['player_name'].str.title()
+
+# fix player_numbers names
+player_numbers['Player'] = player_numbers['player_name'].apply(clean_name)
 
 # Load Sizes
 df_sizes = pd.read_csv('data/player/aggregates_of_aggregates/New_Sizes_and_Positions.csv')
+# fix names
+df_sizes['player'] = df_sizes['player'].apply(clean_name)
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
+# fix names
+gbg_df['trad_player'] = gbg_df['trad_player'].apply(clean_name)
 
 # Load tracking and other data
 catch_shoot = pd.read_csv('data/player/nba_com_playerdata/tracking/catch_shoot_' + today + '_.csv')
@@ -70,6 +117,8 @@ shot_dash_general = pd.read_csv('data/player/nba_com_playerdata/shooting/shot_da
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
+# fix names
+gbg_df['trad_player'] = gbg_df['trad_player'].apply(clean_name)
 
 # select team
 teams = gbg_df['trad_team'].unique()
@@ -167,17 +216,38 @@ pt_fold = os.listdir(playtype_folder)
 if 'pt_cut_' + str(today) + '_.csv' in pt_fold:
     # read in today's data
     pt_cut = pd.read_csv(playtype_folder + 'pt_cut_' + str(today) + '_.csv')
+    pt_cut['PLAYER'] = pt_cut['PLAYER'].apply(clean_name)
+
     pt_hand_off = pd.read_csv(playtype_folder + 'pt_hand_off_' + str(today) + '_.csv')
+    pt_hand_off['PLAYER'] = pt_hand_off['PLAYER'].apply(clean_name)
+
     pt_isolation = pd.read_csv(playtype_folder + 'pt_isolation_' + str(today) + '_.csv')
+    pt_isolation['PLAYER'] = pt_isolation['PLAYER'].apply(clean_name)
+
     pt_off_screen = pd.read_csv(playtype_folder + 'pt_off_screen_' + str(today) + '_.csv')
+    pt_off_screen['PLAYER'] = pt_off_screen['PLAYER'].apply(clean_name)
+
     pt_post_up = pd.read_csv(playtype_folder + 'pt_post_up_' + str(today) + '_.csv')
+    pt_post_up['PLAYER'] = pt_post_up['PLAYER'].apply(clean_name)
+
     pt_pr_ball_handler = pd.read_csv(playtype_folder + 'pt_pr_ball_handler_' + str(today) + '_.csv')
+    pt_pr_ball_handler['PLAYER'] = pt_pr_ball_handler['PLAYER'].apply(clean_name)
+
     pt_pr_roll_man = pd.read_csv(playtype_folder + 'pt_pr_roll_man_' + str(today) + '_.csv')
+    pt_pr_roll_man['PLAYER'] = pt_pr_roll_man['PLAYER'].apply(clean_name)
+
     pt_spot_up = pd.read_csv(playtype_folder + 'pt_spot_up_' + str(today) + '_.csv')
+    pt_spot_up['PLAYER'] = pt_spot_up['PLAYER'].apply(clean_name)
+
     pt_transition = pd.read_csv(playtype_folder + 'pt_transition_' + str(today) + '_.csv')
+    pt_transition['PLAYER'] = pt_transition['PLAYER'].apply(clean_name)
+
     pt_putbacks = pd.read_csv(playtype_folder + 'pt_putbacks_' + str(today) + '_.csv')
+    pt_putbacks['PLAYER'] = pt_putbacks['PLAYER'].apply(clean_name)
+
 else:
     st.write('Todays Data Needs to be Collected')
+
 
 
 # Load available playtype data
