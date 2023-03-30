@@ -140,20 +140,6 @@ position_index = position_index_dict[position]
 
 st.session_state['position_index'] = position_index
 
-##### FINISHED SESSION STATES #####
-
-
-# Write session states out on sidebar
-# st.sidebar.write('Session States!')
-# st.sidebar.write('')
-# st.sidebar.write('Player: ' + st.session_state['player'])
-# st.sidebar.write('Player Number: ' + str(st.session_state['player_number']))
-# st.sidebar.write('Team: ' + st.session_state['team'])
-# st.sidebar.write('Team Number: ' + str(st.session_state['team_num']))
-# st.sidebar.write('Position: ' + st.session_state['position'])
-# st.sidebar.write('Position Index: ' + str(st.session_state['position_index']))
-
-
 
 st.write('''
 
