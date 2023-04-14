@@ -31,6 +31,8 @@ import re
 st.set_page_config(page_title='Player Shooting Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
 
+
+
 # Name Cleaning Function
 def clean_name(n):
     # Remove any extra spaces
@@ -72,9 +74,20 @@ pst = datetime.timezone(datetime.timedelta(hours=-8))
 # to datetime
 pst = datetime.datetime.now(pst)
 
-today = pst.strftime('%Y-%m-%d')
+#today = pst.strftime('%Y-%m-%d')
 
-# Load Data
+files_in_dir = os.listdir('C:\\Users\\Travis\\OneDrive\\Data Science\\Personal_Projects\\Sports\\Multi_Page_Player_Analysis\\data\\player\\nba_com_playerdata\\tracking\\')
+files_in_dir = [file for file in files_in_dir if file.endswith('.csv')]
+# only keep last 14 digits
+files_in_dir = [file[-15:] for file in files_in_dir]
+# drop last 5 digits
+files_in_dir = [file[:-5] for file in files_in_dir]
+files_in_dir
+# sort by most recent date
+files_in_dir.sort()
+# get the LAST file name
+today = files_in_dir[-1]
+
 
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
 # add capitalized player name
