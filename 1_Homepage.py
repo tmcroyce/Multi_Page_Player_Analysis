@@ -21,6 +21,8 @@ st.markdown("""
     ">NBA Player Analytics Toolkit</h1>
 """, unsafe_allow_html=True)
 
+st.write(' ')
+st.write(' ')
 
 st.markdown("""
 Welcome to the NBA Player Analytics Toolkit! 
