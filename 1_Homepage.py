@@ -25,14 +25,15 @@ title_styles = """
 # Render the title with custom CSS styles
 st.markdown(f"""
     {title_styles}
-    <div class="title">NBA Player Analytics Toolkit</div>
+    NBA Player Analytics Toolkit
 """, unsafe_allow_html=True)
+
 
 st.markdown("""
 
 
-Welcome to the NBA Player Analytics Toolkit! Use this interactive tool to
-analyze and evaluate NBA players. Start by selecting a team, player, and
+Welcome to the NBA Player Analytics Toolkit! /n
+Use this interactive tool to analyze and evaluate NBA players. Start by selecting a team, player, and
 position.
 """, unsafe_allow_html=True)
 
