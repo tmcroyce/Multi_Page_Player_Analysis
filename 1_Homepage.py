@@ -6,8 +6,30 @@ import unidecode
 import re
 
 # Main Title and Introduction
+# Custom CSS styles for the title
+title_styles = """
+<style>
+    .title {
+        font-family: Arial, sans-serif;
+        font-size: 48px;
+        font-weight: bold;
+        color: #4a4a4a;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(to right, #9be15d, #00e3ae);
+        border-radius: 10px;
+    }
+</style>
+"""
+
+# Render the title with custom CSS styles
+st.markdown(f"""
+    {title_styles}
+    <div class="title">NBA Player Analytics Toolkit</div>
+""", unsafe_allow_html=True)
+
 st.markdown("""
-# NBA Player Analytics Toolkit
+
 
 Welcome to the NBA Player Analytics Toolkit! Use this interactive tool to
 analyze and evaluate NBA players. Start by selecting a team, player, and
@@ -173,6 +195,11 @@ st.write('''
 st.subheader('Select from the left menu to move through the tools')
 
 
+st.write('')
+st.write('')
+st.write('---')
+st.write('')
+st.write('')
 st.write('')
 st.write('')
 # Use markdown for the footer and contact information
