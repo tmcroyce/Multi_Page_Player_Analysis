@@ -204,7 +204,7 @@ st.write('')
 st.write('')
 st.write('')
 # Use markdown for the footer and contact information
-st.markdown("""
+st.sidebar.markdown("""
 ## Contact Information
 
 If you have any questions or feedback, feel free to reach out:
