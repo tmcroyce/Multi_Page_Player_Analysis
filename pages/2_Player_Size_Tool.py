@@ -37,9 +37,9 @@ pst = datetime.timezone(datetime.timedelta(hours=-8))
 # to datetime
 pst = datetime.datetime.now(pst)
 
-st.write(f"Current working directory: {os.getcwd()}")
-# list files in current directory
-st.write(f"Files in current directory: {os.listdir()}")
+# st.write(f"Current working directory: {os.getcwd()}")
+# # list files in current directory
+# st.write(f"Files in current directory: {os.listdir()}")
 
 # get files in folder: data\\player\\nba_com_playerdata\\tracking
 

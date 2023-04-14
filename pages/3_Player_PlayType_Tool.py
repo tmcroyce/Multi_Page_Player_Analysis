@@ -37,7 +37,7 @@ pst = datetime.datetime.now(pst)
 
 #today = pst.strftime('%Y-%m-%d')
 
-files_in_dir = os.listdir('C:\\Users\\Travis\\OneDrive\\Data Science\\Personal_Projects\\Sports\\Multi_Page_Player_Analysis\\data\\player\\nba_com_playerdata\\tracking\\')
+files_in_dir = os.listdir('data/player/nba_com_playerdata/tracking')
 files_in_dir = [file for file in files_in_dir if file.endswith('.csv')]
 # only keep last 14 digits
 files_in_dir = [file[-15:] for file in files_in_dir]
