@@ -182,8 +182,13 @@ st.write('''
 ''')
 
 st.subheader('Select from the left menu to move through the tools')
+# make centered text
+st.markdown(''' <style> .centered {text-align: center;}</style> ''', unsafe_allow_html=True)
 
-
+st.write('')
+st.write('')
+st.write('')
+st.write('')
 st.write('')
 st.write('')
 st.write('')
