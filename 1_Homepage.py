@@ -5,9 +5,14 @@ import datetime as datetime
 import unidecode
 import re
 
-# Title
-st.title('NBA Player Analytics Toolkit')
-st.write('Please select a team, player, and position to get started!')
+# Main Title and Introduction
+st.markdown("""
+# NBA Player Analytics Toolkit
+
+Welcome to the NBA Player Analytics Toolkit! Use this interactive tool to
+analyze and evaluate NBA players. Start by selecting a team, player, and
+position.
+""", unsafe_allow_html=True)
 
 
 # get current time in pst
@@ -78,22 +83,44 @@ teams = np.sort(teams)
 
 cols = st.columns(2)
 
-# select team
-st.subheader('Select a Team')
-team = st.selectbox('', teams, index = 24)
+
+
+# Use columns to organize input fields
+col1, col2, col3 = st.columns(3)
+
+# Select team
+with col1:
+    st.subheader('Select a Team')
+    team = st.selectbox('', teams, index = 24, key='team_select')
 
 # select player
 gbg_22 = gbg_df[gbg_df['adv_season'] == 2022]
-
 players_22 = gbg_22[gbg_22['trad_team'] == team]['trad_player'].unique()
-
 # sort players
 players_22 = np.sort(players_22)
 
-st.subheader('Select a Player')
 
-#create select box for player
-player = st.selectbox('', players_22, index = 3)
+# Select player
+with col2:
+    # ...
+    st.subheader('Select a Player')
+    player = st.selectbox('', players_22, index = 3, key='player_select')
+
+# select position
+position_options = ['PG', 'SG', 'SF', 'PF', 'C']
+
+# Select position
+with col3:
+    st.subheader('Select a Position')
+    position = st.selectbox('Select Position to evaluate the player at', position_options, key='position_select')
+
+
+# # select team
+# st.subheader('Select a Team')
+# #team = st.selectbox('', teams, index = 24)
+
+# #create select box for player
+# player = st.selectbox('', players_22, index = 3)
 
 
 #### Assign Session States ####
@@ -123,13 +150,11 @@ st.session_state['player_photo'] = player_photo
 # add player photo
 st.image(player_photo, width = 300)
 
-# select position
-position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 
-st.subheader('Select a Position')
+# st.subheader('Select a Position')
 
-# 
-position = st.selectbox('Select Position to evaluate the player at', position_options)
+# # 
+# position = st.selectbox('Select Position to evaluate the player at', position_options)
 
 # Assign Session States
 st.session_state['position'] = position
@@ -150,8 +175,15 @@ st.subheader('Select from the left menu to move through the tools')
 
 st.write('')
 st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('Contact: [LinkedIn](https://www.linkedin.com/in/travis-royce/) | [GitHub](https://github.com/tmcroyce) | traviscroyce@gmail.com')
+# Use markdown for the footer and contact information
+st.markdown("""
+## Contact Information
 
+If you have any questions or feedback, feel free to reach out:
+
+- [LinkedIn](https://www.linkedin.com/in/travis-royce/)
+- [GitHub](https://github.com/tmcroyce)
+- Email: traviscroyce@gmail.com
+
+Thanks for using the NBA Player Analytics Toolkit!
+""", unsafe_allow_html=True)
