@@ -44,7 +44,7 @@ st.write(f"Current working directory: {os.getcwd()}")
 
 #today = pst.strftime('%Y-%m-%d')
 
-files_in_dir = os.listdir('data\\player\\nba_com_playerdata\\tracking')
+files_in_dir = os.listdir('app/multi_page_player_analysis/data/player/nba_com_playerdata/tracking')
 files_in_dir = [file for file in files_in_dir if file.endswith('.csv')]
 # only keep last 14 digits
 files_in_dir = [file[-15:] for file in files_in_dir]
