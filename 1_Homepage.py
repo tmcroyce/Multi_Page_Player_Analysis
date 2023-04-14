@@ -161,8 +161,12 @@ player_photo = 'data/player/photos/photos/' + str(player_nba_id) + '.png'
 #set
 st.session_state['player_photo'] = player_photo
 
+# add selected player name
+st.sidebar.subheader('Selected Player')
+st.sidebar.write(player)
+
 # add player photo
-st.image(player_photo, width = 300)
+st.sidebar.image(player_photo, width = 300)
 
 
 # st.subheader('Select a Position')
