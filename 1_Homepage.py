@@ -16,19 +16,17 @@ st.markdown("""
         color: #ffffff;
         text-align: center;
         padding: 20px;
-        background: linear-gradient(to right, #2c3333, #00e3ae);
+        background: linear-gradient(to right, #2c3333, #0e1117);
         border-radius: 10px;
     ">NBA Player Analytics Toolkit</h1>
 """, unsafe_allow_html=True)
 
 
 st.markdown("""
-
-
-Welcome to the NBA Player Analytics Toolkit! /n
-Use this interactive tool to analyze and evaluate NBA players. Start by selecting a team, player, and
-position.
+Welcome to the NBA Player Analytics Toolkit! 
 """, unsafe_allow_html=True)
+
+st.write('Use this interactive tool to analyze and evaluate NBA players. Start by selecting a team, player, and position.')
 
 
 # get current time in pst
