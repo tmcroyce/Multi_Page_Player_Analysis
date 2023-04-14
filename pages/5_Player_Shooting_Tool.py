@@ -82,7 +82,7 @@ files_in_dir = [file for file in files_in_dir if file.endswith('.csv')]
 files_in_dir = [file[-15:] for file in files_in_dir]
 # drop last 5 digits
 files_in_dir = [file[:-5] for file in files_in_dir]
-files_in_dir
+
 # sort by most recent date
 files_in_dir.sort()
 # get the LAST file name
