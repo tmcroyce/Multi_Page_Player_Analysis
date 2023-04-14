@@ -35,7 +35,19 @@ pst = datetime.timezone(datetime.timedelta(hours=-8))
 # to datetime
 pst = datetime.datetime.now(pst)
 
-today = pst.strftime('%Y-%m-%d')
+#today = pst.strftime('%Y-%m-%d')
+
+files_in_dir = os.listdir('C:\\Users\\Travis\\OneDrive\\Data Science\\Personal_Projects\\Sports\\Multi_Page_Player_Analysis\\data\\player\\nba_com_playerdata\\tracking\\')
+files_in_dir = [file for file in files_in_dir if file.endswith('.csv')]
+# only keep last 14 digits
+files_in_dir = [file[-15:] for file in files_in_dir]
+# drop last 5 digits
+files_in_dir = [file[:-5] for file in files_in_dir]
+files_in_dir
+# sort by most recent date
+files_in_dir.sort()
+# get the LAST file name
+today = files_in_dir[-1]
 
 
 # Name Cleaning Function
