@@ -153,8 +153,6 @@ teams = np.sort(teams)
 gbg_22 = gbg_df[gbg_df['adv_season'] == 2022]
 
 
-
-
 # read team number from session state
 team_number = st.session_state.team_num
 
