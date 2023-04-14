@@ -16,7 +16,7 @@ st.markdown("""
         color: #4a4a4a;
         text-align: center;
         padding: 20px;
-        background: linear-gradient(to right, #9be15d, #00e3ae);
+        background: linear-gradient(to right, #2c3333, #00e3ae);
         border-radius: 10px;
     ">NBA Player Analytics Toolkit</h1>
 """, unsafe_allow_html=True)
