@@ -7,9 +7,9 @@ import re
 
 # Main Title and Introduction
 # Custom CSS styles for the title
-title_styles = """
-<style>
-    .title {
+# Render the title with inline CSS styles
+st.markdown("""
+    <h1 style="
         font-family: Arial, sans-serif;
         font-size: 48px;
         font-weight: bold;
@@ -18,14 +18,7 @@ title_styles = """
         padding: 20px;
         background: linear-gradient(to right, #9be15d, #00e3ae);
         border-radius: 10px;
-    }
-</style>
-"""
-
-# Render the title with custom CSS styles
-st.markdown(f"""
-    {title_styles}
-    NBA Player Analytics Toolkit
+    ">NBA Player Analytics Toolkit</h1>
 """, unsafe_allow_html=True)
 
 
