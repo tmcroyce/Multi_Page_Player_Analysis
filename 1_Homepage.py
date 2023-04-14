@@ -100,12 +100,13 @@ cols = st.columns(2)
 
 
 # Use columns to organize input fields
-col1, col2, col3 = st.columns(3)
+# Define a 7-column layout
+col1, col2, col3, col4, col5, col6, col7 = st.columns([.1, .2, .05, .2, .05, .2, .1])
 
 # Select team
-with col1:
+with col2:
     st.subheader('Select a Team')
-    team = st.selectbox('', teams, index = 24, key='team_select')
+    team = st.selectbox('', teams, index=24, key='team_select')
 
 # select player
 gbg_22 = gbg_df[gbg_df['adv_season'] == 2022]
@@ -113,28 +114,20 @@ players_22 = gbg_22[gbg_22['trad_team'] == team]['trad_player'].unique()
 # sort players
 players_22 = np.sort(players_22)
 
-
 # Select player
-with col2:
-    # ...
+with col4:
     st.subheader('Select a Player')
-    player = st.selectbox('', players_22, index = 3, key='player_select')
+    player = st.selectbox('', players_22, index=3, key='player_select')
 
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 
 # Select position
-with col3:
+with col6:
     st.subheader('Select a Position')
     position = st.selectbox('Select Position to evaluate the player at', position_options, key='position_select')
 
 
-# # select team
-# st.subheader('Select a Team')
-# #team = st.selectbox('', teams, index = 24)
-
-# #create select box for player
-# player = st.selectbox('', players_22, index = 3)
 
 
 #### Assign Session States ####
@@ -170,8 +163,6 @@ st.sidebar.image(player_photo, width = 300)
 
 
 # st.subheader('Select a Position')
-
-# # 
 # position = st.selectbox('Select Position to evaluate the player at', position_options)
 
 # Assign Session States
