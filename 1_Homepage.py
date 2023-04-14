@@ -13,7 +13,7 @@ st.markdown("""
         font-family: Arial, sans-serif;
         font-size: 48px;
         font-weight: bold;
-        color: #4a4a4a;
+        color: #ffffff;
         text-align: center;
         padding: 20px;
         background: linear-gradient(to right, #2c3333, #00e3ae);
