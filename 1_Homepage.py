@@ -93,7 +93,7 @@ players_22 = np.sort(players_22)
 st.subheader('Select a Player')
 
 #create select box for player
-player = st.selectbox('', players_22, index = 2)
+player = st.selectbox('', players_22, index = 3)
 
 
 #### Assign Session States ####
