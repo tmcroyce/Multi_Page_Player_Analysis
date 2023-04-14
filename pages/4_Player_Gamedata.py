@@ -11,6 +11,7 @@ from sklearn.cluster import KMeans
 import plotly.figure_factory as ff
 import unidecode
 import re
+import os
 
 st.set_page_config(page_title='Player Game Data Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
