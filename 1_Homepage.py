@@ -179,12 +179,14 @@ st.session_state['position_index'] = position_index
 
 st.write('''
 
+
+
 ''')
 
 
 st.markdown("""
     <div style="text-align: center;">
-        <h2>Then, select from the left menu to move through the tools</h2>
+        <h2>...Then, select from the left menu to move through the tools</h2>
     </div>
 """, unsafe_allow_html=True)
 
