@@ -320,7 +320,7 @@ st.subheader('Player Game Data Plots, Home vs Away')
 # add optional filter for season
 season_filter = st.multiselect('Select seasons to filter data by:', player_gbg['adv_season'].unique(), default = player_gbg['adv_season'].unique())
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4, col5 = st.columns([.3, .0333, .3, .0333, .3])
 # plot distributions of adv_ts%, 3p%, ppm with plotly
 
 # plot distplot for adv_ts%
@@ -357,7 +357,7 @@ fig.data[1].update(opacity=0.2)
 fig.update_layout(title = '3P% Distribution for ' + player)
 fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
                     paper_bgcolor='rgba(0, 0, 0, 0)')
-col2.plotly_chart(fig, use_container_width = True)
+col3.plotly_chart(fig, use_container_width = True)
 
 
 # fig = px.histogram(player_gbg, x = '3p%', color = 'Home', marginal = 'box', nbins = 20, opacity = 0.3, color_discrete_map={'0': 'darkblue', '1': 'blue'})
@@ -374,7 +374,7 @@ fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot backgroun
 fig.data[0].update(opacity=0.2)
 fig.data[1].update(opacity=0.2)
 fig.update_layout(title = 'Points Per Minute Distribution for ' + player)
-col3.plotly_chart(fig, use_container_width = True)
+col5.plotly_chart(fig, use_container_width = True)
 
 
 # fig = px.histogram(player_gbg, x = 'ppm', color = 'Home', marginal = 'box', nbins = 20, opacity = 0.3, color_discrete_map={'0': 'darkblue', '1': 'blue'})
