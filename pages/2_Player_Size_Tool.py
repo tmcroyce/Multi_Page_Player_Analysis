@@ -290,7 +290,10 @@ def color_def():
 def plot_height_percentile():
     # plot small bar chart for height percentile with plotly. Color is red if below median, green if above median
     fig = go.Figure(go.Bar(x = [player_height_percentile], y = ['Height Percentile'], orientation = 'h', marker_color = color_def()))
-    fig.update_layout(title = position + ' Height Percentile', width = 400, height = 200)
+    fig.update_layout(title = position + ' Height Percentile', width = 400, height = 200,
+                    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)')
+    
     # show the whole bar chart
     # get rid of y axis
     fig.update_yaxes(showticklabels = False)
@@ -318,7 +321,9 @@ def plot_wingspan_percentile():
 
     # plot small bar chart for wingspan percentile with plotly. Color is red if below median, green if above median
     fig = go.Figure(go.Bar(x = [player_wingspan_percentile], y = ['Wingspan Percentile'], orientation = 'h', marker_color = color_def()))
-    fig.update_layout(title = position + ' Wingspan Percentile ', width = 400, height = 200)
+    fig.update_layout(title = position + ' Wingspan Percentile ', width = 400, height = 200,
+                        plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
     # show the whole bar chart
     # add x-axis ticks
     fig.update_xaxes(range = [0, 100])
@@ -348,7 +353,9 @@ def plot_wing_height_rate():
 
     # plot small bar chart for wingspan / height ratio percentile with plotly. Color is red if below median, green if above median
     fig = go.Figure(go.Bar(x = [player_wingspan_height_ratio_percentile], y = ['Wingspan / Height Ratio Percentile'], orientation = 'h', marker_color = color_def()))
-    fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', width = 400, height = 200)
+    fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', width = 400, height = 200,
+                        plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
     # show the whole bar chart
     fig.update_xaxes(range = [0, 100])
 
