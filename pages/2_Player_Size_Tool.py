@@ -415,6 +415,8 @@ def plot_height_wingspan2():
 
     fig = px.scatter(positional_df_season_selected, x='height_final', y='wingspan_final', hover_name='player', color='season',
                     hover_data=['height_final', 'wingspan_final', 'player'])
+    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
     fig.update_traces(marker_size=10)
     fig.update_layout(title='Height vs Wingspan for ' + position + 's', width=800, height=800)
     fig.update_xaxes(title='Height (inches)')
