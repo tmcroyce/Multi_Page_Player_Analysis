@@ -102,7 +102,7 @@ st.markdown(custom_css7, unsafe_allow_html=True)
 layout = go.Layout(
     plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
     paper_bgcolor='rgba(0, 0, 0, 0)',  # Transparent overall figure background,
-    margin=dict(l=50, r=50, t=0, b=0),  # Margins around the plot
+    margin=dict(l=100, r=100, t=0, b=0),  # Margins around the plot
     showlegend=False  # Optionally hide the legend
 )
 
