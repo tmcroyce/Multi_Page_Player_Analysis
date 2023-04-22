@@ -74,6 +74,19 @@ pst = datetime.datetime.now(pst)
 
 #today = pst.strftime('%Y-%m-%d')
 
+custom_css = """
+<style>
+[data-testid="stAppViewContainer"] {
+background: linear-gradient(to right, #2c3333, #0e1117);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_css, unsafe_allow_html=True)
+
+
+
 files_in_dir = os.listdir('data/player/nba_com_playerdata/tracking')
 files_in_dir = [file for file in files_in_dir if file.endswith('.csv')]
 # only keep last 14 digits
