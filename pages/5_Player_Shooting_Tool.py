@@ -911,12 +911,17 @@ for col in sdg_numcols:
 
 # plot position FGA vs EFG% with plotly
 filt_position_shot_dash_general = position_shot_dash_general[position_shot_dash_general['FGA'] > 1]
-fig = px.scatter(filt_position_shot_dash_general, x = 'FGA', y = 'EFG%', 
-                 hover_name = 'PLAYER', color_discrete_sequence = px.colors.qualitative.Dark24,
-                 height= 800, width = 800)
-fig.update_layout(title = 'Field Goal Attempts vs Effective Field Goal % for Position ')
-# make plot bigger
-fig.update_traces(marker = dict(size = 10))
+fig = px.scatter(filt_position_shot_dash_general, x='FGA', y='EFG%', 
+                 hover_name='PLAYER', color_discrete_sequence=px.colors.qualitative.Dark24,
+                 height=800, width=800)
+# Update the layout to have a transparent background and a title
+fig.update_layout(
+    title='Field Goal Attempts vs Effective Field Goal % for Position',
+    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+    paper_bgcolor='rgba(0, 0, 0, 0)'   # Transparent overall figure background
+)
+# Make the plot markers bigger
+fig.update_traces(marker=dict(size=10))
 
 # add average for x and y
 x_avg = position_shot_dash_general_comp['FGA'].mean()
@@ -928,14 +933,14 @@ player_photo =st.session_state.player_photo
 with open(player_photo, "rb") as f:
     encoded_image = base64.b64encode(f.read()).decode("ascii")
 
-# add player photo to the plot
+# Add the player photo to the plot
 fig.add_layout_image(
     dict(
         source='data:image/png;base64,{}'.format(encoded_image),
         yref="y",
-        xref = "x",
+        xref="x",
         y=position_shot_dash_general_comp['EFG%'].values[0],
-        x = position_shot_dash_general_comp['FGA'].values[0],
+        x=position_shot_dash_general_comp['FGA'].values[0],
         sizex=6,  # adjust image size as needed
         sizey=6,  # adjust image size as needed
         xanchor="center",
@@ -944,7 +949,8 @@ fig.add_layout_image(
         layer="above")
 )
 
-st.plotly_chart(fig, use_container_width = True)
+# Display the plot in Streamlit with a transparent background
+st.plotly_chart(fig, use_container_width=True)
 
 
 
