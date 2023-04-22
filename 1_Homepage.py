@@ -25,8 +25,8 @@ st.markdown("""
 # Define custom CSS for the gradient background
 custom_css = """
 <style>
-body {
-    background: linear-gradient(to right, #ff6a00, #ee0979);
+[data-testid="stAppViewContainer"] {
+background: linear-gradient(to right, #2c3333, #0e1117);
 }
 </style>
 """
