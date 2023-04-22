@@ -52,16 +52,6 @@ st.markdown(custom_css, unsafe_allow_html=True)
 # Inject the custom CSS into the Streamlit app
 st.markdown(custom_css2, unsafe_allow_html=True)
 
-# custom_css3 = """
-# <style>
-# [section] {
-# background:linear-gradient(to right, #F5B663, #9E60F0);
-# }
-# </style>
-# """
-
-# st.markdown(custom_css3, unsafe_allow_html=True)
-
 custom_css33 = """
 <style>
 [class="main css-uf99v8 egzxvld5"] {
@@ -102,7 +92,7 @@ st.markdown(custom_css7, unsafe_allow_html=True)
 layout = go.Layout(
     plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
     paper_bgcolor='rgba(0, 0, 0, 0)',  # Transparent overall figure background,
-    margin=dict(l=100, r=100, t=0, b=0),  # Margins around the plot
+    margin=dict(l=150, r=150, t=0, b=0),  # Margins around the plot
     showlegend=False  # Optionally hide the legend
 )
 
