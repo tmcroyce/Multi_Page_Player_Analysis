@@ -313,101 +313,100 @@ player_gbg['adv_season'] = player_gbg['adv_season'].astype(int)
 
 
 
-def home_away():
-    # three columns
-    st.subheader('Player Game Data Plots, Home vs Away')
 
-    # add optional filter for season
-    season_filter = st.multiselect('Select seasons to filter data by:', player_gbg['adv_season'].unique(), default = player_gbg['adv_season'].unique())
+# three columns
+st.subheader('Player Game Data Plots, Home vs Away')
 
-    col1, col2, col3 = st.columns(3)
-    # plot distributions of adv_ts%, 3p%, ppm with plotly
+# add optional filter for season
+season_filter = st.multiselect('Select seasons to filter data by:', player_gbg['adv_season'].unique(), default = player_gbg['adv_season'].unique())
 
-    # plot distplot for adv_ts%
-    colors = ['slategray', 'red']
+col1, col2, col3 = st.columns(3)
+# plot distributions of adv_ts%, 3p%, ppm with plotly
 
-    fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['adv_ts%'], player_gbg[player_gbg['Home'] == 0]['adv_ts%']], ['Home', 'Away'], bin_size = 5,
-                                curve_type='normal', # override default 'kde'
-                                    colors=colors)
-    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
+# plot distplot for adv_ts%
+colors = ['slategray', 'red']
 
-    # make colors transparent
-    fig.data[0].update(opacity=0.2)
-    fig.data[1].update(opacity=0.2)
-    fig.update_layout(title = 'TS% Distribution for ' + player)
-    col1.plotly_chart(fig, use_container_width = True)
-
-
-    # fig = px.histogram(player_gbg, x = 'adv_ts%', color = 'Home', marginal='box', nbins = 20, opacity = 0.3, color_discrete_map={'0': 'darkblue', '1': 'blue'})
-    # fig.update_layout(title = 'TS% Distribution for ' + player)
-    # col1.plotly_chart(fig, use_container_width = True)
-
-    # plot distplot for 3p%
-    colors = ['slategray', 'red']
-
-    fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['3p%'], player_gbg[player_gbg['Home'] == 0]['3p%']], ['Home', 'Away'], bin_size = 5,
-                             curve_type='normal', # override default 'kde'
+fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['adv_ts%'], player_gbg[player_gbg['Home'] == 0]['adv_ts%']], ['Home', 'Away'], bin_size = 5,
+                            curve_type='normal', # override default 'kde'
                                 colors=colors)
-    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
-    # make colors transparent
-    fig.data[0].update(opacity=0.2)
-    fig.data[1].update(opacity=0.2)
-    fig.update_layout(title = '3P% Distribution for ' + player)
-    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
-    col2.plotly_chart(fig, use_container_width = True)
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)')
+
+# make colors transparent
+fig.data[0].update(opacity=0.2)
+fig.data[1].update(opacity=0.2)
+fig.update_layout(title = 'TS% Distribution for ' + player)
+col1.plotly_chart(fig, use_container_width = True)
 
 
-    # fig = px.histogram(player_gbg, x = '3p%', color = 'Home', marginal = 'box', nbins = 20, opacity = 0.3, color_discrete_map={'0': 'darkblue', '1': 'blue'})
-    # fig.update_layout(title = '3P% Distribution for ' + player)
-    # col2.plotly_chart(fig, use_container_width = True)
+# fig = px.histogram(player_gbg, x = 'adv_ts%', color = 'Home', marginal='box', nbins = 20, opacity = 0.3, color_discrete_map={'0': 'darkblue', '1': 'blue'})
+# fig.update_layout(title = 'TS% Distribution for ' + player)
+# col1.plotly_chart(fig, use_container_width = True)
 
-    # plot distplot for ppm
-    fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['ppm'], player_gbg[player_gbg['Home'] == 0]['ppm']], ['Home', 'Away'], bin_size = 0.05,
-                                curve_type='normal', # override default 'kde'
-                                    colors=colors)
-    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
-    # make colors transparent
-    fig.data[0].update(opacity=0.2)
-    fig.data[1].update(opacity=0.2)
-    fig.update_layout(title = 'Points Per Minute Distribution for ' + player)
-    col3.plotly_chart(fig, use_container_width = True)
+# plot distplot for 3p%
+colors = ['slategray', 'red']
 
-
-    # fig = px.histogram(player_gbg, x = 'ppm', color = 'Home', marginal = 'box', nbins = 20, opacity = 0.3, color_discrete_map={'0': 'darkblue', '1': 'blue'})
-    # fig.update_layout(title = 'Points Per Minute Distribution for ' + player)
-    # col3.plotly_chart(fig, use_container_width = True)
-
-    c1, c2 = st.columns(2)
-
-    # add a plotly ddistplot for player pts at home and away
-    home_pts = player_gbg[player_gbg['Home'] == 1]['pts']
-    away_pts = player_gbg[player_gbg['Home'] == 0]['pts']
-    fig = ff.create_distplot([home_pts, away_pts], ['Home', 'Away'], bin_size = 2, curve_type='normal', colors=colors)
-    fig.update_layout(title = 'Points Distribution for ' + player + ' at Home and Away*')
-    # transparent background
-    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
-    c1.plotly_chart(fig, use_container_width=True)
-
-    # add cdf plot for player pts at home and away
-    fig = px.line(x = np.sort(home_pts), y = np.arange(1, len(home_pts) + 1) / len(home_pts), title = 'CDF of Points for ' + player + ' at Home')
-    fig.add_scatter(x = np.sort(away_pts), y = np.arange(1, len(away_pts) + 1) / len(away_pts), name = 'Away')
-    fig.update_layout(title = 'CDF of Points Scored for ' + player + ' at Home and Away')
-    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
-    # color background with lower cdf value
-
-    c2.plotly_chart(fig, use_container_width=True)
-
-    st.markdown('*Note: the CDF (Cumulative Distribution Function) shows in what percentage of games they scored less than or equal to the given number of points. For example, if a player scored 20 points in 10 games, the CDF would show that they scored less than or equal to 20 points in 100% of games. If the Away line is over the Home line, the player scores more at Home.')
-    st.markdown('---')
+fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['3p%'], player_gbg[player_gbg['Home'] == 0]['3p%']], ['Home', 'Away'], bin_size = 5,
+                            curve_type='normal', # override default 'kde'
+                            colors=colors)
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)')
+# make colors transparent
+fig.data[0].update(opacity=0.2)
+fig.data[1].update(opacity=0.2)
+fig.update_layout(title = '3P% Distribution for ' + player)
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)')
+col2.plotly_chart(fig, use_container_width = True)
 
 
-home_away()
+# fig = px.histogram(player_gbg, x = '3p%', color = 'Home', marginal = 'box', nbins = 20, opacity = 0.3, color_discrete_map={'0': 'darkblue', '1': 'blue'})
+# fig.update_layout(title = '3P% Distribution for ' + player)
+# col2.plotly_chart(fig, use_container_width = True)
+
+# plot distplot for ppm
+fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['ppm'], player_gbg[player_gbg['Home'] == 0]['ppm']], ['Home', 'Away'], bin_size = 0.05,
+                            curve_type='normal', # override default 'kde'
+                                colors=colors)
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)')
+# make colors transparent
+fig.data[0].update(opacity=0.2)
+fig.data[1].update(opacity=0.2)
+fig.update_layout(title = 'Points Per Minute Distribution for ' + player)
+col3.plotly_chart(fig, use_container_width = True)
+
+
+# fig = px.histogram(player_gbg, x = 'ppm', color = 'Home', marginal = 'box', nbins = 20, opacity = 0.3, color_discrete_map={'0': 'darkblue', '1': 'blue'})
+# fig.update_layout(title = 'Points Per Minute Distribution for ' + player)
+# col3.plotly_chart(fig, use_container_width = True)
+
+c1, c2 = st.columns(2)
+
+# add a plotly ddistplot for player pts at home and away
+home_pts = player_gbg[player_gbg['Home'] == 1]['pts']
+away_pts = player_gbg[player_gbg['Home'] == 0]['pts']
+fig = ff.create_distplot([home_pts, away_pts], ['Home', 'Away'], bin_size = 2, curve_type='normal', colors=colors)
+fig.update_layout(title = 'Points Distribution for ' + player + ' at Home and Away*')
+# transparent background
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)')
+c1.plotly_chart(fig, use_container_width=True)
+
+# add cdf plot for player pts at home and away
+fig = px.line(x = np.sort(home_pts), y = np.arange(1, len(home_pts) + 1) / len(home_pts), title = 'CDF of Points for ' + player + ' at Home')
+fig.add_scatter(x = np.sort(away_pts), y = np.arange(1, len(away_pts) + 1) / len(away_pts), name = 'Away')
+fig.update_layout(title = 'CDF of Points Scored for ' + player + ' at Home and Away')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)')
+# color background with lower cdf value
+
+c2.plotly_chart(fig, use_container_width=True)
+
+st.markdown('*Note: the CDF (Cumulative Distribution Function) shows in what percentage of games they scored less than or equal to the given number of points. For example, if a player scored 20 points in 10 games, the CDF would show that they scored less than or equal to 20 points in 100% of games. If the Away line is over the Home line, the player scores more at Home.')
+
+
+
 
 # Add Last 10 Games #####################
 
