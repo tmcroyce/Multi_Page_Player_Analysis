@@ -1080,7 +1080,6 @@ data = [trace]
 # Define the layout with a custom background color
 layout = go.Layout(
     plot_bgcolor='rgba(245, 182, 99, 0.5)',  # Set the plot background color (e.g., rgba(245, 182, 99, 0.5))
-    margin=dict(t=10, b=10, l=10, r=10),  # Adjust margins around the plot
 )
 
 # Create the plot with the custom layout
@@ -1090,7 +1089,7 @@ fig = go.Figure(data=data, layout=layout)
 custom_css11 = """
 <style>
 .rounded-container {
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: hidden;
 }
 </style>
