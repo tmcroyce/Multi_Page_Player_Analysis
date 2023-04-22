@@ -450,7 +450,7 @@ col3.plotly_chart(fig, use_container_width=True)
 
 
 
-col1.table(player_shooting_efficiency2.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
+col1.table(player_shooting_efficiency2.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']), use_container_width=True)
 
 #############################################################################################################
 
@@ -557,7 +557,7 @@ def shooting_by_zone():
 
 
 player_shooting_splits_by_zone = shooting_by_zone()
-col1.table(player_shooting_splits_by_zone.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
+col1.table(player_shooting_splits_by_zone.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']), use_container_width=True)
 
 # efficiency rows by zone
 efficiency_rows_zone = [row for row in player_shooting_splits_by_zone.index if "%" in row]
@@ -714,7 +714,7 @@ def shooting_by_distance():
     return player_shooting_splits_5ft
 
 player_shooting_splits_5ft = shooting_by_distance()
-col1.table(player_shooting_splits_5ft.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
+col1.table(player_shooting_splits_5ft.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']), use_container_width=True)
 
 efficiency_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' in row]
 volume_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' not in row]
