@@ -301,88 +301,83 @@ def color_def():
         return 'green'
 
 
-def plot_height_percentile():
-    # plot small bar chart for height percentile with plotly. Color is red if below median, green if above median
-    fig = go.Figure(go.Bar(x = [player_height_percentile], y = ['Height Percentile'], orientation = 'h', marker_color = color_def()))
-    fig.update_layout(title = position + ' Height Percentile', width = 400, height = 200,
+
+# plot small bar chart for height percentile with plotly. Color is red if below median, green if above median
+fig = go.Figure(go.Bar(x = [player_height_percentile], y = ['Height Percentile'], orientation = 'h', marker_color = color_def()))
+fig.update_layout(title = position + ' Height Percentile', width = 400, height = 200,
+                plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                paper_bgcolor='rgba(0, 0, 0, 0)')
+
+# show the whole bar chart
+# get rid of y axis
+fig.update_yaxes(showticklabels = False)
+fig.update_xaxes(range = [0, 100])
+# add x-axis ticks
+fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
+# add gridlines
+fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
+# add outline to bar
+fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
+col1.plotly_chart(fig, use_container_width = True)
+
+
+
+col3.metric('Player Wingspan', str(player_wingspan) + ' inches')
+col3.write('---')
+col3.write(player + ' is in the **' + str(int(player_wingspan_percentile)) + number_post(int(player_wingspan_percentile))+'** percentile for wingspan at the ' + position + ' position.')
+
+def color_def():
+    if player_wingspan_percentile < 50:
+        return 'red'
+    else:
+        return 'green'
+
+# plot small bar chart for wingspan percentile with plotly. Color is red if below median, green if above median
+fig = go.Figure(go.Bar(x = [player_wingspan_percentile], y = ['Wingspan Percentile'], orientation = 'h', marker_color = color_def()))
+fig.update_layout(title = position + ' Wingspan Percentile ', width = 400, height = 200,
                     plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
                     paper_bgcolor='rgba(0, 0, 0, 0)')
-    
-    # show the whole bar chart
-    # get rid of y axis
-    fig.update_yaxes(showticklabels = False)
-    fig.update_xaxes(range = [0, 100])
-    # add x-axis ticks
-    fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
-    # add gridlines
-    fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
-    # add outline to bar
-    fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
-    return col1.plotly_chart(fig, use_container_width = True)
+# show the whole bar chart
+# add x-axis ticks
+fig.update_xaxes(range = [0, 100])
+fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
+# add gridlines
+fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
+# get rid of y axis
+fig.update_yaxes(showticklabels = False)
+fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
 
-plot_height_percentile()
-
-def plot_wingspan_percentile():
-    col3.metric('Player Wingspan', str(player_wingspan) + ' inches')
-    col3.write('---')
-    col3.write(player + ' is in the **' + str(int(player_wingspan_percentile)) + number_post(int(player_wingspan_percentile))+'** percentile for wingspan at the ' + position + ' position.')
-    
-    def color_def():
-        if player_wingspan_percentile < 50:
-            return 'red'
-        else:
-            return 'green'
-
-    # plot small bar chart for wingspan percentile with plotly. Color is red if below median, green if above median
-    fig = go.Figure(go.Bar(x = [player_wingspan_percentile], y = ['Wingspan Percentile'], orientation = 'h', marker_color = color_def()))
-    fig.update_layout(title = position + ' Wingspan Percentile ', width = 400, height = 200,
-                        plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
-    # show the whole bar chart
-    # add x-axis ticks
-    fig.update_xaxes(range = [0, 100])
-    fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
-    # add gridlines
-    fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
-    # get rid of y axis
-    fig.update_yaxes(showticklabels = False)
-    fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
-
-    return col3.plotly_chart(fig, use_container_width = True)
-
-plot_wingspan_percentile()
+col3.plotly_chart(fig, use_container_width = True)
 
 
-def plot_wing_height_rate():
+col5.metric('Player Wingspan / Height Ratio', str(round(player_wingspan / player_height,2)))
+col5.write('---')
+col5.write(player + ' is in the **' + str(int(player_wingspan_height_ratio_percentile)) + number_post(int(player_wingspan_height_ratio_percentile))+'** percentile for wingspan / height ratio at the ' + position + ' position.')
 
-    col5.metric('Player Wingspan / Height Ratio', str(round(player_wingspan / player_height,2)))
-    col5.write('---')
-    col5.write(player + ' is in the **' + str(int(player_wingspan_height_ratio_percentile)) + number_post(int(player_wingspan_height_ratio_percentile))+'** percentile for wingspan / height ratio at the ' + position + ' position.')
+def color_def():
+    if player_wingspan_height_ratio_percentile < 50:
+        return 'red'
+    else:
+        return 'green'
 
-    def color_def():
-        if player_wingspan_height_ratio_percentile < 50:
-            return 'red'
-        else:
-            return 'green'
+# plot small bar chart for wingspan / height ratio percentile with plotly. Color is red if below median, green if above median
+fig = go.Figure(go.Bar(x = [player_wingspan_height_ratio_percentile], y = ['Wingspan / Height Ratio Percentile'], orientation = 'h', marker_color = color_def()))
+fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', width = 400, height = 200,
+                    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)')
+# show the whole bar chart
+fig.update_xaxes(range = [0, 100])
 
-    # plot small bar chart for wingspan / height ratio percentile with plotly. Color is red if below median, green if above median
-    fig = go.Figure(go.Bar(x = [player_wingspan_height_ratio_percentile], y = ['Wingspan / Height Ratio Percentile'], orientation = 'h', marker_color = color_def()))
-    fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', width = 400, height = 200,
-                        plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
-    # show the whole bar chart
-    fig.update_xaxes(range = [0, 100])
+# add gridlines on x axis
+fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
+fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
+# get rid of y axis
+fig.update_yaxes(showticklabels = False)
+fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
 
-    # add gridlines on x axis
-    fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
-    fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
-    # get rid of y axis
-    fig.update_yaxes(showticklabels = False)
-    fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
+col5.plotly_chart(fig, use_container_width = True)
 
-    return col5.plotly_chart(fig, use_container_width = True)
 
-plot_wing_height_rate()
 
 # drop repeated players, keeping most recent by season
 positional_df = positional_df.sort_values(by = 'season', ascending = False)
