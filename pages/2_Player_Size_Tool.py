@@ -32,15 +32,18 @@ import re
 
 st.set_page_config(page_title='Player Analyzer Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
-gradient_css = """
-<style>
-    body {
-        background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
-    }
-</style>
-"""
 
-st.markdown(gradient_css, unsafe_allow_html=True)
+# Add a style block with custom CSS
+st.markdown(
+    """
+    <style>
+        body {
+            background-image: radial-gradient(circle, #ff6a00, #ee0979);
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # get current time in pst
 pst = datetime.timezone(datetime.timedelta(hours=-8))
