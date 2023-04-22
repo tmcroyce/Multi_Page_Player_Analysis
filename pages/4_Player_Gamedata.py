@@ -332,6 +332,8 @@ def home_away():
     fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['3p%'], player_gbg[player_gbg['Home'] == 0]['3p%']], ['Home', 'Away'], bin_size = 5,
                              curve_type='normal', # override default 'kde'
                                 colors=colors)
+    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
     # make colors transparent
     fig.data[0].update(opacity=0.2)
     fig.data[1].update(opacity=0.2)
@@ -347,6 +349,8 @@ def home_away():
     fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['ppm'], player_gbg[player_gbg['Home'] == 0]['ppm']], ['Home', 'Away'], bin_size = 0.05,
                                 curve_type='normal', # override default 'kde'
                                     colors=colors)
+    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
     # make colors transparent
     fig.data[0].update(opacity=0.2)
     fig.data[1].update(opacity=0.2)
