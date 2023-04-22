@@ -72,6 +72,19 @@ background:linear-gradient(to right, #F5B663, #9E60F0);
 
 st.markdown(custom_css4, unsafe_allow_html=True)
 
+custom_css5= """
+<style>
+[class="main-svg"] {
+background:linear-gradient(to right, #F5B663, #9E60F0);
+}
+</style>
+"""
+
+st.markdown(custom_css5, unsafe_allow_html=True)
+
+
+
+
 
 # Name Cleaning Function
 def clean_name(n):
