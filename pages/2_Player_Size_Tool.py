@@ -304,7 +304,7 @@ def color_def():
 
 # plot small bar chart for height percentile with plotly. Color is red if below median, green if above median
 fig = go.Figure(go.Bar(x = [player_height_percentile], y = ['Height Percentile'], orientation = 'h', marker_color = color_def()))
-fig.update_layout(title = position + ' Height Percentile', height = 100,
+fig.update_layout(title = position + ' Height Percentile', height = 200,
                 plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
                 paper_bgcolor='rgba(0, 0, 0, 0)')
 
@@ -334,7 +334,7 @@ def color_def():
 
 # plot small bar chart for wingspan percentile with plotly. Color is red if below median, green if above median
 fig = go.Figure(go.Bar(x = [player_wingspan_percentile], y = ['Wingspan Percentile'], orientation = 'h', marker_color = color_def()))
-fig.update_layout(title = position + ' Wingspan Percentile ', height = 100,
+fig.update_layout(title = position + ' Wingspan Percentile ', height = 200,
                     plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
                     paper_bgcolor='rgba(0, 0, 0, 0)')
 # show the whole bar chart
@@ -362,7 +362,7 @@ def color_def():
 
 # plot small bar chart for wingspan / height ratio percentile with plotly. Color is red if below median, green if above median
 fig = go.Figure(go.Bar(x = [player_wingspan_height_ratio_percentile], y = ['Wingspan / Height Ratio Percentile'], orientation = 'h', marker_color = color_def()))
-fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile',
+fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', height = 200,
                     plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
                     paper_bgcolor='rgba(0, 0, 0, 0)')
 # show the whole bar chart
