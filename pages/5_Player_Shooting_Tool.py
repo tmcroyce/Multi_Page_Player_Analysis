@@ -82,15 +82,15 @@ st.markdown(custom_css33, unsafe_allow_html=True)
 
 # st.markdown(custom_css4, unsafe_allow_html=True)
 
-custom_css5= """
-<style>
-[g class="bglayer"] {
-background:linear-gradient(to right, #F5B663, #9E60F0);
-}
-</style>
-"""
+# custom_css5= """
+# <style>
+# [g class="bglayer"] {
+# background:linear-gradient(to right, #F5B663, #9E60F0);
+# }
+# </style>
+# """
 
-st.markdown(custom_css5, unsafe_allow_html=True)
+# st.markdown(custom_css5, unsafe_allow_html=True)
 
 
 
