@@ -108,8 +108,7 @@ background:linear-gradient(to right, #F5B663, #9E60F0);
 st.markdown(custom_css7, unsafe_allow_html=True)
 
 layout = go.Layout(
-    plot_bgcolor='rgba(245, 182, 99, 0.5)',  # Set the plot background color (e.g., rgba(245, 182, 99, 0.5))
-    margin=dict(t=0, b=0, l=0, r=0),  # Remove margins around the plot
+    plot_bgcolor='rgba(245, 182, 322, 0.5)',  # Set the plot background color (e.g., rgba(245, 182, 99, 0.5))
 )
 
 
