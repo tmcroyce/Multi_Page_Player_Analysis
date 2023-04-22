@@ -441,11 +441,16 @@ fig = go.Figure(data = [go.Pie(labels = ['Percentile', ''], values = [player_fil
 fig.update_layout(width = 300, height = 250)
 # no legend
 fig.update_layout(showlegend = False)
+fig.update_layout(# transparent background and paper
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+)
 # do not show values
 fig.update_traces(textinfo = 'none')
 # add outline to donut
 fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
 # color red if percentile is less than 0.5, green if greater than 0.5
+
 if player_filtered_avg['adv_to ratio percentile'].values[0] < 0.5:
     fig.update_traces(marker = dict(colors = ['red', '#ffffff']))
 else:
@@ -476,6 +481,10 @@ fig.update_layout(width = 300, height = 250)
 fig.update_layout(showlegend = False)
 # do not show values
 fig.update_traces(textinfo = 'none')
+fig.update_layout(# transparent background and paper
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+)
 # add outline to donut
 fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
 # color red if percentile is less than 0.5, green if greater than 0.5
