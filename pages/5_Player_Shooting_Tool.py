@@ -62,6 +62,16 @@ background:linear-gradient(to right, #F5B663, #9E60F0);
 
 st.markdown(custom_css3, unsafe_allow_html=True)
 
+custom_css33 = """
+<style>
+[class="main css-uf99v8 egzxvld5"] {
+background:linear-gradient(to right, #F5B663, #9E60F0);
+}
+</style>
+"""
+
+st.markdown(custom_css33, unsafe_allow_html=True)
+
 custom_css4 = """
 <style>
 [data-testid="stVerticalBlock"] {
