@@ -621,7 +621,7 @@ col3.plotly_chart(fig, use_container_width = True)
 
 col1, col2, col3 = st.columns(3)
 col1.subheader('Shooting by Distance (5ft)')
-st.write('---')
+
 
 def shooting_by_distance():
 
@@ -975,8 +975,10 @@ fig = px.violin(position_shot_dash_general, y = data_point,
                 box = True, points = 'all', hover_data = ['PLAYER', data_point], 
                 width=800, height=800)
 
-fig.update_layout(title = 'Distribution of ' + str(data_point))
-
+fig.update_layout(title = 'Distribution of ' + str(data_point),
+                    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)'   # Transparent overall figure background
+)
 
 
 with open(player_photo, "rb") as f:
