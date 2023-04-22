@@ -305,7 +305,6 @@ col1, col2, col3, col4, col5 = st.columns([.3, .05, .3, .05, .3])
 
 
 col1.metric('Player Height: ', str(player_height) + ' inches',  delta_color='off')
-col1.write('---')
 col1.write(player + ' is in the **' + str(int(player_height_percentile)) + number_post(int(player_height_percentile))+'** percentile for height at the ' + position + ' position.')
 
 def color_def():
@@ -375,9 +374,10 @@ def color_def():
 
 # plot small bar chart for wingspan / height ratio percentile with plotly. Color is red if below median, green if above median
 fig = go.Figure(go.Bar(x = [player_wingspan_height_ratio_percentile], y = ['Wingspan / Height Ratio Percentile'], orientation = 'h', marker_color = color_def()))
-fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', height = 200,
-                    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                    paper_bgcolor='rgba(0, 0, 0, 0)')
+fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', 
+                  height = 200,
+                  plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                  paper_bgcolor='rgba(0, 0, 0, 0)')
 # show the whole bar chart
 fig.update_xaxes(range = [0, 100])
 
