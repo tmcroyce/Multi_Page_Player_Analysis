@@ -320,9 +320,10 @@ def color_def():
 
 # plot small bar chart for height percentile with plotly. Color is red if below median, green if above median
 fig = go.Figure(go.Bar(x = [player_height_percentile], y = ['Height Percentile'], orientation = 'h', marker_color = color_def()))
-fig.update_layout(title = position + ' Height Percentile', height = 200,
-                plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                paper_bgcolor='rgba(0, 0, 0, 0)')
+fig.update_layout(title = position + ' Height Percentile', 
+                  height = 200,
+                    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                    paper_bgcolor='rgba(0, 0, 0, 0)')
 
 # show the whole bar chart
 # get rid of y axis
