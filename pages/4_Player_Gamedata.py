@@ -41,7 +41,7 @@ st.markdown(custom_header_color, unsafe_allow_html=True)
 
 custom_metric_color = """
 <style>
-[data-testid="stMetricValue"] {
+[data-testid="metric-container"] {
 color: #ffffff;
 }
 </style>
