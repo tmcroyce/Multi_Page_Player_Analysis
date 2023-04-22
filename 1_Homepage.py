@@ -34,6 +34,17 @@ background: linear-gradient(to right, #2c3333, #0e1117);
 # Inject the custom CSS into the Streamlit app
 st.markdown(custom_css, unsafe_allow_html=True)
 
+# Define custom CSS for the gradient background
+custom_css3 = """
+<style>
+[header] {
+background: linear-gradient(to right, #2c3333, #0e1117);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_css3, unsafe_allow_html=True)
 
 
 
