@@ -84,7 +84,17 @@ st.markdown(custom_css6, unsafe_allow_html=True)
 # st.markdown(custom_css5, unsafe_allow_html=True)
 
 
+# Define custom CSS for the gradient background
+custom_header_color = """
+<style>
+[data-testid="stHeader"] {
+background: linear-gradient(to right, #2c3333, #0e1117);
+}
+</style>
+"""
 
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_header_color, unsafe_allow_html=True)
 
 
 custom_css7= """

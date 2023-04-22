@@ -26,6 +26,19 @@ background: linear-gradient(to right, #2c3333, #0e1117);
 # Inject the custom CSS into the Streamlit app
 st.markdown(custom_css, unsafe_allow_html=True)
 
+
+# Define custom CSS for the gradient background
+custom_header_color = """
+<style>
+[data-testid="stHeader"] {
+background: linear-gradient(to right, #2c3333, #0e1117);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_header_color, unsafe_allow_html=True)
+
 # get current time in pst
 pst = datetime.timezone(datetime.timedelta(hours=-8))
 # to datetime
