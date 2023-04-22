@@ -574,7 +574,7 @@ efficiency_rows_zone = [row for row in player_shooting_splits_by_zone.index if "
 volume_rows_zone = [row for row in player_shooting_splits_by_zone.index if "%" not in row]
 
 # radar chart efficiency by zone
-fig = go.Figure()
+fig = go.Figure(layout = layout)
 
 fig.add_trace(go.Scatterpolar(
         r = player_shooting_splits_by_zone.loc[efficiency_rows_zone, 'Player Percentile'],
@@ -599,7 +599,7 @@ fig.update_layout(font_size = 16)
 col2.plotly_chart(fig, use_container_width = True)
 
 # radar chart volume by zone
-fig = go.Figure()
+fig = go.Figure(layout = layout)
 
 fig.add_trace(go.Scatterpolar(
         r = player_shooting_splits_by_zone.loc[volume_rows_zone, 'Player Percentile'],
@@ -754,7 +754,7 @@ fig.update_layout(font_size = 16)
 col2.plotly_chart(fig, use_container_width=True)
 
 # volume
-fig = go.Figure()
+fig = go.Figure(layout = layout)
 
 fig.add_trace(go.Scatterpolar(
         r = player_shooting_splits_5ft.loc[volume_rows_5ft, 'Player Percentile'],
