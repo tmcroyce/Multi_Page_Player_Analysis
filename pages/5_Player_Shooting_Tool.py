@@ -105,11 +105,10 @@ background:linear-gradient(to right, #F5B663, #9E60F0);
 </style>
 """
 
+plot_bgcolor = ('rgba(245, 182, 322, 0.5)')
+
 st.markdown(custom_css7, unsafe_allow_html=True)
 
-layout = go.Layout(
-    plot_bgcolor='rgba(245, 182, 322, 0.5)',  # Set the plot background color (e.g., rgba(245, 182, 99, 0.5))
-)
 
 
 
@@ -413,14 +412,15 @@ fig.update_layout(
             visible=True,
             range=[0, 1]
         )),
-        showlegend=True
+        showlegend=True,
+        plot_bgcolor = plot_bgcolor,
 )
 # Increase text size
 fig.update_layout(font_size=16)
 
 
 
-col2.plotly_chart(fig, use_container_width=True, layout = layout)
+col2.plotly_chart(fig, use_container_width=True,)
 
 # radar chart volume rows player percentile
 col3.subheader('Volume / Scoring Metrics')
