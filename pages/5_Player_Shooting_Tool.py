@@ -38,6 +38,13 @@ background: linear-gradient(to right, #2c3333, #0e1117);
 }
 </style>
 """
+custom_css = """
+<style>
+[data-testid="plot-container plotly"] {
+background: linear-gradient(to right, #F5B663, #9E60F0);
+}
+</style>
+"""
 
 # Inject the custom CSS into the Streamlit app
 st.markdown(custom_css, unsafe_allow_html=True)
