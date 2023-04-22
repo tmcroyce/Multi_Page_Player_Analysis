@@ -183,10 +183,6 @@ last_date = gbg_df['Date'].iloc[0]
 st.title('NBA Player Size Comparison Tool')
 
 st.write('The data for positions is pulled from BasketballReference.com and is the actual position they play on the floor, as opposed to the NBA listed position.')
-st.write('---')
-
-st.subheader('Player Size Data')
-st.write('')
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
