@@ -1087,7 +1087,7 @@ layout = go.Layout(
 fig = go.Figure(data=data, layout=layout)
 
 # Define custom CSS for the rounded container
-custom_css = """
+custom_css11 = """
 <style>
 .rounded-container {
     border-radius: 10px;
@@ -1097,7 +1097,7 @@ custom_css = """
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_css, unsafe_allow_html=True)
+st.markdown(custom_css11, unsafe_allow_html=True)
 
 # Create a rounded container and display the plot inside it
 st.markdown('<div class="rounded-container">', unsafe_allow_html=True)
