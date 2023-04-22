@@ -961,11 +961,12 @@ st.subheader('Distribution of ' + str(data_point) + ' for Position')
 
 # get player data point
 player_datapoint = position_shot_dash_general_comp[data_point].values[0]
+fig = go.Figure(layout = layout)
 
-fig = px.violin(position_shot_dash_general, y = data_point,
+fig.add_trace(go.Violin(position_shot_dash_general, y = data_point,
                 color_discrete_sequence = px.colors.qualitative.Dark24, 
                 box = True, points = 'all', hover_data = ['PLAYER', data_point], 
-                width=800, height=800)
+                width=800, height=800))
 
 fig.update_layout(title = 'Distribution of ' + str(data_point))
 
