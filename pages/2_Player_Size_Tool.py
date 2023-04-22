@@ -64,6 +64,7 @@ background: linear-gradient(to right, #2c3333, #0e1117);
 """
 st.markdown(custom_metric_color, unsafe_allow_html=True)
 
+# Changes All Markdown
 custom_markdown_container = """
 <style>
 [class="stMarkdown"] {
