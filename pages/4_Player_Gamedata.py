@@ -356,6 +356,8 @@ def home_away():
     fig.data[0].update(opacity=0.2)
     fig.data[1].update(opacity=0.2)
     fig.update_layout(title = '3P% Distribution for ' + player)
+    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
     col2.plotly_chart(fig, use_container_width = True)
 
 
@@ -387,6 +389,9 @@ def home_away():
     away_pts = player_gbg[player_gbg['Home'] == 0]['pts']
     fig = ff.create_distplot([home_pts, away_pts], ['Home', 'Away'], bin_size = 2, curve_type='normal', colors=colors)
     fig.update_layout(title = 'Points Distribution for ' + player + ' at Home and Away*')
+    # transparent background
+    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
     # make colors transparent
     fig.data[0].update(opacity=0.2)
     fig.data[1].update(opacity=0.2)
