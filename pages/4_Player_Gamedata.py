@@ -51,7 +51,7 @@ st.markdown(custom_metric_color, unsafe_allow_html=True)
 custom_columns = """
 <style>
 [data-testid="column"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right, #2c3333, #1c2024);
 }
 </style>
 """
