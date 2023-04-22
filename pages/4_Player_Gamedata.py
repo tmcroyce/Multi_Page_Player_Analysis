@@ -392,9 +392,6 @@ def home_away():
     # transparent background
     fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
                         paper_bgcolor='rgba(0, 0, 0, 0)')
-    # make colors transparent
-    fig.data[0].update(opacity=0.2)
-    fig.data[1].update(opacity=0.2)
     c1.plotly_chart(fig, use_container_width=True)
 
     # add cdf plot for player pts at home and away
