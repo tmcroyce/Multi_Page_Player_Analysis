@@ -73,6 +73,18 @@ background:linear-gradient(to right,  #2c3333, #0e1117);
 
 st.markdown(custom_css6, unsafe_allow_html=True)
 
+custom_css5= """
+<style>
+[data-testid="stTable"] {
+background:linear-gradient(to right,  #2c3333, #0e1117);
+}
+</style>
+"""
+
+st.markdown(custom_css5, unsafe_allow_html=True)
+
+
+
 
 
 custom_css7= """
