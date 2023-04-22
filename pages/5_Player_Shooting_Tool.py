@@ -34,14 +34,14 @@ st.set_page_config(page_title='Player Shooting Tool', page_icon=None, layout="wi
 custom_css = """
 <style>
 [data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right,  #2c3333, #0e1117);
 }
 </style>
 """
 custom_css2 = """
 <style>
 [data-testid="column"] {
-background: linear-gradient(to right, #F5B663, #9E60F0);
+background: linear-gradient(to right,  #2c3333, #0e1117);
 }
 </style>
 """
@@ -65,39 +65,18 @@ st.markdown(custom_css2, unsafe_allow_html=True)
 custom_css33 = """
 <style>
 [class="main css-uf99v8 egzxvld5"] {
-background:linear-gradient(to right, #F5B663, #9E60F0);
+background:linear-gradient(to right,  #2c3333, #0e1117);
 }
 </style>
 """
 
 st.markdown(custom_css33, unsafe_allow_html=True)
 
-# custom_css4 = """
-# <style>
-# [data-testid="stVerticalBlock"] {
-# background:linear-gradient(to right, #F5B663, #9E60F0);
-# }
-# </style>
-# """
-
-# st.markdown(custom_css4, unsafe_allow_html=True)
-
-# custom_css5= """
-# <style>
-# [g class="bglayer"] {
-# background:linear-gradient(to right, #F5B663, #9E60F0);
-# }
-# </style>
-# """
-
-# st.markdown(custom_css5, unsafe_allow_html=True)
-
-
 
 custom_css6= """
 <style>
 [class="user-select-none svg-container"] {
-background:linear-gradient(to right, #F5B663, #9E60F0);
+background:linear-gradient(to right,  #2c3333, #0e1117);
 }
 </style>
 """
@@ -110,7 +89,7 @@ custom_css7= """
 
 <style>
 [class="class="main-svg""] {
-background:linear-gradient(to right, #F5B663, #9E60F0);
+background:linear-gradient(to right,  #2c3333, #0e1117);
 }
 </style>
 """
