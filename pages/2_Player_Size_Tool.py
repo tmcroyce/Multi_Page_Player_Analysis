@@ -282,13 +282,6 @@ player_height_percentile = norm.cdf(player_height, all_heights.mean(), all_heigh
 player_wingspan_percentile = norm.cdf(player_wingspan, all_wingspans.mean(), all_wingspans.std()) * 100
 player_wingspan_height_ratio_percentile = norm.cdf(player_wingspan / player_height, all_wingspan_height_ratios.mean(), all_wingspan_height_ratios.std()) * 100
 
-
-
-# 3 columns
-col1, col2, col3, col4, col5 = st.columns([.3, .05, .3, .05, .3])
-# display player size data
-
-
 def number_post(num):
     # get the last digit of the number
     last_digit = str(num)[-1]
@@ -304,6 +297,11 @@ def number_post(num):
     # if the last digit is 4-9, return th
     else:
         return 'th'
+
+# 3 columns
+col1, col2, col3, col4, col5 = st.columns([.3, .05, .3, .05, .3])
+# display player size data
+
 
 
 col1.metric('Player Height: ', str(player_height) + ' inches',  delta_color='off')
@@ -340,7 +338,6 @@ col1.plotly_chart(fig, use_container_width = True)
 
 
 col3.metric('Player Wingspan', str(player_wingspan) + ' inches')
-col3.write('---')
 col3.write(player + ' is in the **' + str(int(player_wingspan_percentile)) + number_post(int(player_wingspan_percentile))+'** percentile for wingspan at the ' + position + ' position.')
 
 def color_def():
@@ -368,7 +365,6 @@ col3.plotly_chart(fig, use_container_width = True)
 
 
 col5.metric('Player Wingspan / Height Ratio', str(round(player_wingspan / player_height,2)))
-col5.write('---')
 col5.write(player + ' is in the **' + str(int(player_wingspan_height_ratio_percentile)) + number_post(int(player_wingspan_height_ratio_percentile))+'** percentile for wingspan / height ratio at the ' + position + ' position.')
 
 def color_def():
