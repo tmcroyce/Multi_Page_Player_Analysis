@@ -48,6 +48,15 @@ color: #ffffff;
 """
 st.markdown(custom_metric_color, unsafe_allow_html=True)
 
+custom_columns = """
+<style>
+[data-testid="column"] {
+background: linear-gradient(to right, #2c3333, #0e1117);
+}
+</style>
+"""
+st.markdown(custom_columns, unsafe_allow_html=True)
+
 # get current time in pst
 pst = datetime.timezone(datetime.timedelta(hours=-8))
 # to datetime
