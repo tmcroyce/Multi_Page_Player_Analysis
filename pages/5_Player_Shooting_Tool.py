@@ -52,15 +52,15 @@ st.markdown(custom_css, unsafe_allow_html=True)
 # Inject the custom CSS into the Streamlit app
 st.markdown(custom_css2, unsafe_allow_html=True)
 
-custom_css3 = """
-<style>
-[section] {
-background:linear-gradient(to right, #F5B663, #9E60F0);
-}
-</style>
-"""
+# custom_css3 = """
+# <style>
+# [section] {
+# background:linear-gradient(to right, #F5B663, #9E60F0);
+# }
+# </style>
+# """
 
-st.markdown(custom_css3, unsafe_allow_html=True)
+# st.markdown(custom_css3, unsafe_allow_html=True)
 
 custom_css33 = """
 <style>
