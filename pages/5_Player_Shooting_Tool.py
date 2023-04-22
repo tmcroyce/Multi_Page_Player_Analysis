@@ -54,7 +54,7 @@ st.markdown(custom_css2, unsafe_allow_html=True)
 
 custom_css3 = """
 <style>
-[class="stPlotlyChart js-plotly-plot"] {
+[class="plot-container plotly"] {
 background:linear-gradient(to right, #F5B663, #9E60F0);
 }
 </style>
