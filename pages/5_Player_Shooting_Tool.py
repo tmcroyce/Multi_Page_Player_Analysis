@@ -54,7 +54,7 @@ st.markdown(custom_css2, unsafe_allow_html=True)
 
 custom_css3 = """
 <style>
-[class="plot-container plotly"] {
+[section] {
 background:linear-gradient(to right, #F5B663, #9E60F0);
 }
 </style>
@@ -729,7 +729,7 @@ efficiency_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' in
 volume_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' not in row]
 
 # plot radar chart
-fig = go.Figure()
+fig = go.Figure(layout = layout)
 
 fig.add_trace(go.Scatterpolar(
         r = player_shooting_splits_5ft.loc[efficiency_rows_5ft, 'Player Percentile'],
@@ -1080,32 +1080,3 @@ player_gbg.columns = new_col_names
 # fig.add_annotation(x = player_gbg['min'].max(), y = player_gbg['pts'].max(), text = 'R Squared: ' + str(round(r_squared, 2)), showarrow = False)
 # col2.plotly_chart(fig, use_container_width = True)
 
-# Create a sample plot
-trace = go.Scatter(x=[1, 2, 3], y=[4, 5, 6])
-data = [trace]
-
-# Define the layout with a custom background color
-layout = go.Layout(
-    plot_bgcolor='rgba(245, 182, 99, 0.5)',  # Set the plot background color (e.g., rgba(245, 182, 99, 0.5))
-)
-
-# Create the plot with the custom layout
-fig = go.Figure(data=data, layout=layout)
-
-# Define custom CSS for the rounded container
-custom_css11 = """
-<style>
-.rounded-container {
-    border-radius: 20px;
-    overflow: hidden;
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_css11, unsafe_allow_html=True)
-
-# Create a rounded container and display the plot inside it
-st.markdown('<div class="rounded-container">', unsafe_allow_html=True)
-st.plotly_chart(fig)
-st.markdown('</div>', unsafe_allow_html=True)
