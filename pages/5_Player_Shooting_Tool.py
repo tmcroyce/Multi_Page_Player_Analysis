@@ -1073,34 +1073,33 @@ player_gbg.columns = new_col_names
 # fig.add_annotation(x = player_gbg['min'].max(), y = player_gbg['pts'].max(), text = 'R Squared: ' + str(round(r_squared, 2)), showarrow = False)
 # col2.plotly_chart(fig, use_container_width = True)
 
-
 # Create a sample plot
 trace = go.Scatter(x=[1, 2, 3], y=[4, 5, 6])
 data = [trace]
 
-# Define the layout with a custom background color and a rounded rectangle shape
+# Define the layout with a custom background color
 layout = go.Layout(
     plot_bgcolor='rgba(245, 182, 99, 0.5)',  # Set the plot background color (e.g., rgba(245, 182, 99, 0.5))
     margin=dict(t=10, b=10, l=10, r=10),  # Adjust margins around the plot
-    shapes=[
-        # Define a rectangle shape with rounded corners
-        go.layout.Shape(
-            type='rect',
-            x0=0, x1=1, y0=0, y1=1,
-            yref='paper', xref='paper',
-            fillcolor='rgba(245, 182, 99, 0.5)',
-            line=dict(color='rgba(245, 182, 99, 0.5)'),
-            layer='below',
-            opacity=1,
-            xanchor='left', yanchor='bottom',
-            xsizemode='scaled', ysizemode='scaled',
-            corner=dict(radius=10)
-        )
-    ]
 )
 
 # Create the plot with the custom layout
 fig = go.Figure(data=data, layout=layout)
 
-# Display the plot in the Streamlit app
+# Define custom CSS for the rounded container
+custom_css = """
+<style>
+.rounded-container {
+    border-radius: 10px;
+    overflow: hidden;
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_css, unsafe_allow_html=True)
+
+# Create a rounded container and display the plot inside it
+st.markdown('<div class="rounded-container">', unsafe_allow_html=True)
 st.plotly_chart(fig)
+st.markdown('</div>', unsafe_allow_html=True)
