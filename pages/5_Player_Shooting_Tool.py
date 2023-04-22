@@ -96,6 +96,17 @@ st.markdown(custom_css6, unsafe_allow_html=True)
 
 
 
+custom_css7= """
+
+<style>
+[class="class="main-svg""] {
+background:linear-gradient(to right, #F5B663, #9E60F0);
+}
+</style>
+"""
+
+st.markdown(custom_css7, unsafe_allow_html=True)
+
 
 
 # Name Cleaning Function
