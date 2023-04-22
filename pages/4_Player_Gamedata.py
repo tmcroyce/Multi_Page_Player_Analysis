@@ -42,7 +42,7 @@ st.markdown(custom_header_color, unsafe_allow_html=True)
 custom_metric_color = """
 <style>
 [data-testid="metric-container"] {
-color: #ffffff;
+background: linear-gradient(to right, #2c3333, #0e1117);
 }
 </style>
 """
