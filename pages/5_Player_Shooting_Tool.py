@@ -446,7 +446,7 @@ fig.update_layout(
 # Increase text size
 fig.update_layout(font_size=16)
 
-col3.plotly_chart(fig, use_container_width=True, layout = layout)
+col3.plotly_chart(fig, use_container_width=True)
 
 
 
