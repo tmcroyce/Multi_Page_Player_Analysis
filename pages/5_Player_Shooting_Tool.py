@@ -110,6 +110,13 @@ plot_bgcolor = ('rgba(245, 182, 322, 0.5)')
 st.markdown(custom_css7, unsafe_allow_html=True)
 
 
+layout = go.Layout(
+    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+    paper_bgcolor='rgba(0, 0, 0, 0)',  # Transparent overall figure background
+    margin=dict(t=10, b=10, l=10, r=10),  # Adjust margins around the plot
+    showlegend=False  # Optionally hide the legend
+)
+
 
 
 # Name Cleaning Function
@@ -394,7 +401,7 @@ volume_rows = [row for row in player_shooting_efficiency2.index if '%' not in ro
 col2.subheader('Efficiency Metrics')
 
 # radar chart efficiency rows player percentile
-fig = go.Figure()
+fig = go.Figure(layout = layout)
 
 radar_fill_color = 'rgba(34, 97, 153, 0.6)'
 fig.add_trace(go.Scatterpolar(
@@ -424,7 +431,7 @@ col2.plotly_chart(fig, use_container_width=True,)
 
 # radar chart volume rows player percentile
 col3.subheader('Volume / Scoring Metrics')
-fig = go.Figure()
+fig = go.Figure(layout = layout)
 
 fig.add_trace(go.Scatterpolar(
         r=player_shooting_efficiency2.loc[volume_rows, 'Player Percentile'],
