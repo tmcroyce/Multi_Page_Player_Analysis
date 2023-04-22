@@ -360,7 +360,7 @@ fig.update_layout(font_size=16)
 
 
 
-col2.plotly_chart(fig)
+col2.plotly_chart(fig, use_container_width=True)
 
 # radar chart volume rows player percentile
 col3.subheader('Volume / Scoring Metrics')
@@ -386,7 +386,7 @@ fig.update_layout(
 # Increase text size
 fig.update_layout(font_size=16)
 
-col3.plotly_chart(fig)
+col3.plotly_chart(fig, use_container_width=True)
 
 
 
@@ -684,7 +684,7 @@ fig.update_layout(
 # larger text
 fig.update_layout(font_size = 16)
 
-col2.plotly_chart(fig)
+col2.plotly_chart(fig, use_container_width=True)
 
 # volume
 fig = go.Figure()
@@ -709,7 +709,7 @@ fig.update_layout(
 # larger text
 fig.update_layout(font_size = 16)
 
-col3.plotly_chart(fig)
+col3.plotly_chart(fig, use_container_width=True)
 
 
 ####################################################################################################################
