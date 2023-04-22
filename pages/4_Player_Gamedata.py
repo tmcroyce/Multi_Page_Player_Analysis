@@ -42,7 +42,7 @@ st.markdown(custom_header_color, unsafe_allow_html=True)
 custom_metric_color = """
 <style>
 [data-testid="metric-container"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right, #22282a, #0e1117);
 }
 </style>
 """
@@ -139,7 +139,6 @@ last_date = gbg_df['Date'].iloc[0]
 
 st.title('NBA Player Game Data')
 
-st.write('---')
 
 st.write('')
 
