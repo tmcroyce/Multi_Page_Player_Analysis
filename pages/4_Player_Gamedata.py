@@ -312,6 +312,9 @@ def home_away():
     fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['adv_ts%'], player_gbg[player_gbg['Home'] == 0]['adv_ts%']], ['Home', 'Away'], bin_size = 5,
                                 curve_type='normal', # override default 'kde'
                                     colors=colors)
+    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
+
     # make colors transparent
     fig.data[0].update(opacity=0.2)
     fig.data[1].update(opacity=0.2)
@@ -454,6 +457,8 @@ col3 = colz[2]
 # PPM
 fig = px.bar(last_10, x = 'game date', y = 'ppm', title = 'PPM over Last 10 Games', color = 'ppm', color_continuous_scale = 'greys')
 fig.update_layout(xaxis_title = 'Date', yaxis_title = 'PPM')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
 # add player average
 fig.add_hline(y = last_10['ppm'].mean(), line_dash = 'dash', line_color = 'red')
 col1.plotly_chart(fig, use_container_width = True)
@@ -461,6 +466,8 @@ col1.plotly_chart(fig, use_container_width = True)
 # Points
 fig = px.bar(last_10, x = 'game date', y = 'pts', title = 'Points over Last 10 Games', color = 'pts', color_continuous_scale = 'greys')
 fig.update_layout(xaxis_title = 'Date', yaxis_title = 'Points')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
 # add player average
 fig.add_hline(y = last_10['pts'].mean(), line_dash = 'dash', line_color = 'red')
 col2.plotly_chart(fig, use_container_width = True)
@@ -468,6 +475,8 @@ col2.plotly_chart(fig, use_container_width = True)
 # 3P%
 fig = px.bar(last_10, x = 'game date', y = '3p%', title = '3P% over Last 10 Games', color = '3p%', color_continuous_scale = 'greys')
 fig.update_layout(xaxis_title = 'Date', yaxis_title = '3P%')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
 # add player average
 fig.add_hline(y = last_10['3p%'].mean(), line_dash = 'dash', line_color = 'red')
 col3.plotly_chart(fig, use_container_width = True)
@@ -477,16 +486,22 @@ st.write('---')
 # plot usage distribution over last 10
 fig = px.violin(last_10, x = 'adv_usg%', title = 'Usage Distribution over Last 10 Games', box = True, points = 'all', hover_data = last_10.columns)
 fig.update_layout(xaxis_title = 'Usage %', yaxis_title = 'Frequency')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
 col1.plotly_chart(fig, use_container_width = True)
 
 
 # plot offensive rating distribution over last 10
 fig = px.violin(last_10, x = 'adv_offrtg', title = 'Offensive Rating Distribution over Last 10 Games', box = True, points = 'all', hover_data = last_10.columns)
 fig.update_layout(xaxis_title = 'Offensive Rating', yaxis_title = 'Frequency')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
 col2.plotly_chart(fig, use_container_width = True)
 
 
 # plot defensive rating distribution over last 10
 fig = px.violin(last_10, x = 'adv_defrtg', title = 'Defensive Rating Distribution over Last 10 Games', box = True, points = 'all', hover_data = last_10.columns)
 fig.update_layout(xaxis_title = 'Defensive Rating', yaxis_title = 'Frequency')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
 col3.plotly_chart(fig, use_container_width = True)
