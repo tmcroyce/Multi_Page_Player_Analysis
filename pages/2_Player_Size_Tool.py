@@ -66,7 +66,7 @@ st.markdown(custom_metric_color, unsafe_allow_html=True)
 
 custom_markdown_container = """
 <style>
-[data-testid="markdown-container"] {
+[class="stMarkdown"] {
 background: linear-gradient(to right, #2c3333, #0e1117);
 }
 </style>
