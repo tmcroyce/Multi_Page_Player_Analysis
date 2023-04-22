@@ -398,6 +398,8 @@ def home_away():
     fig = px.line(x = np.sort(home_pts), y = np.arange(1, len(home_pts) + 1) / len(home_pts), title = 'CDF of Points for ' + player + ' at Home')
     fig.add_scatter(x = np.sort(away_pts), y = np.arange(1, len(away_pts) + 1) / len(away_pts), name = 'Away')
     fig.update_layout(title = 'CDF of Points Scored for ' + player + ' at Home and Away')
+    fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
     # color background with lower cdf value
 
     c2.plotly_chart(fig, use_container_width=True)
