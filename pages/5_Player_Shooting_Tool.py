@@ -40,7 +40,7 @@ background: linear-gradient(to right, #2c3333, #0e1117);
 """
 custom_css2 = """
 <style>
-[data-testid="plot-container plotly"] {
+[data-testid="stVerticalBlock"] {
 background: linear-gradient(to right, #F5B663, #9E60F0);
 }
 </style>
