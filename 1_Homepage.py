@@ -26,7 +26,7 @@ st.markdown(
     """
     <style>
         body {
-            background-image: radial-gradient(circle, #ff6a00, #ee0979);
+            background-image: linear-gradient(circle, #ff6a00, #ee0979);
         }
     </style>
     """,
