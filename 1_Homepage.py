@@ -21,6 +21,18 @@ st.markdown("""
     ">NBA Player Analytics Toolkit</h1>
 """, unsafe_allow_html=True)
 
+# Add a style block with custom CSS
+st.markdown(
+    """
+    <style>
+        body {
+            background-image: radial-gradient(circle, #ff6a00, #ee0979);
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.write(' ')
 st.write(' ')
 
