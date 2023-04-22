@@ -74,7 +74,7 @@ st.markdown(custom_css4, unsafe_allow_html=True)
 
 custom_css5= """
 <style>
-[class="bglayer"] {
+[g class="bglayer"] {
 background:linear-gradient(to right, #F5B663, #9E60F0);
 }
 </style>
@@ -93,6 +93,8 @@ background:linear-gradient(to right, #F5B663, #9E60F0);
 """
 
 st.markdown(custom_css6, unsafe_allow_html=True)
+
+
 
 
 
