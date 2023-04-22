@@ -21,17 +21,21 @@ st.markdown("""
     ">NBA Player Analytics Toolkit</h1>
 """, unsafe_allow_html=True)
 
-# Add a style block with custom CSS
-st.markdown(
-    """
-    <style>
-        body {
-            background-image: linear-gradient(circle, #ff6a00, #ee0979);
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+
+# Define custom CSS for the gradient background
+custom_css = """
+<style>
+body {
+    background: linear-gradient(to right, #ff6a00, #ee0979);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_css, unsafe_allow_html=True)
+
+
+
 
 st.write(' ')
 st.write(' ')
