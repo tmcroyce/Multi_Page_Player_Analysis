@@ -107,6 +107,11 @@ background:linear-gradient(to right, #F5B663, #9E60F0);
 
 st.markdown(custom_css7, unsafe_allow_html=True)
 
+layout = go.Layout(
+    plot_bgcolor='rgba(245, 182, 99, 0.5)',  # Set the plot background color (e.g., rgba(245, 182, 99, 0.5))
+    margin=dict(t=0, b=0, l=0, r=0),  # Remove margins around the plot
+)
+
 
 
 # Name Cleaning Function
@@ -416,7 +421,7 @@ fig.update_layout(font_size=16)
 
 
 
-col2.plotly_chart(fig, use_container_width=True)
+col2.plotly_chart(fig, use_container_width=True, layout = layout)
 
 # radar chart volume rows player percentile
 col3.subheader('Volume / Scoring Metrics')
@@ -442,7 +447,7 @@ fig.update_layout(
 # Increase text size
 fig.update_layout(font_size=16)
 
-col3.plotly_chart(fig, use_container_width=True)
+col3.plotly_chart(fig, use_container_width=True, layout = layout)
 
 
 
