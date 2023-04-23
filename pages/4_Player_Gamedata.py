@@ -49,6 +49,22 @@ text-align: center;
 """
 st.markdown(custom_metric_color, unsafe_allow_html=True)
 
+
+custom_css2 = """
+<style>
+[class="user-select-none svg-container"] {
+background: linear-gradient(to right, #0d100f, #2c3632);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_css2, unsafe_allow_html=True)
+
+
 # custom_columns = """
 # <style>
 # [data-testid="column"] {

@@ -1,0 +1,14 @@
+/* styles.css */
+.color-block {
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .red-block {
+    background-color: red;
+  }
+  
+  .blue-block {
+    background-color: blue;
+  }

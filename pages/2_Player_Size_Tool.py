@@ -79,6 +79,21 @@ custom_metric_color = """
 """
 st.markdown(custom_metric_color, unsafe_allow_html=True)
 
+custom_css2 = """
+<style>
+[class="user-select-none svg-container"] {
+background: linear-gradient(to right, #0d100f, #2c3632);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_css2, unsafe_allow_html=True)
+
+
 
 custom_bg_layer = """
 <style>
@@ -334,7 +349,7 @@ def number_post(num):
         return 'th'
 
 # 3 columns
-col1, col2, col3, col4, col5 = st.columns([.3, .05, .3, .05, .3])
+col1, col2, col3, col4, col5 = st.columns([.32, .02, .32, .02, .32])
 # display player size data
 
 red = '#E161DF'
@@ -366,7 +381,7 @@ with col1:
     # plot small bar chart for height percentile with plotly. Color is red if below median, green if above median
     fig = go.Figure(go.Bar(x = [player_height_percentile], y = ['Height Percentile'], orientation = 'h', marker_color = color_def()))
     fig.update_layout(title = position + ' Height Percentile', 
-                    height = 250,
+                    height = 200,
                         plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
                         paper_bgcolor='rgba(0, 0, 0, 0)',
                         # set xticks larger
@@ -388,10 +403,18 @@ with col1:
         <div class='colored-block'>
             <h2>Height</h2>
             <h3>{metric_str}</h3>
-            <h4>Position Percentile: {round(player_height_percentile)}% </h4>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.write('')
+    # Another, for position percentile
+    st.markdown(f"""
+        <div class='colored-block'>
+            <h4>Position Percentile: {round(player_height_percentile)}% </h4></h3>
         </div>
     """, unsafe_allow_html=True)
     
+    st.write('')
     # Display the Plotly chart using streamlit.plotly_chart
     st.plotly_chart(fig, use_container_width=True)
 
@@ -407,7 +430,8 @@ with col3:
     # Create the Plotly chart for wingspan percentile
     # (Use the previously defined color_def function and chart settings)
     fig = go.Figure(go.Bar(x = [player_wingspan_percentile], y = ['Wingspan Percentile'], orientation = 'h', marker_color = wing_color_def()))
-    fig.update_layout(title = position + ' Wingspan Percentile', height = 250,
+    fig.update_layout(title = position + ' Wingspan Percentile', 
+                      height = 200,
                       plot_bgcolor='rgba(0, 0, 0, 0)', paper_bgcolor='rgba(0, 0, 0, 0)',
                       xaxis = dict(tickfont = dict(size = 20)),
                         yaxis = dict(tickfont = dict(size = 10)))
@@ -420,9 +444,17 @@ with col3:
         <div class='colored-block'>
             <h2>Wingspan</h2>
             <h3>{metric_str}</h3>
-            <h4>Position Percentile: {round(player_wingspan_percentile)}% </h4>
         </div>
     """, unsafe_allow_html=True)
+    st.write('')
+
+    # Another, for position percentile
+    st.markdown(f"""
+        <div class='colored-block'>
+            <h4>Position Percentile: {round(player_wingspan_percentile)}% </h4></h3>
+        </div>
+    """, unsafe_allow_html=True)
+    st.write('')
 
     # Display the Plotly chart using streamlit.plotly_chart
     st.plotly_chart(fig, use_container_width=True)
@@ -435,7 +467,7 @@ with col5:
     # Create the Plotly chart for wingspan / height ratio percentile
     # (Use the previously defined color_def function and chart settings)
     fig = go.Figure(go.Bar(x = [player_wingspan_height_ratio_percentile], y = ['Wingspan / Height Ratio Percentile'], orientation = 'h', marker_color = wing_height_ratio_color_def()))
-    fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', height = 250,
+    fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', height = 200,
                       plot_bgcolor='rgba(0, 0, 0, 0)', paper_bgcolor='rgba(0, 0, 0, 0)',
                       xaxis = dict(tickfont = dict(size = 20)),
                         yaxis = dict(tickfont = dict(size = 10)))
@@ -448,12 +480,23 @@ with col5:
         <div class='colored-block'>
             <h2>Wingspan / Height</h2>
             <h3>{metric_str}</h3>
-            <h4>Position Percentile: {round(player_wingspan_height_ratio_percentile)}% </h4>
         </div>
     """, unsafe_allow_html=True)
 
+    st.write('')
+
+        # Another, for position percentile
+    st.markdown(f"""
+        <div class='colored-block'>
+            <h4>Position Percentile: {round(player_wingspan_height_ratio_percentile)}% </h4></h3>
+        </div>
+    """, unsafe_allow_html=True)
+    st.write('')
+
     # Display the Plotly chart using streamlit.plotly_chart
     st.plotly_chart(fig, use_container_width=True)
+
+
 
 
 
