@@ -446,7 +446,7 @@ with col5:
     # Wrap the entire content in the 'colored-block' class
     st.markdown(f"""
         <div class='colored-block'>
-            <h2>Wingspan / Height Ratio</h2>
+            <h2>Wingspan / Height</h2>
             <h3>{metric_str}</h3>
             <h4>Position Percentile: {round(player_wingspan_height_ratio_percentile)}% </h4>
         </div>
