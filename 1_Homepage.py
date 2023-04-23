@@ -5,9 +5,10 @@ import datetime as datetime
 import unidecode
 import re
 
-# Main Title and Introduction
-# Custom CSS styles for the title
-# Render the title with inline CSS styles
+
+st.set_page_config(page_title='Homepage', page_icon=None, layout="wide", initial_sidebar_state="auto" )
+
+
 st.markdown("""
     <h1 style="
         font-family: Arial, sans-serif;
@@ -18,21 +19,24 @@ st.markdown("""
         padding: 20px;
         background: linear-gradient(to right, #2c3333, #0e1117);
         border-radius: 10px;
-    ">NBA Player Analytics Toolkit</h1>
+    ">NBA Player Analytics Dashboard</h1>
 """, unsafe_allow_html=True)
 
 
+
+
+
+
 # Define custom CSS for the gradient background
-custom_css = """
+custom_background = """
 <style>
 [data-testid="stAppViewContainer"] {
 background: linear-gradient(to right, #2c3333, #0e1117);
 }
 </style>
 """
-
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_css, unsafe_allow_html=True)
+st.markdown(custom_background, unsafe_allow_html=True)
 
 # Define custom CSS for the gradient background
 custom_header_color = """
@@ -46,25 +50,27 @@ background: linear-gradient(to right, #2c3333, #0e1117);
 # Inject the custom CSS into the Streamlit app
 st.markdown(custom_header_color, unsafe_allow_html=True)
 
-
-custom_columns = """
+select_box_color = """
 <style>
-[data-testid="stMarkdownContainer"] {
-background: linear-gradient(to right, #2c3333, #1c2024);
+[role="combobox"]{
+  background: linear-gradient(to right, #3D93BA, #80494E);
 }
 </style>
 """
-st.markdown(custom_columns, unsafe_allow_html=True)
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(select_box_color, unsafe_allow_html=True)
+
 
 
 st.write(' ')
 st.write(' ')
 
 st.markdown("""
-Welcome to the NBA Player Analytics Toolkit! 
+Welcome to the NBA Player Analytics Dashboard! 
 """, unsafe_allow_html=True)
 
-st.write('Use this interactive tool to analyze and evaluate NBA players. Start by selecting a team, player, and position.')
+st.write('Use this interactive dashboard to analyze and evaluate NBA players. Start by selecting a team, player, and position.')
 
 
 # get current time in pst
@@ -132,17 +138,11 @@ teams = gbg_df['trad_team'].unique()
 
 # sort teams
 teams = np.sort(teams)
-
 cols = st.columns(2)
 
-
-
-# Use columns to organize input fields
-# Define a 7-column layout
-col1, col2, col3, col4, col5, col6, col7 = st.columns([.025, .3, .025, .3, .025, .3, .025])
-
-# Select team
-with col2:
+# Row 1: Select team
+row1_col1, row1_col2, row1_col3 = st.columns([.025, .95, .025])
+with row1_col2:
     st.subheader('Select a Team')
     team = st.selectbox('', teams, index=24, key='team_select')
 
@@ -152,21 +152,24 @@ players_22 = gbg_22[gbg_22['trad_team'] == team]['trad_player'].unique()
 # sort players
 players_22 = np.sort(players_22)
 
-# Select player
-with col4:
+# Row 2: Select player
+row2_col1, row2_col2, row2_col3 = st.columns([.025, .95, .025])
+with row2_col2:
     st.subheader('Select a Player')
     player = st.selectbox('', players_22, index=3, key='player_select')
 
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 
-# Select position
-with col6:
+# Row 3: Select position
+row3_col1, row3_col2, row3_col3 = st.columns([.025, .95, .025])
+with row3_col2:
     st.subheader('Select a Position')
     position = st.selectbox('Select Position to evaluate the player at', position_options, key='position_select')
 
 
-
+st.write(' ')
+st.write(' ')
 
 #### Assign Session States ####
 st.session_state['player'] = player

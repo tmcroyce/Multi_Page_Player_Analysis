@@ -32,6 +32,19 @@ import re
 
 st.set_page_config(page_title='Player Analyzer Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
+st.markdown("""
+    <h1 style="
+        font-family: Arial, sans-serif;
+        font-size: 48px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(to right, #2c3333, #0e1117);
+        border-radius: 10px;
+    ">Size Comparison Dashboard</h1>
+""", unsafe_allow_html=True)
+
 custom_css = """
 <style>
 [data-testid="stAppViewContainer"] {
@@ -58,31 +71,53 @@ st.markdown(custom_header_color, unsafe_allow_html=True)
 custom_metric_color = """
 <style>
 [data-testid="metric-container"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+    background: linear-gradient(to right, #2c3333, #4c5959);
+    border-radius: 10px;  /* Adjust this value to change the rounding of corners */
+    text-align: center;  /* Center the text inside the metric box */
 }
 </style>
 """
 st.markdown(custom_metric_color, unsafe_allow_html=True)
 
-# Changes All Markdown
-custom_markdown_container = """
+
+custom_bg_layer = """
 <style>
-[class="stMarkdown"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+[g class="bglayer"] {
+    background: linear-gradient(to right, #2c3333, #0e1117);
+    border-radius: 10px;  /* Adjust this value to change the rounding of corners */
 }
 </style>
 """
-st.markdown(custom_markdown_container, unsafe_allow_html=True)
+st.markdown(custom_bg_layer, unsafe_allow_html=True)
+
+custom_markdown = """
+<style>
+[data-testid="stMarkdownContainer"] {
+    background: linear-gradient(to right, #2c3333, #4c5959);
+    border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+    text-align: center;  /* Center the text inside the metric box */
+}
+</style>
+
+"""
+st.markdown(custom_markdown, unsafe_allow_html=True)
 
 
-# custom_columns = """
-# <style>
-# [data-testid="column"] {
-# background: linear-gradient(to right, #2c3333, #1c2024);
-# }
-# </style>
-# """
-# st.markdown(custom_columns, unsafe_allow_html=True)
+# Define a custom CSS class for the colored block
+colored_block_css = """
+<style>
+    .colored-block {
+        background linear-gradient(to right, #2c3333, #4c5959); 
+        padding: 10px;
+        border-radius: 20px;
+    }
+</style>
+"""
+
+# Add the custom CSS to the app
+st.markdown(colored_block_css, unsafe_allow_html=True)
+
+
 
 # get current time in pst
 pst = datetime.timezone(datetime.timedelta(hours=-8))
@@ -92,10 +127,7 @@ pst = datetime.datetime.now(pst)
 # st.write(f"Current working directory: {os.getcwd()}")
 # # list files in current directory
 # st.write(f"Files in current directory: {os.listdir()}")
-
 # get files in folder: data\\player\\nba_com_playerdata\\tracking
-
-
 #today = pst.strftime('%Y-%m-%d')
 
 files_in_dir = os.listdir('data/player/nba_com_playerdata/tracking')
@@ -179,10 +211,6 @@ gbg_df['Date'] = gbg_df['Date'].dt.date
 gbg_df = gbg_df.sort_values(by = 'Date', ascending = False)
 # get last date
 last_date = gbg_df['Date'].iloc[0]
-
-st.title('NBA Player Size Comparison Tool')
-
-st.write('The data for positions is pulled from BasketballReference.com and is the actual position they play on the floor, as opposed to the NBA listed position.')
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
@@ -309,133 +337,123 @@ def number_post(num):
 col1, col2, col3, col4, col5 = st.columns([.3, .05, .3, .05, .3])
 # display player size data
 
-
-
-col1.metric('Player Height: ', str(player_height) + ' inches',  delta_color='off')
-col1.write(player + ' is in the **' + str(int(player_height_percentile)) + number_post(int(player_height_percentile))+'** percentile for height at the ' + position + ' position.')
+red = '#E161DF'
+green = '#2DCEE0'
 
 def color_def():
     if player_height_percentile < 50:
-        return 'red'
+        return '#E161DF'
     else:
-        return 'green'
+        return '#2DCEE0'
 
-
-
-# plot small bar chart for height percentile with plotly. Color is red if below median, green if above median
-fig = go.Figure(go.Bar(x = [player_height_percentile], y = ['Height Percentile'], orientation = 'h', marker_color = color_def()))
-fig.update_layout(title = position + ' Height Percentile', 
-                  height = 200,
-                    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                    paper_bgcolor='rgba(0, 0, 0, 0)')
-
-# show the whole bar chart
-# get rid of y axis
-fig.update_yaxes(showticklabels = False)
-fig.update_xaxes(range = [0, 100])
-# add x-axis ticks
-fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
-# add gridlines
-fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
-# add outline to bar
-fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
-col1.plotly_chart(fig, use_container_width = True)
-
-
-
-col3.metric('Player Wingspan', str(player_wingspan) + ' inches')
-col3.write(player + ' is in the **' + str(int(player_wingspan_percentile)) + number_post(int(player_wingspan_percentile))+'** percentile for wingspan at the ' + position + ' position.')
-
-def color_def():
+def wing_color_def():
     if player_wingspan_percentile < 50:
-        return 'red'
+        return red
     else:
-        return 'green'
-
-# plot small bar chart for wingspan percentile with plotly. Color is red if below median, green if above median
-fig = go.Figure(go.Bar(x = [player_wingspan_percentile], y = ['Wingspan Percentile'], orientation = 'h', marker_color = color_def()))
-fig.update_layout(title = position + ' Wingspan Percentile ', height = 200,
-                    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                    paper_bgcolor='rgba(0, 0, 0, 0)')
-# show the whole bar chart
-# add x-axis ticks
-fig.update_xaxes(range = [0, 100])
-fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
-# add gridlines
-fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
-# get rid of y axis
-fig.update_yaxes(showticklabels = False)
-fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
-
-col3.plotly_chart(fig, use_container_width = True)
-
-
-col5.metric('Player Wingspan / Height Ratio', str(round(player_wingspan / player_height,2)))
-col5.write(player + ' is in the **' + str(int(player_wingspan_height_ratio_percentile)) + number_post(int(player_wingspan_height_ratio_percentile))+'** percentile for wingspan / height ratio at the ' + position + ' position.')
-
-def color_def():
+        return green
+    
+def wing_height_ratio_color_def():
     if player_wingspan_height_ratio_percentile < 50:
-        return 'red'
+        return red
     else:
-        return 'green'
-
-# plot small bar chart for wingspan / height ratio percentile with plotly. Color is red if below median, green if above median
-fig = go.Figure(go.Bar(x = [player_wingspan_height_ratio_percentile], y = ['Wingspan / Height Ratio Percentile'], orientation = 'h', marker_color = color_def()))
-fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', 
-                  height = 200,
-                  plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                  paper_bgcolor='rgba(0, 0, 0, 0)')
-# show the whole bar chart
-fig.update_xaxes(range = [0, 100])
-
-# add gridlines on x axis
-fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
-fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
-# get rid of y axis
-fig.update_yaxes(showticklabels = False)
-fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
-
-col5.plotly_chart(fig, use_container_width = True)
+        return green
 
 
+with col1:
+    # Format the metric as a string
+    metric_str = f"{str(player_height)} inches"
+    
+    # plot small bar chart for height percentile with plotly. Color is red if below median, green if above median
+    fig = go.Figure(go.Bar(x = [player_height_percentile], y = ['Height Percentile'], orientation = 'h', marker_color = color_def()))
+    fig.update_layout(title = position + ' Height Percentile', 
+                    height = 250,
+                        plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)',
+                        # set xticks larger
+                        xaxis = dict(tickfont = dict(size = 20)),
+                        # set yticks larger
+                        yaxis = dict(tickfont = dict(size = 10)))
+    
+    fig.update_yaxes(showticklabels = False)
+    fig.update_xaxes(range = [0, 100])
+    # add x-axis ticks
+    fig.update_xaxes(tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100])
+    # add gridlines
+    fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
+    # add outline to bar
+    fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
+        
+    # Wrap the entire content in the 'colored-block' class
+    st.markdown(f"""
+        <div class='colored-block'>
+            <h2>Height</h2>
+            <h3>{metric_str}</h3>
+            <h4>Position Percentile: {round(player_height_percentile)}% </h4>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Display the Plotly chart using streamlit.plotly_chart
+    st.plotly_chart(fig, use_container_width=True)
 
-# drop repeated players, keeping most recent by season
-positional_df = positional_df.sort_values(by = 'season', ascending = False)
-positional_df = positional_df.drop_duplicates(subset = 'player', keep = 'first')
+
+#  COL 3 #############################
 
 
-def plot_height_wingspan():
-    # plot height vs wingspan with plotly
+# For col3
+with col3:
+    # Format the metric as a string
+    metric_str = f"{str(player_wingspan)} inches"
 
-    fig = px.scatter(positional_df, x='height_final', y='wingspan_final', hover_name='player',
-                    hover_data=['height_final', 'wingspan_final', 'player'])
-    fig.update_traces(marker_size=10)
-    fig.update_layout(title='Height vs Wingspan for ' + position + 's', width=800, height=500)
-    fig.update_xaxes(title='Height (inches)')
-    fig.update_yaxes(title='Wingspan (inches)')
-    fig.update_traces(marker_line_width=1, marker_line_color='black')
-    fig.add_trace(go.Scatter(x=[player_height], y=[player_wingspan], text=[player],
-                            mode='markers', marker=dict(size=20, color='red'),
-                            hoverinfo='x+y+text', name='Selected Player', showlegend=True))
+    # Create the Plotly chart for wingspan percentile
+    # (Use the previously defined color_def function and chart settings)
+    fig = go.Figure(go.Bar(x = [player_wingspan_percentile], y = ['Wingspan Percentile'], orientation = 'h', marker_color = wing_color_def()))
+    fig.update_layout(title = position + ' Wingspan Percentile', height = 250,
+                      plot_bgcolor='rgba(0, 0, 0, 0)', paper_bgcolor='rgba(0, 0, 0, 0)',
+                      xaxis = dict(tickfont = dict(size = 20)),
+                        yaxis = dict(tickfont = dict(size = 10)))
+    fig.update_xaxes(range = [0, 100], tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100], showgrid = True, gridwidth = 1, gridcolor = 'grey')
+    fig.update_yaxes(showticklabels = False)
+    fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
 
-    # add a line for the average wingspan at the position
-    fig.add_trace(go.Scatter(x=[positional_df['height_final'].min(), positional_df['height_final'].max()],
-                            y=[positional_df['wingspan_final'].mean(), positional_df['wingspan_final'].mean()],
-                            mode='lines', line=dict(color='red', width=1, dash='dash'),
-                            name='Average Wingspan', showlegend=True))
+    # Wrap the entire content in the 'colored-block' class
+    st.markdown(f"""
+        <div class='colored-block'>
+            <h2>Wingspan</h2>
+            <h3>{metric_str}</h3>
+            <h4>Position Percentile: {round(player_wingspan_percentile)}% </h4>
+        </div>
+    """, unsafe_allow_html=True)
 
-    # add a line for the average height at the position
-    fig.add_trace(go.Scatter(x=[positional_df['height_final'].mean(), positional_df['height_final'].mean()],
-                            y=[positional_df['wingspan_final'].min(), positional_df['wingspan_final'].max()],
-                            mode='lines', line=dict(color='red', width=1, dash='dash'),
-                            name='Average Height', showlegend=True))
+    # Display the Plotly chart using streamlit.plotly_chart
+    st.plotly_chart(fig, use_container_width=True)
 
-    return st.plotly_chart(fig, use_container_width=True)
+# For col5
+with col5:
+    # Format the metric as a string
+    metric_str = f"{str(round(player_wingspan / player_height, 2))}"
 
+    # Create the Plotly chart for wingspan / height ratio percentile
+    # (Use the previously defined color_def function and chart settings)
+    fig = go.Figure(go.Bar(x = [player_wingspan_height_ratio_percentile], y = ['Wingspan / Height Ratio Percentile'], orientation = 'h', marker_color = wing_height_ratio_color_def()))
+    fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', height = 250,
+                      plot_bgcolor='rgba(0, 0, 0, 0)', paper_bgcolor='rgba(0, 0, 0, 0)',
+                      xaxis = dict(tickfont = dict(size = 20)),
+                        yaxis = dict(tickfont = dict(size = 10)))
+    fig.update_xaxes(range = [0, 100], tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100], showgrid = True, gridwidth = 1, gridcolor = 'grey')
+    fig.update_yaxes(showticklabels = False)
+    fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
 
+    # Wrap the entire content in the 'colored-block' class
+    st.markdown(f"""
+        <div class='colored-block'>
+            <h2>Wingspan / Height Ratio</h2>
+            <h3>{metric_str}</h3>
+            <h4>Position Percentile: {round(player_wingspan_height_ratio_percentile)}% </h4>
+        </div>
+    """, unsafe_allow_html=True)
 
-# div
-st.markdown('---')
+    # Display the Plotly chart using streamlit.plotly_chart
+    st.plotly_chart(fig, use_container_width=True)
 
 
 
@@ -501,8 +519,9 @@ pos_seasons = pos_seasons.astype(int)
 pos_seasons = pos_seasons[0].tolist()
 
 
-
-
+st.write('')
+st.subheader('Height vs Wingspan for ' + position + 's')
+st.write('')
 # add option to filter by season
 seasons = st.multiselect('Season Select', pos_seasons, default = pos_seasons )
 
@@ -510,4 +529,11 @@ seasons = st.multiselect('Season Select', pos_seasons, default = pos_seasons )
 # keep only selected seasons
 positional_df_season_selected = positional_df[positional_df['season'].isin(seasons)]
 
+
+
 plot_height_wingspan2()
+
+
+
+
+st.write('Footnote: The data for positions is pulled from BasketballReference.com and is the actual position they play on the floor, as opposed to the NBA listed position.')
