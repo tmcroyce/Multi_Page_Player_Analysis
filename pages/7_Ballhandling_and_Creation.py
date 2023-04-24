@@ -490,12 +490,7 @@ col4.plotly_chart(fig, use_container_width = True)
 
 
 
-
-
-
-
-
-
+########                CSS            ########
 
 
 
