@@ -40,11 +40,10 @@ st.markdown("""
         color: #ffffff;
         text-align: center;
         padding: 20px;
-        background: linear-gradient(to right, #2c3333, #0e1117);
+        background: linear-gradient(to right, #202628, #0e1117);
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-        border-radius: 10px;
-        border-radius: 10px;
-    ">Size Comparison Dashboard</h1>
+        border-radius: 30px;
+    ">Size at Position</h1>
 """, unsafe_allow_html=True)
 
 # Total
@@ -273,7 +272,6 @@ player_photo = 'data/player/photos/photos/' + str(player_nba_id) + '.png'
 # add player photo to sidebar
 st.sidebar.image(player_photo, width = 200)
 
-
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 position_index = st.session_state['position_index']
@@ -492,9 +490,6 @@ with col5:
     st.plotly_chart(fig, use_container_width=True)
 
 
-
-
-
 def plot_height_wingspan2():
     # plot height vs wingspan with plotly
 
@@ -558,7 +553,20 @@ pos_seasons = pos_seasons[0].tolist()
 
 
 st.write('')
-st.subheader('Height vs Wingspan for ' + position + 's')
+st.markdown("""
+    <h2 style="
+        font-family: Arial, sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(to right, #202628, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 30px;
+    ">Height Vs. Wingspan</h2>
+""", unsafe_allow_html=True)
+
 st.write('')
 # add option to filter by season
 seasons = st.multiselect('Season Select', pos_seasons, default = pos_seasons )
@@ -566,8 +574,6 @@ seasons = st.multiselect('Season Select', pos_seasons, default = pos_seasons )
 
 # keep only selected seasons
 positional_df_season_selected = positional_df[positional_df['season'].isin(seasons)]
-
-
 
 plot_height_wingspan2()
 

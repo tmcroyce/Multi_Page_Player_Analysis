@@ -309,8 +309,22 @@ df_sizes = df_sizes[df_sizes['height_final'] > 0]
 # get position df
 positional_df = df_sizes[df_sizes['primary_position_bbref'] == position]
 
+st.markdown("""
+    <h2 style="
+        font-family: Arial, sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(#24262c, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 30px;
+    ">Player Shooting Metrics</h2>
+""", unsafe_allow_html=True)
 
-st.subheader('Player Shooting Metrics')
+
+
 # 3 columns
 col1, col2, col3 = st.columns(3)
 
@@ -386,6 +400,8 @@ efficiency_rows = [row for row in player_shooting_efficiency2.index if '%' in ro
 volume_rows = [row for row in player_shooting_efficiency2.index if '%' not in row ]
 
 col2.subheader('Efficiency Metrics')
+col2.subheader('')
+col2.subheader('')
 
 # radar chart efficiency rows player percentile
 fig = go.Figure(layout = layout)
@@ -398,7 +414,6 @@ fig.add_trace(go.Scatterpolar(
         fillcolor=radar_fill_color,
         name='Player Percentile'
 ))
-
 
 fig.update_layout(
         polar=dict(
@@ -413,11 +428,13 @@ fig.update_layout(
 fig.update_layout(font_size=16)
 
 
-
 col2.plotly_chart(fig, use_container_width=True,)
 
 # radar chart volume rows player percentile
-col3.subheader('Volume / Scoring Metrics')
+col3.subheader('Volume / Scoring Metrics') #TODO: change tyo markdown
+col3.subheader('')
+col3.subheader('')
+
 fig = go.Figure(layout = layout)
 
 fig.add_trace(go.Scatterpolar(
@@ -450,9 +467,21 @@ col1.table(player_shooting_efficiency2.style.format('{:.2f}').applymap(color_cod
 
 #############################################################################################################
 
+st.markdown("""
+    <h2 style="
+        font-family: Arial, sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(#24262c, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 30px;
+    ">Player Shooting by Zone</h2>
+""", unsafe_allow_html=True)
+
 col1, col2, col3 = st.columns(3)
-st.write('---')
-col1.subheader('Player Shooting by Zone')
 
 def shooting_by_zone():
 
@@ -615,8 +644,24 @@ col3.plotly_chart(fig, use_container_width = True)
 
 ####################################################################################################################
 
+st.markdown("""
+    <h2 style="
+        font-family: Arial, sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(#24262c, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 30px;
+    ">Shooting by Distance (5ft)</h2>
+""", unsafe_allow_html=True)
+
+st.subheader('')
+st.subheader('')
+
 col1, col2, col3 = st.columns(3)
-col1.subheader('Shooting by Distance (5ft)')
 
 
 def shooting_by_distance():
@@ -953,7 +998,6 @@ st.plotly_chart(fig, use_container_width=True)
 # Add a plotly chart for the distribution of a chosen data point
 #data_point = 'EFG%'
 
-st.write('---')
 st.subheader('Select a data point to plot the distribution for the position')
 
 # Add violin plot for the distribution of a chosen data point

@@ -28,68 +28,7 @@ import unidecode
 import re
 st.set_page_config(page_title='Player Shooting Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 # Total
-custom_background = """
-<style>
-[data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
 
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_background, unsafe_allow_html=True)
-
-
-# Define custom CSS for the gradient background
-custom_header = """
-<style>
-[data-testid="stHeader"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_header, unsafe_allow_html=True)
-
-
-custom_metric = """
-<style>
-[data-testid="metric-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-text-align: center;
-max-width: 80%;
-}
-</style>
-"""
-st.markdown(custom_metric, unsafe_allow_html=True)
-
-
-custom_plotly = """
-<style>
-[class="user-select-none svg-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-border-radius: 30px;  /* Adjust this value to change the rounding of corners */
-text-align: center;  /* Center the text inside the metric box */
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_plotly, unsafe_allow_html=True)
-
-custom_sidebar = """
-<style>
-section[data-testid="stSidebar"]{
-background-image: linear-gradient(#35363C, #0e1117);
-color: white;
-}
-</style>
-"""
-st.markdown(custom_sidebar , unsafe_allow_html=True)
 
 
 
@@ -284,7 +223,21 @@ positional_df = df_sizes[df_sizes['primary_position_bbref'] == position]
 
 ################ END OF INTRO CODE ####################
 
-st.subheader('Player Playtype Breakdown')
+st.markdown("""
+    <h1 style="
+        font-family: Arial, sans-serif;
+        font-size: 48px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(#24262c, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 30px;
+    ">Player Playtype Data</h1>
+""", unsafe_allow_html=True)
+
+
 playtype_folder = 'data/player/nba_com_playerdata/playtypes/'
 pt_fold = os.listdir(playtype_folder)
 # check if today's date is in file names
@@ -437,3 +390,94 @@ fig.update_layout(title = 'Playtype Breakdown for ' + player, height = 600,
                                     # change background and paper color to transparent
                     paper_bgcolor = 'rgba(0,0,0,0)', plot_bgcolor = 'rgba(0,0,0,0)')
 st.plotly_chart(fig, use_container_width = True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+custom_background = """
+<style>
+[data-testid="stAppViewContainer"] {
+background: linear-gradient(to right, #2c3333, #35363C);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_background, unsafe_allow_html=True)
+
+
+# Define custom CSS for the gradient background
+custom_header = """
+<style>
+[data-testid="stHeader"] {
+background: linear-gradient(to right, #2c3333, #35363C);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_header, unsafe_allow_html=True)
+
+
+custom_metric = """
+<style>
+[data-testid="metric-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+text-align: center;
+max-width: 80%;
+}
+</style>
+"""
+st.markdown(custom_metric, unsafe_allow_html=True)
+
+
+custom_plotly = """
+<style>
+[class="user-select-none svg-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_plotly, unsafe_allow_html=True)
+
+custom_sidebar = """
+<style>
+section[data-testid="stSidebar"]{
+background-image: linear-gradient(#35363C, #0e1117);
+color: white;
+}
+</style>
+"""
+st.markdown(custom_sidebar , unsafe_allow_html=True)
+
+custom_table = """
+<style>
+[data-testid="stTable"]{
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+color: white;
+}
+</style>
+"""
+st.markdown(custom_table , unsafe_allow_html=True)

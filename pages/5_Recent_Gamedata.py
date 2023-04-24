@@ -17,9 +17,6 @@ st.set_page_config(page_title='Player Game Data Tool', page_icon=None, layout="w
 
 
 
-
-
-
 st.markdown("""
     <h1 style="
         font-family: Arial, sans-serif;
@@ -206,22 +203,6 @@ positional_df = df_sizes[df_sizes['primary_position_bbref'] == position]
 ##### LOAD DATA END #############################################################################
 
 
-st.markdown("""
-    <h2 style="
-        font-family: Arial, sans-serif;
-        font-size: 24px;
-        font-weight: bold;
-        color: #ffffff;
-        text-align: center;
-        padding: 10px;
-        background: linear-gradient(#24262c, #0e1117);
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-        border-radius: 30px;
-        border: 1px solid #ffffff;
-        width: 80%;
-    ">Season Data</h2>
-""", unsafe_allow_html=True)
-
 st.write('')
 
 player_gbg_22 = player_gbg[player_gbg['adv_season'] == 2022]
@@ -235,14 +216,6 @@ player_tovpg = round(player_gbg_22['trad_tov'].sum() / len(player_gbg_22),1)
 player_3p_pct = round(player_gbg_22['trad_3pm'].sum() / player_gbg_22['trad_3pa'].sum() *100, 1)
 player_fg_pct = round(player_gbg_22['trad_fgm'].sum() / player_gbg_22['trad_fga'].sum() *100, 1)
 
-# display season averages as metrics
-col1, col2, col3, col4, col5, col6 = st.columns(6)
-col1.metric('Points Per Game', str(round(player_ppg, 2)))
-col2.metric('Rebounds Per Game', str(round(player_rpg, 2)))
-col3.metric('Assists Per Game', str(round(player_apg, 2)))
-col4.metric('Turnovers Per Game', str(round(player_tovpg, 2)))
-col5.metric('3 Point %', str(round(player_3p_pct, 2)))
-col6.metric('FG %', str(round(player_fg_pct, 2)))
 
 # add home or away column
 player_gbg['Home'] = np.where(player_gbg['trad_match up'].str.contains('vs'), 1, 0)
@@ -263,10 +236,6 @@ player_gbg = player_gbg.sort_values(by = 'game_date', ascending = False)
 
 
 
-st.dataframe(player_gbg.style.format('{:.1f}', subset = numeric_cols))
-
-
-
 # calculate averages for player
 player_gbg_avg = player_gbg.groupby('player').mean().reset_index()
  
@@ -277,10 +246,7 @@ ncols = ['adv_offrtg', 'adv_defrtg', 'adv_efg%', 'adv_ts%',  'adv_pace', 'ppm']
 player_gbg_avg = player_gbg_avg.set_index('player')
 # rename columns
 player_gbg_avg.columns = ['Offensive Rating', 'Defensive Rating', 'Effective FG%', 'True Shooting%', 'Pace', 'Points Per Minute']
-st.write('**Advanced Averages**')
-st.table(player_gbg_avg.style.format('{:.2f}', subset = player_gbg_avg.columns))
 
-st.write("---")
 
 
 # make sure position_season is 2022
@@ -301,97 +267,139 @@ position_gbg_mean = position_gbg.groupby('position').mean().reset_index()
 player_gbg['adv_season'] = player_gbg['adv_season'].astype(int)
 
 
-st.markdown("""
-    <h2 style="
-        font-family: Arial, sans-serif;
-        font-size: 30px;
-        font-weight: bold;
-        color: #ffffff;
-        text-align: center;
-        padding: 20px;
-        background: linear-gradient(#24262c, #0e1117);
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-        border-radius: 30px;
-    ">Splits: Home vs Away</h2>
-""", unsafe_allow_html=True)
+
+# Add Last 10 Games #####################
 
 
-# add optional filter for season
-season_filter = st.multiselect('Select seasons to filter data by:', player_gbg['adv_season'].unique(), default = player_gbg['adv_season'].unique())
+st.subheader('Last N Games')
 
-col1, col2, col3, col4, col5 = st.columns([.3, .0333, .3, .0333, .3])
-# plot distributions of adv_ts%, 3p%, ppm with plotly
+# select number of games to show
+n = st.slider('Number of Games', 1, 82, 11)
 
-# plot distplot for adv_ts%
-colors = ['slategray', 'red']
+# get last 10 games by using .head(10)
 
-fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['adv_ts%'], player_gbg[player_gbg['Home'] == 0]['adv_ts%']], ['Home', 'Away'], bin_size = 5,
-                            curve_type='normal', # override default 'kde'
-                                colors=colors)
+last_10 = player_gbg.head(n)
+
+# drop Unnamed columns
+unnamed = [col for col in last_10.columns if 'Unnamed' in col]
+last_10.drop(columns = unnamed, inplace = True)
+
+# get numeric cols
+num_cols = last_10.columns[4:]
+# make sure all num_cols are numeric
+last_10[num_cols] = last_10[num_cols].apply(pd.to_numeric, errors = 'coerce')
+# drop season_type column
+last_10.drop(columns = ['season_type', 'adv_min', 'adv_season'], inplace = True)
+num_cols = last_10.columns[4:]
+
+# add metrics, compare to season average
+last_10_ppg = last_10['pts'].mean()
+last_10_ppm = last_10['ppm'].mean()
+last_10_3p = last_10['3pm'].sum() / last_10['3pa'].sum() *100
+last_10_ast = last_10['ast'].mean()
+last_10_reb = last_10['reb'].mean()
+last_10_stl = last_10['stl'].mean()
+last_10_reb = last_10['reb'].mean()
+last_10_efg = last_10['adv_efg%'].mean()
+last_10_ts = last_10['adv_ts%'].mean()
+last_10_usg = last_10['adv_usg%'].mean()
+
+player_gbg_22 = player_gbg[player_gbg['adv_season'] == 2022]
+
+season_ppg = player_gbg_22['pts'].mean()
+season_ppm = player_gbg_22['ppm'].mean()
+season_3p = player_gbg_22['3pm'].sum() / player_gbg_22['3pa'].sum() *100
+season_ast = player_gbg_22['ast'].mean()
+season_reb = player_gbg_22['reb'].mean()
+season_stl = player_gbg_22['stl'].mean()
+season_reb = player_gbg_22['reb'].mean()
+season_efg = player_gbg_22['adv_efg%'].mean()
+season_ts = player_gbg_22['adv_ts%'].mean()
+season_usg = player_gbg_22['adv_usg%'].mean()
+
+# compare, using metrics
+col1, col2, col3, col4, col5, col6, col7, col8, col9 = st.columns(9)
+col1.metric(label = 'Points Per Game', value = round(last_10_ppg, 1), delta = round(last_10_ppg - season_ppg, 1))
+col2.metric(label = 'Points Per Minute', value = round(last_10_ppm, 1), delta = round(last_10_ppm - season_ppm, 1))
+col3.metric(label = '3P%', value = round(last_10_3p, 1), delta = round(last_10_3p - season_3p, 1))
+col4.metric(label = 'AST', value = round(last_10_ast, 1), delta = round(last_10_ast - season_ast, 1))
+col5.metric(label = 'REB', value = round(last_10_reb, 1), delta = round(last_10_reb - season_reb, 1))
+col6.metric(label = 'STL', value = round(last_10_stl, 1), delta = round(last_10_stl - season_stl, 1))
+col7.metric(label = 'eFG%', value = round(last_10_efg, 1), delta = round(last_10_efg - season_efg, 1))
+col8.metric(label = 'TS%', value = round(last_10_ts, 1), delta = round(last_10_ts - season_ts, 1))
+col9.metric(label = 'USG%', value = round(last_10_usg, 1), delta = round(last_10_usg - season_usg, 1))
+
+# Display last 10 games
+# st.dataframe(last_10.style.format('{:.1f}', subset = num_cols))
+st.write('')
+st.write('Over the past 10 games, ' + player + ' has scored at a pace of ' + str(round(last_10['ppm'].mean(), 1)) + ' points per minute, ' + str(round(last_10['pts'].mean(), 1)) + ' points per game, while shooting ' + str(round(last_10['3p%'].mean(), 1)) + '% from three.')
+st.write('He is averaging ' + str(round(last_10['ast'].mean(), 1)) + ' assists per game, ' + str(round(last_10['reb'].mean(), 1)) + ' rebounds per game, and ' + str(round(last_10['stl'].mean(), 1)) + ' steals per game.')
+st.write('---')
+
+# Visualize PPM, Points, and 3P% over last 10 games
+colz  = st.columns(3)
+col1 = colz[0]
+col2 = colz[1]
+col3 = colz[2]
+
+# PPM
+fig = px.bar(last_10, x = 'game date', y = 'ppm', title = 'PPM over Last 10 Games', color = 'ppm', color_continuous_scale = 'greys')
+fig.update_layout(xaxis_title = 'Date', yaxis_title = 'PPM')
 fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                    paper_bgcolor='rgba(0, 0, 0, 0)')
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
+# add player average
+fig.add_hline(y = last_10['ppm'].mean(), line_dash = 'dash', line_color = 'red')
+col1.plotly_chart(fig, use_container_width = True)
 
-# make colors transparent
-fig.data[0].update(opacity=0.2)
-fig.data[1].update(opacity=0.2)
-fig.update_layout(title = 'TS% Distribution for ' + player)
+# Points
+fig = px.bar(last_10, x = 'game date', y = 'pts', title = 'Points over Last 10 Games', color = 'pts', color_continuous_scale = 'greys')
+fig.update_layout(xaxis_title = 'Date', yaxis_title = 'Points')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
+# add player average
+fig.add_hline(y = last_10['pts'].mean(), line_dash = 'dash', line_color = 'red')
+col2.plotly_chart(fig, use_container_width = True)
+
+# 3P%
+fig = px.bar(last_10, x = 'game date', y = '3p%', title = '3P% over Last 10 Games', color = '3p%', color_continuous_scale = 'greys')
+fig.update_layout(xaxis_title = 'Date', yaxis_title = '3P%')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
+# add player average
+fig.add_hline(y = last_10['3p%'].mean(), line_dash = 'dash', line_color = 'red')
+col3.plotly_chart(fig, use_container_width = True)
+
+st.write('---')
+
+# plot usage distribution over last 10
+fig = px.violin(last_10, x = 'adv_usg%', title = 'Usage Distribution over Last 10 Games', box = True, points = 'all', hover_data = last_10.columns)
+fig.update_layout(xaxis_title = 'Usage %', yaxis_title = 'Frequency')
+fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
 col1.plotly_chart(fig, use_container_width = True)
 
 
-
-# plot distplot for 3p%
-colors = ['slategray', 'red']
-
-fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['3p%'], player_gbg[player_gbg['Home'] == 0]['3p%']], ['Home', 'Away'], bin_size = 5,
-                            curve_type='normal', # override default 'kde'
-                            colors=colors)
+# plot offensive rating distribution over last 10
+fig = px.violin(last_10, x = 'adv_offrtg', title = 'Offensive Rating Distribution over Last 10 Games', box = True, points = 'all', hover_data = last_10.columns)
+fig.update_layout(xaxis_title = 'Offensive Rating', yaxis_title = 'Frequency')
 fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                    paper_bgcolor='rgba(0, 0, 0, 0)')
-# make colors transparent
-fig.data[0].update(opacity=0.2)
-fig.data[1].update(opacity=0.2)
-fig.update_layout(title = '3P% Distribution for ' + player)
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
+col2.plotly_chart(fig, use_container_width = True)
+
+
+# plot defensive rating distribution over last 10
+fig = px.violin(last_10, x = 'adv_defrtg', title = 'Defensive Rating Distribution over Last 10 Games', box = True, points = 'all', hover_data = last_10.columns)
+fig.update_layout(xaxis_title = 'Defensive Rating', yaxis_title = 'Frequency')
 fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                    paper_bgcolor='rgba(0, 0, 0, 0)')
+                        paper_bgcolor='rgba(0, 0, 0, 0)')
 col3.plotly_chart(fig, use_container_width = True)
 
 
-# plot distplot for ppm
-fig = ff.create_distplot([player_gbg[player_gbg['Home'] == 1]['ppm'], player_gbg[player_gbg['Home'] == 0]['ppm']], ['Home', 'Away'], bin_size = 0.05,
-                            curve_type='normal', # override default 'kde'
-                                colors=colors)
-fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                    paper_bgcolor='rgba(0, 0, 0, 0)')
-# make colors transparent
-fig.data[0].update(opacity=0.2)
-fig.data[1].update(opacity=0.2)
-fig.update_layout(title = 'Points Per Minute Distribution for ' + player)
-col5.plotly_chart(fig, use_container_width = True)
 
 
-c1, c2 = st.columns(2)
 
-# add a plotly ddistplot for player pts at home and away
-home_pts = player_gbg[player_gbg['Home'] == 1]['pts']
-away_pts = player_gbg[player_gbg['Home'] == 0]['pts']
-fig = ff.create_distplot([home_pts, away_pts], ['Home', 'Away'], bin_size = 2, curve_type='normal', colors=colors)
-fig.update_layout(title = 'Points Distribution for ' + player + ' at Home and Away*')
-# transparent background
-fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                    paper_bgcolor='rgba(0, 0, 0, 0)')
-c1.plotly_chart(fig, use_container_width=True)
 
-# add cdf plot for player pts at home and away
-fig = px.line(x = np.sort(home_pts), y = np.arange(1, len(home_pts) + 1) / len(home_pts), title = 'CDF of Points for ' + player + ' at Home')
-fig.add_scatter(x = np.sort(away_pts), y = np.arange(1, len(away_pts) + 1) / len(away_pts), name = 'Away')
-fig.update_layout(title = 'CDF of Points Scored for ' + player + ' at Home and Away')
-fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                    paper_bgcolor='rgba(0, 0, 0, 0)')
-# color background with lower cdf value
 
-c2.plotly_chart(fig, use_container_width=True)
-
-st.markdown('*Note: the CDF (Cumulative Distribution Function) shows in what percentage of games they scored less than or equal to the given number of points. For example, if a player scored 20 points in 10 games, the CDF would show that they scored less than or equal to 20 points in 100% of games. If the Away line is over the Home line, the player scores more at Home.')
 
 
 
@@ -434,7 +442,6 @@ custom_metric = """
 [data-testid="metric-container"] {
 background: linear-gradient(to right, #35363C, #0e1117);
 box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-border-radius: 10px;  /* Adjust this value to change the rounding of corners */
 text-align: center;
 max-width: 80%;
 }

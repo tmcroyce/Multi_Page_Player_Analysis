@@ -8,7 +8,6 @@ import re
 
 st.set_page_config(page_title='Homepage', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
-
 st.markdown("""
     <h1 style="
         font-family: Arial, sans-serif;
@@ -17,17 +16,11 @@ st.markdown("""
         color: #ffffff;
         text-align: center;
         padding: 20px;
-        background: linear-gradient(to right, #2c3333, #0e1117);
+        background: linear-gradient(to right, #202628, #0e1117);
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-        border-radius: 10px;
-        border-radius: 10px;
+        border-radius: 30px;
     ">NBA Player Analytics Dashboard</h1>
 """, unsafe_allow_html=True)
-
-
-
-
-
 
 # Total
 custom_background = """
@@ -37,8 +30,6 @@ background: linear-gradient(to right, #2c3333, #35363C);
 }
 </style>
 """
-
-# Inject the custom CSS into the Streamlit app
 st.markdown(custom_background, unsafe_allow_html=True)
 
 
@@ -51,7 +42,6 @@ background: linear-gradient(to right, #2c3333, #35363C);
 </style>
 """
 
-# Inject the custom CSS into the Streamlit app
 st.markdown(custom_header, unsafe_allow_html=True)
 
 
@@ -68,20 +58,6 @@ max-width: 80%;
 st.markdown(custom_metric, unsafe_allow_html=True)
 
 
-custom_plotly = """
-<style>
-[class="user-select-none svg-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-border-radius: 30px;  /* Adjust this value to change the rounding of corners */
-text-align: center;  /* Center the text inside the metric box */
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_plotly, unsafe_allow_html=True)
 
 custom_sidebar = """
 <style>
@@ -96,7 +72,7 @@ st.markdown(custom_sidebar , unsafe_allow_html=True)
 
 custom_selectbox = """
 <style>
-[data-testid="stVerticalBlock"]{
+[data-baseweb="select"]{
 background-image: linear-gradient(#35363C, #0e1117);
 border-radius: 30px;  /* Adjust this value to change the rounding of corners */
 text-align: center;  /* Center the text inside the metric box */
@@ -109,14 +85,19 @@ st.markdown(custom_selectbox , unsafe_allow_html=True)
 
 
 
-st.write(' ')
-st.write(' ')
-
 st.markdown("""
-Welcome to the NBA Player Analytics Dashboard! 
+<h2 style="
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 30px;;
+    ">Use this interactive dashboard to analyze and evaluate NBA players by position. Start by selecting a team, player, and position</h2>
+    
 """, unsafe_allow_html=True)
-
-st.write('Use this interactive dashboard to analyze and evaluate NBA players. Start by selecting a team, player, and position.')
 
 
 # get current time in pst
@@ -282,10 +263,19 @@ st.write('''
 
 
 st.markdown("""
-    <div style="text-align: center;">
-        <h2>...Then, select from the left menu to move through the tools</h2>
-    </div>
+<h2 style="
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 30px;;
+    ">...Then, select from the left menu to move through the tools</h2>
+    
 """, unsafe_allow_html=True)
+
 
 st.write('')
 st.write('')
