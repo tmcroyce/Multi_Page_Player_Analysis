@@ -41,97 +41,92 @@ st.markdown("""
         text-align: center;
         padding: 20px;
         background: linear-gradient(to right, #2c3333, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 10px;
         border-radius: 10px;
     ">Size Comparison Dashboard</h1>
 """, unsafe_allow_html=True)
 
-custom_css = """
+# Total
+custom_background = """
 <style>
 [data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right, #2c3333, #35363C);
 }
 </style>
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_css, unsafe_allow_html=True)
+st.markdown(custom_background, unsafe_allow_html=True)
+
 
 # Define custom CSS for the gradient background
-custom_header_color = """
+custom_header = """
 <style>
 [data-testid="stHeader"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right, #2c3333, #35363C);
 }
 </style>
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_header_color, unsafe_allow_html=True)
+st.markdown(custom_header, unsafe_allow_html=True)
 
-custom_metric_color = """
+
+custom_metric = """
 <style>
 [data-testid="metric-container"] {
-    background: linear-gradient(to right, #2c3333, #4c5959);
-    border-radius: 10px;  /* Adjust this value to change the rounding of corners */
-    text-align: center;  /* Center the text inside the metric box */
+background: linear-gradient(to right, #35363C, #0e1117);
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+text-align: center;
+max-width: 80%;
 }
 </style>
 """
-st.markdown(custom_metric_color, unsafe_allow_html=True)
+st.markdown(custom_metric, unsafe_allow_html=True)
 
-custom_css2 = """
+
+custom_plotly = """
 <style>
 [class="user-select-none svg-container"] {
-background: linear-gradient(to right, #0d100f, #2c3632);
+background: linear-gradient(to right, #35363C, #0e1117);
 border-radius: 30px;  /* Adjust this value to change the rounding of corners */
 text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
 
 }
 </style>
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_css2, unsafe_allow_html=True)
+st.markdown(custom_plotly, unsafe_allow_html=True)
 
-
-
-custom_bg_layer = """
+custom_sidebar = """
 <style>
-[g class="bglayer"] {
-    background: linear-gradient(to right, #2c3333, #0e1117);
-    border-radius: 10px;  /* Adjust this value to change the rounding of corners */
+section[data-testid="stSidebar"]{
+background-image: linear-gradient(#35363C, #0e1117);
+color: white;
 }
 </style>
 """
-st.markdown(custom_bg_layer, unsafe_allow_html=True)
+st.markdown(custom_sidebar , unsafe_allow_html=True)
 
-custom_markdown = """
+
+# Custom Markdown Container
+custom_markdown_container = """
 <style>
 [data-testid="stMarkdownContainer"] {
-    background: linear-gradient(to right, #2c3333, #4c5959);
-    border-radius: 30px;  /* Adjust this value to change the rounding of corners */
-    text-align: center;  /* Center the text inside the metric box */
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
 }
 </style>
-
-"""
-st.markdown(custom_markdown, unsafe_allow_html=True)
-
-
-# Define a custom CSS class for the colored block
-colored_block_css = """
-<style>
-    .colored-block {
-        background linear-gradient(to right, #2c3333, #4c5959); 
-        padding: 10px;
-        border-radius: 20px;
-    }
-</style>
 """
 
-# Add the custom CSS to the app
-st.markdown(colored_block_css, unsafe_allow_html=True)
-
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_markdown_container , unsafe_allow_html=True)
 
 
 # get current time in pst

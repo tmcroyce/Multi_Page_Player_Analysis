@@ -18,6 +18,8 @@ st.markdown("""
         text-align: center;
         padding: 20px;
         background: linear-gradient(to right, #2c3333, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 10px;
         border-radius: 10px;
     ">NBA Player Analytics Dashboard</h1>
 """, unsafe_allow_html=True)
@@ -27,39 +29,83 @@ st.markdown("""
 
 
 
-# Define custom CSS for the gradient background
+# Total
 custom_background = """
 <style>
 [data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right, #2c3333, #35363C);
 }
 </style>
 """
+
 # Inject the custom CSS into the Streamlit app
 st.markdown(custom_background, unsafe_allow_html=True)
 
+
 # Define custom CSS for the gradient background
-custom_header_color = """
+custom_header = """
 <style>
 [data-testid="stHeader"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right, #2c3333, #35363C);
 }
 </style>
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_header_color, unsafe_allow_html=True)
+st.markdown(custom_header, unsafe_allow_html=True)
 
-select_box_color = """
+
+custom_metric = """
 <style>
-[role="combobox"]{
-  background: linear-gradient(to right, #3D93BA, #80494E);
+[data-testid="metric-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+text-align: center;
+max-width: 80%;
+}
+</style>
+"""
+st.markdown(custom_metric, unsafe_allow_html=True)
+
+
+custom_plotly = """
+<style>
+[class="user-select-none svg-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
 }
 </style>
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(select_box_color, unsafe_allow_html=True)
+st.markdown(custom_plotly, unsafe_allow_html=True)
+
+custom_sidebar = """
+<style>
+section[data-testid="stSidebar"]{
+background-image: linear-gradient(#35363C, #0e1117);
+color: white;
+}
+</style>
+"""
+st.markdown(custom_sidebar , unsafe_allow_html=True)
+
+
+custom_selectbox = """
+<style>
+[data-testid="stVerticalBlock"]{
+background-image: linear-gradient(#35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+color: white;
+}
+</style>
+"""
+st.markdown(custom_selectbox , unsafe_allow_html=True)
+
 
 
 
@@ -141,9 +187,13 @@ teams = np.sort(teams)
 cols = st.columns(2)
 
 # Row 1: Select team
-row1_col1, row1_col2, row1_col3 = st.columns([.025, .95, .025])
+row1_col1, row1_col2, row1_col3 = st.columns([.2, .6, .2])
 with row1_col2:
     st.subheader('Select a Team')
+    st.write(' ')
+
+row1_2_col_1, row1_2_col_2, row1_2_col_3 = st.columns([.33, .33, .33])
+with row1_2_col_2:
     team = st.selectbox('', teams, index=24, key='team_select')
 
 # select player
@@ -153,18 +203,26 @@ players_22 = gbg_22[gbg_22['trad_team'] == team]['trad_player'].unique()
 players_22 = np.sort(players_22)
 
 # Row 2: Select player
-row2_col1, row2_col2, row2_col3 = st.columns([.025, .95, .025])
+row2_col1, row2_col2, row2_col3 = st.columns([.2, .6, .2])
 with row2_col2:
     st.subheader('Select a Player')
+    st.write(' ')
+
+row2_1_col_1, row2_1_col_2, row2_1_col_3 = st.columns([.33, .33, .33])
+with row2_1_col_2:
     player = st.selectbox('', players_22, index=3, key='player_select')
 
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 
 # Row 3: Select position
-row3_col1, row3_col2, row3_col3 = st.columns([.025, .95, .025])
+row3_col1, row3_col2, row3_col3 = st.columns([.2, .6, .2])
 with row3_col2:
     st.subheader('Select a Position')
+    st.write(' ')
+
+row3_1_col_1, row3_1_col_2, row3_1_col_3 = st.columns([.33, .33, .33])
+with row3_1_col_2:
     position = st.selectbox('Select Position to evaluate the player at', position_options, key='position_select')
 
 

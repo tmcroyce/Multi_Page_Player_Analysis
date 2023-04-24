@@ -74,28 +74,69 @@ pst = datetime.datetime.now(pst)
 
 #today = pst.strftime('%Y-%m-%d')
 
-custom_css = """
+# Total
+custom_background = """
 <style>
 [data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right, #2c3333, #35363C);
 }
 </style>
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_css, unsafe_allow_html=True)
+st.markdown(custom_background, unsafe_allow_html=True)
+
 
 # Define custom CSS for the gradient background
-custom_header_color = """
+custom_header = """
 <style>
 [data-testid="stHeader"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right, #2c3333, #35363C);
 }
 </style>
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_header_color, unsafe_allow_html=True)
+st.markdown(custom_header, unsafe_allow_html=True)
+
+
+custom_metric = """
+<style>
+[data-testid="metric-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+text-align: center;
+max-width: 80%;
+}
+</style>
+"""
+st.markdown(custom_metric, unsafe_allow_html=True)
+
+
+custom_plotly = """
+<style>
+[class="user-select-none svg-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_plotly, unsafe_allow_html=True)
+
+custom_sidebar = """
+<style>
+section[data-testid="stSidebar"]{
+background-image: linear-gradient(#35363C, #0e1117);
+color: white;
+}
+</style>
+"""
+st.markdown(custom_sidebar , unsafe_allow_html=True)
 
 
 

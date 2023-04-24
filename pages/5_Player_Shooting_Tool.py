@@ -31,84 +31,70 @@ import re
 st.set_page_config(page_title='Player Shooting Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
 
-custom_css = """
+custom_background = """
 <style>
 [data-testid="stAppViewContainer"] {
-background: linear-gradient(to right,  #2c3333, #0e1117);
-}
-</style>
-"""
-custom_css2 = """
-<style>
-[data-testid="column"] {
-background: linear-gradient(to right,  #2c3333, #0e1117);
+background: linear-gradient(to right, #2c3333, #35363C);
 }
 </style>
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_css, unsafe_allow_html=True)
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_css2, unsafe_allow_html=True)
-
-custom_css33 = """
-<style>
-[class="main css-uf99v8 egzxvld5"] {
-background:linear-gradient(to right,  #2c3333, #0e1117);
-}
-</style>
-"""
-
-st.markdown(custom_css33, unsafe_allow_html=True)
-
-
-custom_css6= """
-<style>
-[class="user-select-none svg-container"] {
-background:linear-gradient(to right,  #2c3333, #0e1117);
-}
-</style>
-"""
-
-st.markdown(custom_css6, unsafe_allow_html=True)
-
-# custom_css5= """
-# <style>
-# [data-testid="stTable"] {
-# background:linear-gradient(to right,  #2c3333, #0e1117);
-# }
-# </style>
-# """
-
-# st.markdown(custom_css5, unsafe_allow_html=True)
-
+st.markdown(custom_background, unsafe_allow_html=True)
 
 # Define custom CSS for the gradient background
-custom_header_color = """
+custom_header = """
 <style>
 [data-testid="stHeader"] {
-background: linear-gradient(to right, #2c3333, #0e1117);
+background: linear-gradient(to right, #2c3333, #35363C);
 }
 </style>
 """
 
 # Inject the custom CSS into the Streamlit app
-st.markdown(custom_header_color, unsafe_allow_html=True)
+st.markdown(custom_header, unsafe_allow_html=True)
 
 
-custom_css7= """
 
+custom_plotly = """
 <style>
-[class="class="main-svg""] {
-background:linear-gradient(to right,  #2c3333, #0e1117);
+[class="user-select-none svg-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
 }
 </style>
 """
 
-plot_bgcolor = ('rgba(245, 182, 322, 0.5)')
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_plotly, unsafe_allow_html=True)
 
-st.markdown(custom_css7, unsafe_allow_html=True)
+custom_sidebar = """
+<style>
+section[data-testid="stSidebar"]{
+background-image: linear-gradient(#35363C, #0e1117);
+color: white;
+}
+</style>
+"""
+st.markdown(custom_sidebar , unsafe_allow_html=True)
+
+custom_table = """
+<style>
+[data-testid="stTable"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 10px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_table, unsafe_allow_html=True)
 
 
 layout = go.Layout(
@@ -118,7 +104,7 @@ layout = go.Layout(
     showlegend=False  # Optionally hide the legend
 )
 
-
+plot_bgcolor = ('rgba(245, 182, 322, 0.5)')
 
 # Name Cleaning Function
 def clean_name(n):
