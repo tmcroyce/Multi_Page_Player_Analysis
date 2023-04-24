@@ -370,13 +370,17 @@ playtypes['PPP_norm'] = playtypes['PPP'] / playtypes['PPP'].max()
 fig = px.scatter(playtypes, x = 'Percentile', y = 'Freq%', size = 'PPP_norm', color = playtypes.index, size_max = 50)
                  
 
-fig.update_layout(title = 'Frequency of Playtype vs Percentile for ' + player, height = 600)
+fig.update_layout(title = 'Frequency of Playtype vs Percentile for ' + player, height = 500)
 fig.update_layout(xaxis_title = 'Player NBA Percentile (How Good They Are At Specified Play)', yaxis_title = 'Frequency of Playtype (How Often They Run Specified Play)',
                   # change background and paper color to transparent
                     paper_bgcolor = 'rgba(0,0,0,0)', plot_bgcolor = 'rgba(0,0,0,0)',
                     # make x axis and y axis labels larger
                     xaxis = dict(title_font = dict(size = 20)),
-                    yaxis = dict(title_font = dict(size = 20)))
+                    yaxis = dict(title_font = dict(size = 20)),
+                    # no legend
+                    showlegend = False
+    
+                    )
 
 
 # add annotations
@@ -388,13 +392,13 @@ st.plotly_chart(fig, use_container_width = True)
 
 # add playtype breakdwon donut chart with Freq%
 fig = go.Figure(data = [go.Pie(labels = playtypes.index, values = playtypes['Freq%'], hole = 0.6)])
-fig.update_layout(title = 'Playtype Breakdown for ' + player, height = 600,
+fig.update_layout(title = 'Playtype Breakdown for ' + player, height = 500,
                                     # change background and paper color to transparent
                     paper_bgcolor = 'rgba(0,0,0,0)', plot_bgcolor = 'rgba(0,0,0,0)')
 # add annotations
 for i in range(len(playtypes)):
     fig.add_annotation(x = playtypes['Percentile'][i], y = playtypes['Freq%'][i], text = playtypes.index[i])
-    
+
 st.plotly_chart(fig, use_container_width = True)
 
 
