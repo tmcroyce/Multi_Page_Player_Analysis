@@ -209,22 +209,6 @@ if player not in position_avgs_22['trad_player'].values:
 # position_avgs_22 = player_avgs_22[player_avgs_22['trad_pos'] == position]
 
 st.subheader('Player Clustering for Similar Players')
-st.write(f'''The following chart shows the clusters of players who are similar to {player} based on their advanced and traditional stats.
-         \n These stats included: 
-         \n - Points Per Minute (PPM), 
-         \n - Points, 
-         \n - 3P%, 
-         \n - Assists, 
-         \n - Rebounds, 
-         \n - Steals, 
-         \n - Effective Field Goal Percentage (eFG%), 
-         \n - True Shooting Percentage (TS%), 
-         \n - Usage, 
-         \n - Offensive Rating, and 
-         \n - Defensive Rating.
-         \n The clusters are based on the elbow method, which typically shows (in my experience) the optimal number of clusters being four. 
-         \n You can change the number of clusters to see how the clusters change. Change the value to 20 to see the most-detailed clusters.
-         ''')
 
 # Select columns to use for cluster analysis
 cl_cols = ['ppm', 'trad_pts', 'trad_3p%', 'trad_ast', 'trad_reb', 'trad_stl', 'adv_efg%', 'adv_ts%', 'adv_usg%', 'adv_offrtg', 'adv_defrtg']
