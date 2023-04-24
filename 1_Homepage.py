@@ -8,7 +8,18 @@ import re
 
 st.set_page_config(page_title='Homepage', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
-st.markdown("""
+title_color_1 = '#282229' # dark purple
+title_color_2 = '#0e1117' # dark blue
+background_color_1 = '#2c3333' # dark grey
+background_color_2 = '#35363C' # dark grey
+
+# set session states for color pallette
+st.session_state['title_color_1'] = title_color_1
+st.session_state['title_color_2'] = title_color_2
+st.session_state['background_color_1'] = background_color_1
+st.session_state['background_color_2'] = background_color_2
+
+st.markdown(f"""
     <h1 style="
         font-family: Arial, sans-serif;
         font-size: 48px;
@@ -16,73 +27,13 @@ st.markdown("""
         color: #ffffff;
         text-align: center;
         padding: 20px;
-        background: linear-gradient(to right, #202628, #0e1117);
+        background: linear-gradient(to right, {title_color_1}, {title_color_2});
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
         border-radius: 30px;
     ">NBA Player Analytics Dashboard</h1>
 """, unsafe_allow_html=True)
 
-# Total
-custom_background = """
-<style>
-[data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
-st.markdown(custom_background, unsafe_allow_html=True)
-
-
-# Define custom CSS for the gradient background
-custom_header = """
-<style>
-[data-testid="stHeader"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
-
-st.markdown(custom_header, unsafe_allow_html=True)
-
-
-custom_metric = """
-<style>
-[data-testid="metric-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-text-align: center;
-max-width: 80%;
-}
-</style>
-"""
-st.markdown(custom_metric, unsafe_allow_html=True)
-
-
-
-custom_sidebar = """
-<style>
-section[data-testid="stSidebar"]{
-background-image: linear-gradient(#35363C, #0e1117);
-color: white;
-}
-</style>
-"""
-st.markdown(custom_sidebar , unsafe_allow_html=True)
-
-
-custom_selectbox = """
-<style>
-[data-baseweb="select"]{
-background-image: linear-gradient(#35363C, #0e1117);
-border-radius: 30px;  /* Adjust this value to change the rounding of corners */
-text-align: center;  /* Center the text inside the metric box */
-color: white;
-}
-</style>
-"""
-st.markdown(custom_selectbox , unsafe_allow_html=True)
-
-
+st.write('')
 
 
 st.markdown("""
@@ -167,45 +118,39 @@ teams = gbg_df['trad_team'].unique()
 teams = np.sort(teams)
 cols = st.columns(2)
 
-# Row 1: Select team
-row1_col1, row1_col2, row1_col3 = st.columns([.2, .6, .2])
-with row1_col2:
-    st.subheader('Select a Team')
-    st.write(' ')
 
-row1_2_col_1, row1_2_col_2, row1_2_col_3 = st.columns([.33, .33, .33])
-with row1_2_col_2:
+# Row 1: Select team
+col1, col2, col3, col4 = st.columns([.2, .3, .3, .2])
+with col2:
+    st.subheader(' ')
+    st.subheader('Select a Team')
+with col3:
     team = st.selectbox('', teams, index=24, key='team_select')
 
-# select player
+# Select player
 gbg_22 = gbg_df[gbg_df['adv_season'] == 2022]
 players_22 = gbg_22[gbg_22['trad_team'] == team]['trad_player'].unique()
-# sort players
+# Sort players
 players_22 = np.sort(players_22)
 
 # Row 2: Select player
-row2_col1, row2_col2, row2_col3 = st.columns([.2, .6, .2])
-with row2_col2:
+col1, col2, col3, col4 = st.columns([.2, .3, .3, .2])
+with col2:
+    st.subheader(' ')
     st.subheader('Select a Player')
-    st.write(' ')
-
-row2_1_col_1, row2_1_col_2, row2_1_col_3 = st.columns([.33, .33, .33])
-with row2_1_col_2:
+with col3:
     player = st.selectbox('', players_22, index=3, key='player_select')
 
-# select position
+# Select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 
 # Row 3: Select position
-row3_col1, row3_col2, row3_col3 = st.columns([.2, .6, .2])
-with row3_col2:
+col1, col2, col3, col4 = st.columns([.2, .3, .3, .2])
+with col2:
+    st.subheader(' ')
     st.subheader('Select a Position')
-    st.write(' ')
-
-row3_1_col_1, row3_1_col_2, row3_1_col_3 = st.columns([.33, .33, .33])
-with row3_1_col_2:
-    position = st.selectbox('Select Position to evaluate the player at', position_options, key='position_select')
-
+with col3:
+    position = st.selectbox('', position_options, key='position_select')
 
 st.write(' ')
 st.write(' ')
@@ -302,3 +247,71 @@ If you have any questions or feedback, feel free to reach out:
 
 Thanks for using the NBA Player Analytics Toolkit!
 """, unsafe_allow_html=True)
+
+
+
+
+############
+
+
+
+# Total
+custom_background = """
+<style>
+[data-testid="stAppViewContainer"] {
+background: linear-gradient(to right, #2c3333, #35363C);
+}
+</style>
+"""
+st.markdown(custom_background, unsafe_allow_html=True)
+
+
+# Define custom CSS for the gradient background
+custom_header = """
+<style>
+[data-testid="stHeader"] {
+background: linear-gradient(to right, #2c3333, #35363C);
+}
+</style>
+"""
+
+st.markdown(custom_header, unsafe_allow_html=True)
+
+
+custom_metric = """
+<style>
+[data-testid="metric-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+text-align: center;
+max-width: 80%;
+}
+</style>
+"""
+st.markdown(custom_metric, unsafe_allow_html=True)
+
+
+
+custom_sidebar = """
+<style>
+section[data-testid="stSidebar"]{
+background-image: linear-gradient(#35363C, #0e1117);
+color: white;
+}
+</style>
+"""
+st.markdown(custom_sidebar , unsafe_allow_html=True)
+
+
+custom_selectbox = """
+<style>
+[data-baseweb="select"]{
+background-image: linear-gradient(#35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+color: white;
+}
+</style>
+"""
+st.markdown(custom_selectbox , unsafe_allow_html=True)
+

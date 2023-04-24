@@ -27,6 +27,21 @@ import plotly.figure_factory as ff
 
 st.set_page_config(page_title='Player Shooting Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
+st.markdown("""
+    <h1 style="
+        font-family: Arial, sans-serif;
+        font-size: 48px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(to right, #202628, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 30px;
+    ">Player Clustering</h1>
+""", unsafe_allow_html=True)
+
+
 # get current time in pst
 pst = datetime.timezone(datetime.timedelta(hours=-8))
 # to datetime
@@ -47,11 +62,9 @@ files_in_dir.sort()
 today = files_in_dir[-1]
 
 # Load Data
-
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
 # add capitalized player name
 player_numbers['Player'] = player_numbers['player_name'].str.title()
-
 # Load Sizes
 df_sizes = pd.read_csv('data/player/aggregates_of_aggregates/New_Sizes_and_Positions.csv')
 
@@ -203,12 +216,6 @@ if player not in position_avgs_22['trad_player'].values:
     position_avgs_22 = position_avgs_22.append(chosen_player_avgs_22)
 #
 
-# add position column to shooting_efficiency
-#shooting_efficiency['position'] = shooting_efficiency['PLAYER'].map(primary_positions.set_index('player')['primary_position_bbref'])
-
-# position_avgs_22 = player_avgs_22[player_avgs_22['trad_pos'] == position]
-
-st.subheader('Player Clustering for Similar Players')
 
 # Select columns to use for cluster analysis
 cl_cols = ['ppm', 'trad_pts', 'trad_3p%', 'trad_ast', 'trad_reb', 'trad_stl', 'adv_efg%', 'adv_ts%', 'adv_usg%', 'adv_offrtg', 'adv_defrtg']

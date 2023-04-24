@@ -15,9 +15,7 @@ import os
 
 st.set_page_config(page_title='Player Game Data Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
-
-
-st.markdown("""
+st.markdown(f"""
     <h1 style="
         font-family: Arial, sans-serif;
         font-size: 48px;
@@ -25,10 +23,10 @@ st.markdown("""
         color: #ffffff;
         text-align: center;
         padding: 10px;
-        background: linear-gradient(#24262c, #0e1117);
+        background: linear-gradient(to right, {st.session_state['title_color_1']}, {st.session_state['title_color_2']});
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
         border-radius: 20px;
-    ">NBA Player Game Data</h1>
+    ">Recent Game Data</h1>
 """, unsafe_allow_html=True)
 
 # get current time in pst

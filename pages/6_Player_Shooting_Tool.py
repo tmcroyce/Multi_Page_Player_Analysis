@@ -31,71 +31,6 @@ import re
 st.set_page_config(page_title='Player Shooting Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
 
-custom_background = """
-<style>
-[data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_background, unsafe_allow_html=True)
-
-# Define custom CSS for the gradient background
-custom_header = """
-<style>
-[data-testid="stHeader"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_header, unsafe_allow_html=True)
-
-
-
-custom_plotly = """
-<style>
-[class="user-select-none svg-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-border-radius: 30px;  /* Adjust this value to change the rounding of corners */
-text-align: center;  /* Center the text inside the metric box */
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_plotly, unsafe_allow_html=True)
-
-custom_sidebar = """
-<style>
-section[data-testid="stSidebar"]{
-background-image: linear-gradient(#35363C, #0e1117);
-color: white;
-}
-</style>
-"""
-st.markdown(custom_sidebar , unsafe_allow_html=True)
-
-custom_table = """
-<style>
-[data-testid="stTable"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-border-radius: 10px;  /* Adjust this value to change the rounding of corners */
-text-align: center;  /* Center the text inside the metric box */
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_table, unsafe_allow_html=True)
-
 
 layout = go.Layout(
     plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
@@ -1119,3 +1054,69 @@ player_gbg.columns = new_col_names
 # fig.add_annotation(x = player_gbg['min'].max(), y = player_gbg['pts'].max(), text = 'R Squared: ' + str(round(r_squared, 2)), showarrow = False)
 # col2.plotly_chart(fig, use_container_width = True)
 
+
+
+custom_background = """
+<style>
+[data-testid="stAppViewContainer"] {
+background: linear-gradient(to right, #2c3333, #35363C);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_background, unsafe_allow_html=True)
+
+# Define custom CSS for the gradient background
+custom_header = """
+<style>
+[data-testid="stHeader"] {
+background: linear-gradient(to right, #2c3333, #35363C);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_header, unsafe_allow_html=True)
+
+
+
+custom_plotly = """
+<style>
+[class="user-select-none svg-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_plotly, unsafe_allow_html=True)
+
+custom_sidebar = """
+<style>
+section[data-testid="stSidebar"]{
+background-image: linear-gradient(#35363C, #0e1117);
+color: white;
+}
+</style>
+"""
+st.markdown(custom_sidebar , unsafe_allow_html=True)
+
+custom_table = """
+<style>
+[data-testid="stTable"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 10px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_table, unsafe_allow_html=True)

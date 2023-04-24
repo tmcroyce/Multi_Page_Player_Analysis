@@ -223,7 +223,7 @@ positional_df = df_sizes[df_sizes['primary_position_bbref'] == position]
 
 ################ END OF INTRO CODE ####################
 
-st.markdown("""
+st.markdown(f"""
     <h1 style="
         font-family: Arial, sans-serif;
         font-size: 48px;
@@ -231,7 +231,7 @@ st.markdown("""
         color: #ffffff;
         text-align: center;
         padding: 20px;
-        background: linear-gradient(#24262c, #0e1117);
+        background: linear-gradient(to right, {st.session_state['title_color_1']}, {st.session_state['title_color_2']});;
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
         border-radius: 30px;
     ">Player Playtype Data</h1>
@@ -356,7 +356,9 @@ def color_code_percentile2(val):
     # return highlight color (background)
     return 'background-color: %s' % color
 
-st.table(playtypes.style.format('{:.2f}', subset= playtypes.columns[3:]).applymap(color_code_percentile2, subset = 'Percentile'))
+# give option to show table with data
+if st.checkbox('Show Playtype Data Table'):
+    st.table(playtypes.style.format('{:.2f}', subset= playtypes.columns[3:]).applymap(color_code_percentile2, subset = 'Percentile'))
 
 # identify num cols (last 14 cols)
 num_cols = player_iso.columns[-14:]
@@ -390,18 +392,6 @@ fig.update_layout(title = 'Playtype Breakdown for ' + player, height = 600,
                                     # change background and paper color to transparent
                     paper_bgcolor = 'rgba(0,0,0,0)', plot_bgcolor = 'rgba(0,0,0,0)')
 st.plotly_chart(fig, use_container_width = True)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -32,15 +32,15 @@ import re
 
 st.set_page_config(page_title='Player Analyzer Tool', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
-st.markdown("""
+st.markdown(f"""
     <h1 style="
         font-family: Arial, sans-serif;
-        font-size: 48px;
+        font-size: 40px;
         font-weight: bold;
         color: #ffffff;
         text-align: center;
         padding: 20px;
-        background: linear-gradient(to right, #202628, #0e1117);
+        background: linear-gradient(to right, {st.session_state['title_color_1']}, {st.session_state['title_color_2']});
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
         border-radius: 30px;
     ">Size at Position</h1>
@@ -53,11 +53,6 @@ pst = datetime.timezone(datetime.timedelta(hours=-8))
 # to datetime
 pst = datetime.datetime.now(pst)
 
-# st.write(f"Current working directory: {os.getcwd()}")
-# # list files in current directory
-# st.write(f"Files in current directory: {os.listdir()}")
-# get files in folder: data\\player\\nba_com_playerdata\\tracking
-#today = pst.strftime('%Y-%m-%d')
 
 files_in_dir = os.listdir('data/player/nba_com_playerdata/tracking')
 
@@ -121,13 +116,13 @@ def show_sidebar():
 
 
 # Load Data
-
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
 # add capitalized player name
 player_numbers['Player'] = player_numbers['player_name'].apply(clean_name)
 
 # Load Sizes
 df_sizes = pd.read_csv('data/player/aggregates_of_aggregates/New_Sizes_and_Positions.csv')
+df_sizes['player'] = df_sizes['player'].apply(clean_name)
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
@@ -143,10 +138,8 @@ last_date = gbg_df['Date'].iloc[0]
 
 # load game by game data
 gbg_df = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv')
-
 # fix names in loaded data
 gbg_df['trad_player'] = gbg_df['trad_player'].apply(clean_name)
-df_sizes['player'] = df_sizes['player'].apply(clean_name)
 
 # select team
 teams = gbg_df['trad_team'].unique()
@@ -193,7 +186,7 @@ st.sidebar.image(player_photo, width = 200)
 # select position
 position_options = ['PG', 'SG', 'SF', 'PF', 'C']
 position_index = st.session_state['position_index']
-# st.sidebar.write('Position Index: ' + str(position_index))
+
 # make int
 position_index_dict = {'PG': 0, 'SG': 1, 'SF': 2, 'PF': 3, 'C': 4}
 st.session_state.position = st.sidebar.selectbox('Select Position to evaluate the player at', options = position_options, index = position_index)
@@ -222,7 +215,6 @@ player_wingspan = player_size['wingspan_final'].iloc[0]
 
 player_height_feet = int(player_height / 12)
 player_height_inches = int(player_height % 12)
-
 player_height_total = str(player_height_feet) + "'" + str(player_height_inches) + '"'
 
 player_wingspan_feet = int(player_wingspan / 12)
@@ -385,7 +377,7 @@ with col5:
     # Create the Plotly chart for wingspan / height ratio percentile
     # (Use the previously defined color_def function and chart settings)
     fig = go.Figure(go.Bar(x = [player_wingspan_height_ratio_percentile], y = ['Wingspan / Height Ratio Percentile'], orientation = 'h', marker_color = wing_height_ratio_color_def()))
-    fig.update_layout(title = position + ' Wingspan / Height Ratio Percentile', height = 200,
+    fig.update_layout(title = position + ' Wingspan / Height Percentile', height = 200,
                       plot_bgcolor='rgba(0, 0, 0, 0)', paper_bgcolor='rgba(0, 0, 0, 0)',
                       xaxis = dict(tickfont = dict(size = 20)),
                         yaxis = dict(tickfont = dict(size = 10)))
@@ -422,7 +414,7 @@ def plot_height_wingspan2():
     fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
                         paper_bgcolor='rgba(0, 0, 0, 0)')
     fig.update_traces(marker_size=10)
-    fig.update_layout(title='Height vs Wingspan for ' + position + 's', width=800, height=800)
+    fig.update_layout(title='Height vs Wingspan for ' + position + 's', width=800, height=600)
     fig.update_xaxes(title='Height (inches)')
     fig.update_yaxes(title='Wingspan (inches)')
     fig.update_traces(marker_line_width=1, marker_line_color='black')
@@ -466,18 +458,15 @@ def plot_height_wingspan2():
     return st.plotly_chart(fig, use_container_width=True)
 
 pos_seasons = positional_df['season'].unique()
-# turn into df
 pos_seasons = pd.DataFrame(pos_seasons)
 # drop nans
-pos_seasons = pos_seasons.dropna()
-# make int
-pos_seasons = pos_seasons.astype(int)
+pos_seasons = pos_seasons.dropna().astype(int)
 # turn back into list
 pos_seasons = pos_seasons[0].tolist()
 
 
 st.write('')
-st.markdown("""
+st.markdown(f"""
     <h2 style="
         font-family: Arial, sans-serif;
         font-size: 30px;
@@ -485,7 +474,7 @@ st.markdown("""
         color: #ffffff;
         text-align: center;
         padding: 20px;
-        background: linear-gradient(to right, #202628, #0e1117);
+        background: linear-gradient(to right, {st.session_state['title_color_1']}, {st.session_state['title_color_2']});
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
         border-radius: 30px;
     ">Height Vs. Wingspan</h2>
@@ -508,28 +497,16 @@ st.write('Footnote: The data for positions is pulled from BasketballReference.co
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 # CSS
 
 # Total
 custom_background = """
-<style>
-[data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
+    <style>
+    [data-testid="stAppViewContainer"] {
+    background: linear-gradient(to right, #2c3333, #35363C);
+    }
+    </style>
+    """
 
 # Inject the custom CSS into the Streamlit app
 st.markdown(custom_background, unsafe_allow_html=True)
@@ -551,7 +528,7 @@ st.markdown(custom_header, unsafe_allow_html=True)
 custom_metric = """
 <style>
 [data-testid="metric-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
+background: linear-gradient(to right, #26272b, #0e1117);
 box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
 text-align: center;
 max-width: 80%;
@@ -564,7 +541,7 @@ st.markdown(custom_metric, unsafe_allow_html=True)
 custom_plotly = """
 <style>
 [class="user-select-none svg-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
+background: linear-gradient(to right, #26272b, #0e1117);
 border-radius: 30px;  /* Adjust this value to change the rounding of corners */
 text-align: center;  /* Center the text inside the metric box */
 box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
@@ -591,8 +568,8 @@ st.markdown(custom_sidebar , unsafe_allow_html=True)
 custom_markdown_container = """
 <style>
 [data-testid="stMarkdownContainer"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+background: linear-gradient(to right, #26272b, #0e1117);
+border-radius: 10px;  /* Adjust this value to change the rounding of corners */
 text-align: center;  /* Center the text inside the metric box */
 box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
 
