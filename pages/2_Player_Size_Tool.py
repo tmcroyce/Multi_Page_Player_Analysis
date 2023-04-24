@@ -46,87 +46,7 @@ st.markdown("""
     ">Size at Position</h1>
 """, unsafe_allow_html=True)
 
-# Total
-custom_background = """
-<style>
-[data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_background, unsafe_allow_html=True)
-
-
-# Define custom CSS for the gradient background
-custom_header = """
-<style>
-[data-testid="stHeader"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_header, unsafe_allow_html=True)
-
-
-custom_metric = """
-<style>
-[data-testid="metric-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-text-align: center;
-max-width: 80%;
-}
-</style>
-"""
-st.markdown(custom_metric, unsafe_allow_html=True)
-
-
-custom_plotly = """
-<style>
-[class="user-select-none svg-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-border-radius: 30px;  /* Adjust this value to change the rounding of corners */
-text-align: center;  /* Center the text inside the metric box */
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_plotly, unsafe_allow_html=True)
-
-custom_sidebar = """
-<style>
-section[data-testid="stSidebar"]{
-background-image: linear-gradient(#35363C, #0e1117);
-color: white;
-}
-</style>
-"""
-st.markdown(custom_sidebar , unsafe_allow_html=True)
-
-
-# Custom Markdown Container
-custom_markdown_container = """
-<style>
-[data-testid="stMarkdownContainer"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-border-radius: 30px;  /* Adjust this value to change the rounding of corners */
-text-align: center;  /* Center the text inside the metric box */
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-
-}
-</style>
-"""
-
-# Inject the custom CSS into the Streamlit app
-st.markdown(custom_markdown_container , unsafe_allow_html=True)
-
+st.write('')
 
 # get current time in pst
 pst = datetime.timezone(datetime.timedelta(hours=-8))
@@ -237,10 +157,8 @@ teams = np.sort(teams)
 # 2022-23 season only
 gbg_22 = gbg_df[gbg_df['adv_season'] == 2022]
 
-
 # read team number from session state
 team_number = st.session_state.team_num
-
 # make int
 team_number = int(team_number)
 
@@ -301,6 +219,15 @@ median_wingspan = df_sizes[df_sizes['primary_position_bbref'] == position]['wing
 player_size = player_size[keepcols]
 player_height = player_size['height_final'].iloc[0]
 player_wingspan = player_size['wingspan_final'].iloc[0]
+
+player_height_feet = int(player_height / 12)
+player_height_inches = int(player_height % 12)
+
+player_height_total = str(player_height_feet) + "'" + str(player_height_inches) + '"'
+
+player_wingspan_feet = int(player_wingspan / 12)
+player_wingspan_inches = int(player_wingspan % 12)
+player_wingspan_total = str(player_wingspan_feet) + "'" + str(player_wingspan_inches) + '"'
 
 # make a df of just players and their primary position
 primary_positions = df_sizes[['player', 'primary_position_bbref', 'position_season']]
@@ -369,7 +296,7 @@ def wing_height_ratio_color_def():
 
 with col1:
     # Format the metric as a string
-    metric_str = f"{str(player_height)} inches"
+    metric_str = f"{str(player_height_total)}"
     
     # plot small bar chart for height percentile with plotly. Color is red if below median, green if above median
     fig = go.Figure(go.Bar(x = [player_height_percentile], y = ['Height Percentile'], orientation = 'h', marker_color = color_def()))
@@ -394,8 +321,7 @@ with col1:
     # Wrap the entire content in the 'colored-block' class
     st.markdown(f"""
         <div class='colored-block'>
-            <h2>Height</h2>
-            <h3>{metric_str}</h3>
+            <h3>Height: {metric_str}</h3>
         </div>
     """, unsafe_allow_html=True)
 
@@ -403,7 +329,7 @@ with col1:
     # Another, for position percentile
     st.markdown(f"""
         <div class='colored-block'>
-            <h4>Position Percentile: {round(player_height_percentile)}% </h4></h3>
+            <h5>Position Percentile: {round(player_height_percentile)}% </h5>
         </div>
     """, unsafe_allow_html=True)
     
@@ -418,7 +344,7 @@ with col1:
 # For col3
 with col3:
     # Format the metric as a string
-    metric_str = f"{str(player_wingspan)} inches"
+    metric_str = f"{str(player_wingspan_total)}"
 
     # Create the Plotly chart for wingspan percentile
     # (Use the previously defined color_def function and chart settings)
@@ -435,8 +361,7 @@ with col3:
     # Wrap the entire content in the 'colored-block' class
     st.markdown(f"""
         <div class='colored-block'>
-            <h2>Wingspan</h2>
-            <h3>{metric_str}</h3>
+            <h3>Wingspan: {metric_str}</h3>
         </div>
     """, unsafe_allow_html=True)
     st.write('')
@@ -444,7 +369,7 @@ with col3:
     # Another, for position percentile
     st.markdown(f"""
         <div class='colored-block'>
-            <h4>Position Percentile: {round(player_wingspan_percentile)}% </h4></h3>
+            <h5>Position Percentile: {round(player_wingspan_percentile)}% </h5>
         </div>
     """, unsafe_allow_html=True)
     st.write('')
@@ -471,8 +396,7 @@ with col5:
     # Wrap the entire content in the 'colored-block' class
     st.markdown(f"""
         <div class='colored-block'>
-            <h2>Wingspan / Height</h2>
-            <h3>{metric_str}</h3>
+            <h3>Wing Ratio {metric_str}</h3>
         </div>
     """, unsafe_allow_html=True)
 
@@ -481,7 +405,7 @@ with col5:
         # Another, for position percentile
     st.markdown(f"""
         <div class='colored-block'>
-            <h4>Position Percentile: {round(player_wingspan_height_ratio_percentile)}% </h4></h3>
+            <h5>Position Percentile: {round(player_wingspan_height_ratio_percentile)}% </h5>
         </div>
     """, unsafe_allow_html=True)
     st.write('')
@@ -581,3 +505,100 @@ plot_height_wingspan2()
 
 
 st.write('Footnote: The data for positions is pulled from BasketballReference.com and is the actual position they play on the floor, as opposed to the NBA listed position.')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# CSS
+
+# Total
+custom_background = """
+<style>
+[data-testid="stAppViewContainer"] {
+background: linear-gradient(to right, #2c3333, #35363C);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_background, unsafe_allow_html=True)
+
+
+# Define custom CSS for the gradient background
+custom_header = """
+<style>
+[data-testid="stHeader"] {
+background: linear-gradient(to right, #2c3333, #35363C);
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_header, unsafe_allow_html=True)
+
+
+custom_metric = """
+<style>
+[data-testid="metric-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+text-align: center;
+max-width: 80%;
+}
+</style>
+"""
+st.markdown(custom_metric, unsafe_allow_html=True)
+
+
+custom_plotly = """
+<style>
+[class="user-select-none svg-container"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_plotly, unsafe_allow_html=True)
+
+custom_sidebar = """
+<style>
+section[data-testid="stSidebar"]{
+background-image: linear-gradient(#35363C, #0e1117);
+color: white;
+}
+</style>
+"""
+st.markdown(custom_sidebar , unsafe_allow_html=True)
+
+
+# Custom Markdown Container
+custom_markdown_container = """
+<style>
+[data-testid="stMarkdownContainer"] {
+background: linear-gradient(to right, #35363C, #0e1117);
+border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+text-align: center;  /* Center the text inside the metric box */
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+
+}
+</style>
+"""
+
+# Inject the custom CSS into the Streamlit app
+st.markdown(custom_markdown_container , unsafe_allow_html=True)
