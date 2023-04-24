@@ -332,7 +332,6 @@ col9.metric(label = 'USG%', value = round(last_10_usg, 1), delta = round(last_10
 st.write('')
 st.write('Over the past 10 games, ' + player + ' has scored at a pace of ' + str(round(last_10['ppm'].mean(), 1)) + ' points per minute, ' + str(round(last_10['pts'].mean(), 1)) + ' points per game, while shooting ' + str(round(last_10['3p%'].mean(), 1)) + '% from three.')
 st.write('He is averaging ' + str(round(last_10['ast'].mean(), 1)) + ' assists per game, ' + str(round(last_10['reb'].mean(), 1)) + ' rebounds per game, and ' + str(round(last_10['stl'].mean(), 1)) + ' steals per game.')
-st.write('---')
 
 # Visualize PPM, Points, and 3P% over last 10 games
 colz  = st.columns(3)
@@ -367,7 +366,6 @@ fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot backgroun
 fig.add_hline(y = last_10['3p%'].mean(), line_dash = 'dash', line_color = 'red')
 col3.plotly_chart(fig, use_container_width = True)
 
-st.write('---')
 
 # plot usage distribution over last 10
 fig = px.violin(last_10, x = 'adv_usg%', title = 'Usage Distribution over Last 10 Games', box = True, points = 'all', hover_data = last_10.columns)

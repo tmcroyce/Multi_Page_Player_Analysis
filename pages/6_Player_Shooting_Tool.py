@@ -101,6 +101,7 @@ player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.c
 # add capitalized player name
 player_numbers['Player'] = player_numbers['player_name'].str.title()
 
+
 # Load Sizes
 df_sizes = pd.read_csv('data/player/aggregates_of_aggregates/New_Sizes_and_Positions.csv')
 
@@ -257,14 +258,11 @@ st.markdown("""
         border-radius: 30px;
     ">Player Shooting Metrics</h2>
 """, unsafe_allow_html=True)
-
+st.subheader('')
 
 
 # 3 columns
-col1, col2, col3 = st.columns(3)
-
-
-col1.write('Shooting Efficiency')
+col1, col2 = st.columns(2)
 
 player_shooting_efficiency_init = shooting_efficiency[shooting_efficiency['PLAYER'] == player]
 # transpose the dataframe
@@ -330,13 +328,20 @@ def color_code_percentile(val):
     # return highlight color (background)
     return 'background-color: %s' % color
 
-#Test -- Radar chart of player shooting efficiencies percentiles
+
+
+# Replace C&S with Catch and Shoot
+player_shooting_efficiency2.index = [row.replace('C&S', 'Catch and Shoot') for row in player_shooting_efficiency2.index]
+
+# -- Radar chart of player shooting efficiencies percentiles
 efficiency_rows = [row for row in player_shooting_efficiency2.index if '%' in row ]
 volume_rows = [row for row in player_shooting_efficiency2.index if '%' not in row ]
 
-col2.subheader('Efficiency Metrics')
-col2.subheader('')
-col2.subheader('')
+
+
+
+
+col1.subheader('Efficiency Metrics')
 
 # radar chart efficiency rows player percentile
 fig = go.Figure(layout = layout)
@@ -358,17 +363,15 @@ fig.update_layout(
         )),
         showlegend=True,
         plot_bgcolor = plot_bgcolor,
+        font_size = 14,
+        height = 500,
 )
-# Increase text size
-fig.update_layout(font_size=16)
 
-
-col2.plotly_chart(fig, use_container_width=True,)
+col1.plotly_chart(fig, use_container_width=True,)
 
 # radar chart volume rows player percentile
-col3.subheader('Volume / Scoring Metrics') #TODO: change tyo markdown
-col3.subheader('')
-col3.subheader('')
+col2.subheader('Volume / Scoring Metrics') #TODO: change tyo markdown
+
 
 fig = go.Figure(layout = layout)
 
@@ -387,18 +390,18 @@ fig.update_layout(
             visible=True,
             range=[0, 1]
         )),
-        showlegend=True
+        showlegend=True,
+        height = 500
 )
 # Increase text size
-fig.update_layout(font_size=16)
+fig.update_layout(font_size=14)
 
-col3.plotly_chart(fig, use_container_width=True)
-
-
+col2.plotly_chart(fig, use_container_width=True)
 
 
-
-col1.table(player_shooting_efficiency2.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
+# Add button for table display
+if st.checkbox('Show Shooting Efficiency Table'):
+    st.table(player_shooting_efficiency2.style.format('{:.2f}').applymap(color_code_percentile, subset=['Player Percentile']))
 
 #############################################################################################################
 
@@ -416,7 +419,7 @@ st.markdown("""
     ">Player Shooting by Zone</h2>
 """, unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 def shooting_by_zone():
 
@@ -517,7 +520,6 @@ def shooting_by_zone():
 
 
 player_shooting_splits_by_zone = shooting_by_zone()
-col1.table(player_shooting_splits_by_zone.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
 
 # efficiency rows by zone
 efficiency_rows_zone = [row for row in player_shooting_splits_by_zone.index if "%" in row]
@@ -545,9 +547,9 @@ fig.update_layout(
     showlegend = False
 )
 
-fig.update_layout(font_size = 16)
+fig.update_layout(font_size = 14)
 
-col2.plotly_chart(fig, use_container_width = True)
+col1.plotly_chart(fig, use_container_width = True)
 
 # radar chart volume by zone
 fig = go.Figure(layout = layout)
@@ -570,10 +572,14 @@ fig.update_layout(
 )
 
 # larger text
-fig.update_layout(font_size = 16)
+fig.update_layout(font_size = 14)
 
-col3.plotly_chart(fig, use_container_width = True)
+col2.plotly_chart(fig, use_container_width = True)
 
+# checkbox
+show_player_shooting_by_zone_table = st.checkbox('Show Player Shooting by Zone Table')
+if show_player_shooting_by_zone_table:
+    col1.table(player_shooting_splits_by_zone.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
 
 
 
@@ -596,7 +602,7 @@ st.markdown("""
 st.subheader('')
 st.subheader('')
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 
 def shooting_by_distance():
@@ -690,7 +696,6 @@ def shooting_by_distance():
     return player_shooting_splits_5ft
 
 player_shooting_splits_5ft = shooting_by_distance()
-col1.table(player_shooting_splits_5ft.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
 
 efficiency_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' in row]
 volume_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' not in row]
@@ -716,9 +721,9 @@ fig.update_layout(
 )
 
 # larger text
-fig.update_layout(font_size = 16)
+fig.update_layout(font_size = 14)
 
-col2.plotly_chart(fig, use_container_width=True)
+col1.plotly_chart(fig, use_container_width=True)
 
 # volume
 fig = go.Figure(layout = layout)
@@ -741,10 +746,13 @@ fig.update_layout(
 )
 
 # larger text
-fig.update_layout(font_size = 16)
+fig.update_layout(font_size = 14)
 
-col3.plotly_chart(fig, use_container_width=True)
+col2.plotly_chart(fig, use_container_width=True)
 
+# checkbox
+if col1.checkbox('Show Shooting by Distance Table'):
+    col1.table(player_shooting_splits_5ft.style.format('{:.2f}').applymap(color_code_percentile, subset = ['Player Percentile']))
 
 ####################################################################################################################
 
@@ -753,8 +761,24 @@ col3.plotly_chart(fig, use_container_width=True)
 
 
 ######### SHOT DASHBOARD #########
+st.subheader('')
 
-st.write('Shot Dashboard (General)')
+col1, col2, col3 = st.columns([.33, .33, .33])
+
+col2.markdown("""
+    <h4 style="
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        background: linear-gradient(#24262c, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 20px;
+    ">General Shooting Metrics</h4>
+""", unsafe_allow_html=True)
+
 # shot_dash_general
 player_shot_dash_general = shot_dash_general[shot_dash_general['PLAYER'] == player]
 # drop fgm cols
@@ -881,6 +905,26 @@ import base64
 
 
 
+
+
+st.subheader('')
+
+col1, col2, col3 = st.columns([.33, .33, .33])
+
+col2.markdown("""
+    <h4 style="
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        background: linear-gradient(#24262c, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 20px;
+    ">Field Goal Attempts vs Effective Shooting %</h4>
+""", unsafe_allow_html=True)
+
 # get player percentile for each column
 for col in sdg_numcols:
     position_shot_dash_general[col + '_percentile'] = position_shot_dash_general[col].rank(pct = True, method = 'first')
@@ -892,9 +936,21 @@ fig = px.scatter(filt_position_shot_dash_general, x='FGA', y='EFG%',
                  height=800, width=800)
 # Update the layout to have a transparent background and a title
 fig.update_layout(
-    title='Field Goal Attempts vs Effective Field Goal % for Position',
+    title='',
     plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-    paper_bgcolor='rgba(0, 0, 0, 0)'   # Transparent overall figure background
+    paper_bgcolor='rgba(0, 0, 0, 0)',   # Transparent overall figure background
+    # make yticks percent
+
+    yaxis = dict(
+        tickvals = [0, 20, 40, 60, 80, 100],
+        ticktext = ['0%', '20%', '40%', '60%', '80%', '100%']
+    ),
+    # make yticks and xticks larger
+    yaxis_tickfont_size=16,
+    xaxis_tickfont_size=16,
+    # make labels larger
+    xaxis_title_font_size=20,
+    yaxis_title_font_size=20,
 )
 # Make the plot markers bigger
 fig.update_traces(marker=dict(size=10))
@@ -933,7 +989,26 @@ st.plotly_chart(fig, use_container_width=True)
 # Add a plotly chart for the distribution of a chosen data point
 #data_point = 'EFG%'
 
-st.subheader('Select a data point to plot the distribution for the position')
+st.subheader('')
+
+col1, col2, col3 = st.columns([.2, .6, .2])
+
+col2.markdown("""
+    <h4 style="
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        background: linear-gradient(#24262c, #0e1117);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+        border-radius: 20px;
+    ">Select a data point to plot the distribution for the position</h4>
+""", unsafe_allow_html=True)
+
+
+
 
 # Add violin plot for the distribution of a chosen data point
 data_point = st.selectbox('Choose a data point to plot', position_shot_dash_general.columns[1:10])

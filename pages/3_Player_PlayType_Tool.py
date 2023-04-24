@@ -236,6 +236,7 @@ st.markdown(f"""
         border-radius: 30px;
     ">Player Playtype Data</h1>
 """, unsafe_allow_html=True)
+st.subheader('')
 
 
 playtype_folder = 'data/player/nba_com_playerdata/playtypes/'
@@ -371,12 +372,12 @@ fig = px.scatter(playtypes, x = 'Percentile', y = 'Freq%', size = 'PPP_norm', co
                  
 
 fig.update_layout(title = 'Frequency of Playtype vs Percentile for ' + player, height = 500)
-fig.update_layout(xaxis_title = 'Player NBA Percentile (How Good They Are At Specified Play)', yaxis_title = 'Frequency of Playtype (How Often They Run Specified Play)',
+fig.update_layout(xaxis_title = 'Player Playtype Percentile', yaxis_title = 'Frequency of Playtype',
                   # change background and paper color to transparent
                     paper_bgcolor = 'rgba(0,0,0,0)', plot_bgcolor = 'rgba(0,0,0,0)',
                     # make x axis and y axis labels larger
-                    xaxis = dict(title_font = dict(size = 20)),
-                    yaxis = dict(title_font = dict(size = 20)),
+                    xaxis = dict(title_font = dict(size = 16)),
+                    yaxis = dict(title_font = dict(size = 16)),
                     # no legend
                     showlegend = False
     
@@ -391,13 +392,11 @@ st.plotly_chart(fig, use_container_width = True)
 
 
 # add playtype breakdwon donut chart with Freq%
-fig = go.Figure(data = [go.Pie(labels = playtypes.index, values = playtypes['Freq%'], hole = 0.6)])
+fig = go.Figure(data = [go.Pie(labels = playtypes.index, values = playtypes['Freq%'], hole = 0.6, textinfo = 'label+percent', insidetextorientation = 'radial')])
 fig.update_layout(title = 'Playtype Breakdown for ' + player, height = 500,
                                     # change background and paper color to transparent
                     paper_bgcolor = 'rgba(0,0,0,0)', plot_bgcolor = 'rgba(0,0,0,0)')
-# add annotations
-for i in range(len(playtypes)):
-    fig.add_annotation(x = playtypes['Percentile'][i], y = playtypes['Freq%'][i], text = playtypes.index[i])
+
 
 st.plotly_chart(fig, use_container_width = True)
 

@@ -205,6 +205,7 @@ positional_df = df_sizes[df_sizes['primary_position_bbref'] == position]
 
 ##### LOAD DATA END #############################################################################
 
+st.subheader('')
 
 st.markdown("""
     <h2 style="
@@ -261,11 +262,7 @@ player_gbg = player_gbg.set_index('player')
 player_gbg['game_date'] = pd.to_datetime(player_gbg['game date']).dt.date
 player_gbg = player_gbg.sort_values(by = 'game_date', ascending = False)
 
-
-
 st.dataframe(player_gbg.style.format('{:.1f}', subset = numeric_cols))
-
-
 
 # calculate averages for player
 player_gbg_avg = player_gbg.groupby('player').mean().reset_index()
@@ -278,9 +275,8 @@ player_gbg_avg = player_gbg_avg.set_index('player')
 # rename columns
 player_gbg_avg.columns = ['Offensive Rating', 'Defensive Rating', 'Effective FG%', 'True Shooting%', 'Pace', 'Points Per Minute']
 st.write('**Advanced Averages**')
-st.table(player_gbg_avg.style.format('{:.2f}', subset = player_gbg_avg.columns))
+st.dataframe(player_gbg_avg.style.format('{:.2f}', subset = player_gbg_avg.columns))
 
-st.write("---")
 
 
 # make sure position_season is 2022
@@ -312,8 +308,9 @@ st.markdown("""
         background: linear-gradient(#24262c, #0e1117);
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
         border-radius: 30px;
-    ">Splits: Home vs Away</h2>
+    ">Home vs Away Performance Distributions</h2>
 """, unsafe_allow_html=True)
+st.subheader('')
 
 
 # add optional filter for season
