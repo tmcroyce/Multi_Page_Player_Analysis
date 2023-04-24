@@ -387,10 +387,14 @@ st.plotly_chart(fig, use_container_width = True)
 
 
 # add playtype breakdwon donut chart with Freq%
-fig = go.Figure(data = [go.Pie(labels = playtypes.index, values = playtypes['Freq%'], hole = 0.5)])
+fig = go.Figure(data = [go.Pie(labels = playtypes.index, values = playtypes['Freq%'], hole = 0.6)])
 fig.update_layout(title = 'Playtype Breakdown for ' + player, height = 600,
                                     # change background and paper color to transparent
                     paper_bgcolor = 'rgba(0,0,0,0)', plot_bgcolor = 'rgba(0,0,0,0)')
+# add annotations
+for i in range(len(playtypes)):
+    fig.add_annotation(x = playtypes['Percentile'][i], y = playtypes['Freq%'][i], text = playtypes.index[i])
+    
 st.plotly_chart(fig, use_container_width = True)
 
 
