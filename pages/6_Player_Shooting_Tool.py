@@ -341,60 +341,80 @@ volume_rows = [row for row in player_shooting_efficiency2.index if '%' not in ro
 
 
 
+
 col1.subheader('Efficiency Metrics')
 
-# radar chart efficiency rows player percentile
-fig = go.Figure(layout = layout)
+# radar chart efficiency rows player percentile# radar chart efficiency rows player percentile
+fig = go.Figure(layout=layout)
 
-radar_fill_color = 'rgba(34, 97, 153, 0.6)'
-fig.add_trace(go.Scatterpolar(
-        r=player_shooting_efficiency2.loc[efficiency_rows, 'Player Percentile'],
-        theta=efficiency_rows,
-        fill='toself',
-        fillcolor=radar_fill_color,
-        name='Player Percentile'
+player_percentile_values = player_shooting_efficiency2.loc[efficiency_rows, 'Player Percentile']
+
+# Create a colorscale using plotly express (You can use any colorscale you prefer)
+colorscale = px.colors.diverging.BrBG
+
+fig.add_trace(go.Barpolar(
+    r=player_percentile_values,
+    theta=efficiency_rows,
+    marker=dict(
+        color=player_percentile_values,
+        colorscale=colorscale,
+        showscale=True,
+        colorbar=dict(title='Percentile',
+            x=1.2),
+    ),
+    name='Player Percentile'
 ))
 
 fig.update_layout(
-        polar=dict(
+    polar=dict(
         radialaxis=dict(
             visible=True,
             range=[0, 1]
         )),
-        showlegend=True,
-        plot_bgcolor = plot_bgcolor,
-        font_size = 14,
-        height = 500,
+    showlegend=False,
+    plot_bgcolor=plot_bgcolor,
+    font_size=14,
+    height=500,
 )
 
-col1.plotly_chart(fig, use_container_width=True,)
+col1.plotly_chart(fig, use_container_width=True)
+
+
 
 # radar chart volume rows player percentile
 col2.subheader('Volume / Scoring Metrics') #TODO: change tyo markdown
 
+fig = go.Figure(layout=layout)
 
-fig = go.Figure(layout = layout)
+player_percentile_values_volume = player_shooting_efficiency2.loc[volume_rows, 'Player Percentile']
 
-fig.add_trace(go.Scatterpolar(
-        r=player_shooting_efficiency2.loc[volume_rows, 'Player Percentile'],
-        theta=volume_rows,
-        fill='toself',
-        fillcolor=radar_fill_color,
-        name='Player Percentile'
+# Create a colorscale using plotly express (You can use any colorscale you prefer)
+colorscale = px.colors.diverging.BrBG
+
+fig.add_trace(go.Barpolar(
+    r=player_percentile_values_volume,
+    theta=volume_rows,
+    marker=dict(
+        color=player_percentile_values_volume,
+        colorscale=colorscale,
+        showscale=True,
+        colorbar=dict(title='Percentile',
+            x=1.2),
+    ),
+    name='Player Percentile'
 ))
 
-
 fig.update_layout(
-        polar=dict(
+    polar=dict(
         radialaxis=dict(
             visible=True,
             range=[0, 1]
         )),
-        showlegend=True,
-        height = 500
+    showlegend=True,
+    plot_bgcolor=plot_bgcolor,
+    font_size=14,
+    height=500,
 )
-# Increase text size
-fig.update_layout(font_size=14)
 
 col2.plotly_chart(fig, use_container_width=True)
 
@@ -418,6 +438,7 @@ st.markdown("""
         border-radius: 30px;
     ">Player Shooting by Zone</h2>
 """, unsafe_allow_html=True)
+st.subheader('')
 
 col1, col2 = st.columns(2)
 
@@ -518,7 +539,6 @@ def shooting_by_zone():
     # show df
     return player_shooting_splits_by_zone
 
-
 player_shooting_splits_by_zone = shooting_by_zone()
 
 # efficiency rows by zone
@@ -527,54 +547,64 @@ efficiency_rows_zone = [row for row in player_shooting_splits_by_zone.index if "
 volume_rows_zone = [row for row in player_shooting_splits_by_zone.index if "%" not in row]
 
 # radar chart efficiency by zone
-fig = go.Figure(layout = layout)
+fig = go.Figure(layout=layout)
 
-fig.add_trace(go.Scatterpolar(
-        r = player_shooting_splits_by_zone.loc[efficiency_rows_zone, 'Player Percentile'],
-        theta = efficiency_rows_zone,
-        fill = 'toself',
-        fillcolor= radar_fill_color,
-        name = 'Player'
-    ))
+player_percentile_values_efficiency_zone = player_shooting_splits_by_zone.loc[efficiency_rows_zone, 'Player Percentile']
 
+fig.add_trace(go.Barpolar(
+    r=player_percentile_values_efficiency_zone,
+    theta=efficiency_rows_zone,
+    marker=dict(
+        color=player_percentile_values_efficiency_zone,
+        colorscale=colorscale,
+        showscale=True,
+        colorbar=dict(title='Percentile',
+            x=1.2),
+    ),
+    name='Player'
+))
 
 fig.update_layout(
-    polar = dict(
-        radialaxis = dict(
-            visible = True,
-            range = [0, 1]
+    polar=dict(
+        radialaxis=dict(
+            visible=True,
+            range=[0, 1]
         )),
-    showlegend = False
+    showlegend=False,
+    font_size=14
 )
 
-fig.update_layout(font_size = 14)
-
-col1.plotly_chart(fig, use_container_width = True)
+col1.plotly_chart(fig, use_container_width=True)
 
 # radar chart volume by zone
-fig = go.Figure(layout = layout)
+fig = go.Figure(layout=layout)
 
-fig.add_trace(go.Scatterpolar(
-        r = player_shooting_splits_by_zone.loc[volume_rows_zone, 'Player Percentile'],
-        theta = volume_rows_zone,
-        fill = 'toself',
-        fillcolor= radar_fill_color,
-        name = 'Player'
-    ))
+player_percentile_values_volume_zone = player_shooting_splits_by_zone.loc[volume_rows_zone, 'Player Percentile']
+
+fig.add_trace(go.Barpolar(
+    r=player_percentile_values_volume_zone,
+    theta=volume_rows_zone,
+    marker=dict(
+        color=player_percentile_values_volume_zone,
+        colorscale=colorscale,
+        showscale=True,
+        colorbar=dict(title='Percentile',
+            x=1.2),
+    ),
+    name='Player'
+))
 
 fig.update_layout(
-    polar = dict(
-        radialaxis = dict(
-            visible = True,
-            range = [0, 1]
+    polar=dict(
+        radialaxis=dict(
+            visible=True,
+            range=[0, 1]
         )),
-    showlegend = False
+    showlegend=False,
+    font_size=14
 )
 
-# larger text
-fig.update_layout(font_size = 14)
-
-col2.plotly_chart(fig, use_container_width = True)
+col2.plotly_chart(fig, use_container_width=True)
 
 # checkbox
 show_player_shooting_by_zone_table = st.checkbox('Show Player Shooting by Zone Table')
@@ -701,52 +731,62 @@ efficiency_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' in
 volume_rows_5ft = [row for row in player_shooting_splits_5ft.index if '%' not in row]
 
 # plot radar chart
-fig = go.Figure(layout = layout)
+fig = go.Figure(layout=layout)
 
-fig.add_trace(go.Scatterpolar(
-        r = player_shooting_splits_5ft.loc[efficiency_rows_5ft, 'Player Percentile'],
-        theta = efficiency_rows_5ft,
-        fill = 'toself',
-        fillcolor = radar_fill_color,
-        name = 'Player'
-    ))
+player_percentile_values_efficiency_5ft = player_shooting_splits_5ft.loc[efficiency_rows_5ft, 'Player Percentile']
+
+fig.add_trace(go.Barpolar(
+    r=player_percentile_values_efficiency_5ft,
+    theta=efficiency_rows_5ft,
+    marker=dict(
+        color=player_percentile_values_efficiency_5ft,
+        colorscale=colorscale,
+        showscale=True,
+        colorbar=dict(title='Percentile',
+            x=1.2),
+    ),
+    name='Player'
+))
 
 fig.update_layout(
-    polar = dict(
-        radialaxis = dict(
-            visible = True,
-            range = [0, 1]
+    polar=dict(
+        radialaxis=dict(
+            visible=True,
+            range=[0, 1]
         )),
-    showlegend = False
+    showlegend=False,
+    font_size=14
 )
-
-# larger text
-fig.update_layout(font_size = 14)
 
 col1.plotly_chart(fig, use_container_width=True)
 
 # volume
-fig = go.Figure(layout = layout)
+fig = go.Figure(layout=layout)
 
-fig.add_trace(go.Scatterpolar(
-        r = player_shooting_splits_5ft.loc[volume_rows_5ft, 'Player Percentile'],
-        theta = volume_rows_5ft,
-        fill = 'toself',
-        fillcolor = radar_fill_color,
-        name = 'Player'
-    ))
+player_percentile_values_volume_5ft = player_shooting_splits_5ft.loc[volume_rows_5ft, 'Player Percentile']
+
+fig.add_trace(go.Barpolar(
+    r=player_percentile_values_volume_5ft,
+    theta=volume_rows_5ft,
+    marker=dict(
+        color=player_percentile_values_volume_5ft,
+        colorscale=colorscale,
+        showscale=True,
+        colorbar=dict(title='Percentile',
+            x=1.2),
+    ),
+    name='Player'
+))
 
 fig.update_layout(
-    polar = dict(
-        radialaxis = dict(
-            visible = True,
-            range = [0, 1]
+    polar=dict(
+        radialaxis=dict(
+            visible=True,
+            range=[0, 1]
         )),
-    showlegend = False
+    showlegend=False,
+    font_size=14
 )
-
-# larger text
-fig.update_layout(font_size = 14)
 
 col2.plotly_chart(fig, use_container_width=True)
 
@@ -883,20 +923,13 @@ st.table(no_third_row.style.format('{:.1f}'))
 # only_third_row is dropping the first two
 only_third_row = position_shot_dash_general_comp.drop(index = no_third_row.index)
 
+def get_color_from_scale(value, scale, min_val=0, max_val=100):
+    scale_length = len(scale)
+    idx = int(np.interp(value, (min_val, max_val), (0, scale_length - 1)))
+    return scale[idx]
+
 def color_code_percentile2(val):
-    if val < 40:
-        color = 'red'
-    elif val < 45 and val > 40:
-        color = 'orange'
-    elif val < 55 and val > 45:
-        color = 'white',
-    elif val > 55 and val < 75:
-        color = 'lightgreen'
-    elif val > 75:
-        color = 'green'
-    else:
-        color = 'white'
-    # return highlight color (background)
+    color = get_color_from_scale(val, px.colors.diverging.BrBG)
     return 'background-color: %s' % color
 
 # add third row
@@ -931,9 +964,16 @@ for col in sdg_numcols:
 
 # plot position FGA vs EFG% with plotly
 filt_position_shot_dash_general = position_shot_dash_general[position_shot_dash_general['FGA'] > 1]
+
+
+
+# Add the EFG%_color column to the DataFrame
+filt_position_shot_dash_general['EFG%_color'] = filt_position_shot_dash_general['EFG%'].apply(lambda x: get_color_from_scale(x, px.colors.diverging.BrBG))
+
 fig = px.scatter(filt_position_shot_dash_general, x='FGA', y='EFG%', 
-                 hover_name='PLAYER', color_discrete_sequence=px.colors.qualitative.Dark24,
-                 height=800, width=800)
+                 hover_name='PLAYER', color='EFG%_color',
+                 height=800, hover_data={'EFG%': True, 'EFG%': True, 'EFG%_color': False})
+
 # Update the layout to have a transparent background and a title
 fig.update_layout(
     title='',

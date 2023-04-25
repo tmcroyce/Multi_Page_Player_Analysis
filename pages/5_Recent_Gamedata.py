@@ -330,7 +330,7 @@ col9.metric(label = 'USG%', value = round(last_10_usg, 1), delta = round(last_10
 # Display last 10 games
 # st.dataframe(last_10.style.format('{:.1f}', subset = num_cols))
 st.write('')
-st.write('Over the past 10 games, ' + player + ' has scored at a pace of ' + str(round(last_10['ppm'].mean(), 1)) + ' points per minute, ' + str(round(last_10['pts'].mean(), 1)) + ' points per game, while shooting ' + str(round(last_10['3p%'].mean(), 1)) + '% from three.')
+st.write('Over the past '+ str(n) +' games, ' + player + ' has scored at a pace of ' + str(round(last_10['ppm'].mean(), 1)) + ' points per minute, ' + str(round(last_10['pts'].mean(), 1)) + ' points per game, while shooting ' + str(round(last_10['3p%'].mean(), 1)) + '% from three.')
 st.write('He is averaging ' + str(round(last_10['ast'].mean(), 1)) + ' assists per game, ' + str(round(last_10['reb'].mean(), 1)) + ' rebounds per game, and ' + str(round(last_10['stl'].mean(), 1)) + ' steals per game.')
 
 # Visualize PPM, Points, and 3P% over last 10 games
@@ -339,29 +339,79 @@ col1 = colz[0]
 col2 = colz[1]
 col3 = colz[2]
 
-# PPM
-fig = px.bar(last_10, x = 'game date', y = 'ppm', title = 'PPM over Last 10 Games', color = 'ppm', color_continuous_scale = 'greys')
-fig.update_layout(xaxis_title = 'Date', yaxis_title = 'PPM')
+def get_marker_color(value, cmap, vmin, vmax):
+    norm = (value - vmin) / (vmax - vmin)
+    idx = int(norm * (len(cmap) - 1))
+    return cmap[idx]
+
+cmap = px.colors.diverging.BrBG
+vmin = last_10['ppm'].min()
+vmax = last_10['ppm'].max()
+marker_colors = [get_marker_color(value, cmap, vmin, vmax) for value in last_10['ppm']]
+
+fig = px.line(last_10, x='game date', y='ppm', title='PPM over Last 10 Games', 
+              markers=True)
+fig.update_traces(line=dict(color='grey'), marker=dict(color=marker_colors), selector=dict(type='scatter', mode='markers'))
+fig.update_layout(xaxis_title='Date', yaxis_title='PPM')
 fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
-# add player average
+                  paper_bgcolor='rgba(0, 0, 0, 0)')
+# # add player average
 fig.add_hline(y = last_10['ppm'].mean(), line_dash = 'dash', line_color = 'red')
 col1.plotly_chart(fig, use_container_width = True)
 
-# Points
-fig = px.bar(last_10, x = 'game date', y = 'pts', title = 'Points over Last 10 Games', color = 'pts', color_continuous_scale = 'greys')
-fig.update_layout(xaxis_title = 'Date', yaxis_title = 'Points')
+
+############ POINTS ###########
+cmap = px.colors.diverging.BrBG
+vmin = last_10['pts'].min()
+vmax = last_10['pts'].max()
+marker_colors = [get_marker_color(value, cmap, vmin, vmax) for value in last_10['pts']]
+
+fig = px.line(last_10, x='game date', y='pts', title='Points over Last 10 Games', 
+              markers=True)
+fig.update_traces(line=dict(color='grey'), marker=dict(color=marker_colors), selector=dict(type='scatter', mode='markers'))
+fig.update_layout(xaxis_title='Date', yaxis_title='Points')
 fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
+                  paper_bgcolor='rgba(0, 0, 0, 0)')
 # add player average
 fig.add_hline(y = last_10['pts'].mean(), line_dash = 'dash', line_color = 'red')
 col2.plotly_chart(fig, use_container_width = True)
 
-# 3P%
-fig = px.bar(last_10, x = 'game date', y = '3p%', title = '3P% over Last 10 Games', color = '3p%', color_continuous_scale = 'greys')
-fig.update_layout(xaxis_title = 'Date', yaxis_title = '3P%')
-fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
-                        paper_bgcolor='rgba(0, 0, 0, 0)')
+
+line_color_3p = px.colors.diverging.BrBG[3]  # Select a color from the BrBG color scale for 3P% line
+marker_color_3p = 'rgba(34, 97, 153, 0.6)'  # Common marker color for 3P% line
+
+line_color_efg = px.colors.diverging.BrBG[-4]  # Select a color from the BrBG color scale for EFG% line
+marker_color_efg = 'rgba(153, 34, 34, 0.6)'  # Common marker color for EFG% line
+
+fig = go.Figure()
+
+fig.add_trace(go.Scatter(
+    x=last_10['game date'],
+    y=last_10['3p%'],
+    mode='lines+markers',
+    name='3P%',
+    line=dict(color=line_color_3p),
+    marker=dict(color=marker_color_3p)
+))
+
+fig.add_trace(go.Scatter(
+    x=last_10['game date'],
+    y=last_10['adv_efg%'],
+    mode='lines+markers',
+    name='EFG%',
+    line=dict(color=line_color_efg),
+    marker=dict(color=marker_color_efg)
+))
+
+fig.update_layout(
+    title='3P% and EFG% over Last 10 Games',
+    xaxis_title='Date',
+    yaxis_title='Percentage',
+    plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
+    paper_bgcolor='rgba(0, 0, 0, 0)'  # Transparent paper background
+)
+
+
 # add player average
 fig.add_hline(y = last_10['3p%'].mean(), line_dash = 'dash', line_color = 'red')
 col3.plotly_chart(fig, use_container_width = True)
