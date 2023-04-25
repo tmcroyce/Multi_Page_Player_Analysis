@@ -50,7 +50,7 @@ def add_css():
     background: linear-gradient(to right, #35363C, #0e1117);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
     text-align: center;
-    max-width: 200;
+    max-width: 150;
     }
     </style>
     """
