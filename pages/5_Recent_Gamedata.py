@@ -386,19 +386,19 @@ season_usg = player_gbg_22['adv_usg%'].mean()
 
 
 # First row with 5 columns
-col1, col2, col3, col4, col5 = st.columns([.2, .2, .2, .2, .2])
+col1, col2, col3, col4 = st.columns([.25, .25, .25, .25])
 col1.metric(label='Points Per Game', value=round(last_10_ppg, 1), delta=round(last_10_ppg - season_ppg, 1))
 col2.metric(label='Points Per Minute', value=round(last_10_ppm, 1), delta=round(last_10_ppm - season_ppm, 1))
 col3.metric(label='3P%', value=round(last_10_3p, 1), delta=round(last_10_3p - season_3p, 1))
 col4.metric(label='AST', value=round(last_10_ast, 1), delta=round(last_10_ast - season_ast, 1))
-col5.metric(label='REB', value=round(last_10_reb, 1), delta=round(last_10_reb - season_reb, 1))
 
 # Second row with 4 columns
-col6, col7, col8, col9 = st.columns([.25, .25, .25, .25])
+col5, col6, col7, col8 = st.columns([.25, .25, .25, .25])
+col5.metric(label='REB', value=round(last_10_reb, 1), delta=round(last_10_reb - season_reb, 1))
 col6.metric(label='STL', value=round(last_10_stl, 1), delta=round(last_10_stl - season_stl, 1))
 col7.metric(label='eFG%', value=round(last_10_efg, 1), delta=round(last_10_efg - season_efg, 1))
-col8.metric(label='TS%', value=round(last_10_ts, 1), delta=round(last_10_ts - season_ts, 1))
-col9.metric(label='USG%', value=round(last_10_usg, 1), delta=round(last_10_usg - season_usg, 1))
+col8.metric(label='USG%', value=round(last_10_usg, 1), delta=round(last_10_usg - season_usg, 1))
+
 # Display last 10 games
 # st.dataframe(last_10.style.format('{:.1f}', subset = num_cols))
 st.write('')
