@@ -222,19 +222,18 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('')
-st.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+
 # Use markdown for the footer and contact information
 st.sidebar.markdown("""
 ## Contact Information

@@ -1094,12 +1094,13 @@ st.plotly_chart(fig, use_container_width = True)
 
 
 
-
-
+nba_3pt_video = str('https://www.nba.com/stats/events?CFID=&CFPARAMS=&ContextMeasure=FG3A&PlayerID=' +
+                    str(player_nba_id)   + '&Season=2022-23&SeasonType=Regular%20Season&flag=3')
 
 
 player_specific_shottype = 'https://www.nba.com/stats/player/' + str(player_nba_id)+'/shooting'
 st.sidebar.markdown('[Specific Shot Types]('+ player_specific_shottype + ')')
+st.sidebar.markdown('[Player 3PT Shooting Video](' + str(nba_3pt_video) + ')')
 
 st.sidebar.markdown('[NBA Stats Glossary](https://www.nba.com/stats/help/glossary)')
 

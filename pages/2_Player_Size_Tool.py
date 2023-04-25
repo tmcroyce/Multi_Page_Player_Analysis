@@ -309,6 +309,8 @@ with col1:
     fig.update_xaxes(showgrid = True, gridwidth = 1, gridcolor = 'grey')
     # add outline to bar
     fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
+    fig.update_xaxes(tickvals = [0, 20, 40, 60, 80, 100],
+                        ticktext = ['0%', '20%', '40%', '60%', '80%', '100%'])
         
     # Wrap the entire content in the 'colored-block' class
     st.markdown(f"""
@@ -317,7 +319,6 @@ with col1:
         </div>
     """, unsafe_allow_html=True)
 
-    st.write('')
     # Another, for position percentile
     st.markdown(f"""
         <div class='colored-block'>
@@ -349,6 +350,8 @@ with col3:
     fig.update_xaxes(range = [0, 100], tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100], showgrid = True, gridwidth = 1, gridcolor = 'grey')
     fig.update_yaxes(showticklabels = False)
     fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
+    fig.update_xaxes(tickvals = [0, 20, 40, 60, 80, 100],
+                        ticktext = ['0%', '20%', '40%', '60%', '80%', '100%'])
 
     # Wrap the entire content in the 'colored-block' class
     st.markdown(f"""
@@ -356,7 +359,6 @@ with col3:
             <h3>Wingspan: {metric_str}</h3>
         </div>
     """, unsafe_allow_html=True)
-    st.write('')
 
     # Another, for position percentile
     st.markdown(f"""
@@ -384,6 +386,10 @@ with col5:
     fig.update_xaxes(range = [0, 100], tickmode = 'array', tickvals = [0, 20, 40, 60, 80, 100], showgrid = True, gridwidth = 1, gridcolor = 'grey')
     fig.update_yaxes(showticklabels = False)
     fig.update_traces(marker_line_width = 1, marker_line_color = 'black')
+    # add % to x-axis ticks
+    # divide by 100
+    fig.update_xaxes(tickvals = [0, 20, 40, 60, 80, 100],
+                        ticktext = ['0%', '20%', '40%', '60%', '80%', '100%'])
 
     # Wrap the entire content in the 'colored-block' class
     st.markdown(f"""
@@ -392,7 +398,6 @@ with col5:
         </div>
     """, unsafe_allow_html=True)
 
-    st.write('')
 
         # Another, for position percentile
     st.markdown(f"""
