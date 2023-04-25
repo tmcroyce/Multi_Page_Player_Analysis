@@ -415,7 +415,7 @@ def plot_height_wingspan2():
     # plot height vs wingspan with plotly
 
     fig = px.scatter(positional_df_season_selected, x='height_final', y='wingspan_final', hover_name='player', color='season',
-                    hover_data=['height_final', 'wingspan_final', 'player'], color_sequence=px.colors.sequential.Plotly3,)
+                    hover_data=['height_final', 'wingspan_final', 'player'], color_continuous_scale=px.colors.sequential.Plotly3)
     fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent plot background
                         paper_bgcolor='rgba(0, 0, 0, 0)')
     fig.update_traces(marker_size=10)
