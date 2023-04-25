@@ -8,10 +8,65 @@ import re
 
 st.set_page_config(page_title='Homepage', page_icon=None, layout="wide", initial_sidebar_state="auto" )
 
+# def page_css():
+#         # Total
+#     custom_background = """
+#     <style>
+#     [data-testid="stAppViewContainer"] {
+#     background: linear-gradient(to right, #2c3333, #35363C);
+#     }
+#     </style>
+#     """
+#     st.markdown(custom_background, unsafe_allow_html=True)
+
+
+#     # Define custom CSS for the gradient background
+#     custom_header = """
+#     <style>
+#     [data-testid="stHeader"] {
+#     background: linear-gradient(to right, #2c3333, #35363C);
+#     }
+#     </style>
+#     """
+
+#     st.markdown(custom_header, unsafe_allow_html=True)
+
+
+#     custom_metric = """
+#     <style>
+#     [data-testid="stMarkdownContainer"] {
+#     background: linear-gradient(to right, #35363C, #0e1117);
+#     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
+#     border-radius: 10px;  /* Adjust this value to change the rounding of corners */
+#     color: #ffffff;
+#     text-align: center;
+#     max-width: 80%;
+#     }
+#     </style>
+#     """
+#     st.markdown(custom_metric, unsafe_allow_html=True)
+
+
+
+#     custom_sidebar = """
+#     <style>
+#     [data-testid="stSidebar"]{
+#     background: linear-gradient(to right, #35363C, #0e1117);
+#     border-radius: 30px;  /* Adjust this value to change the rounding of corners */
+#     color: #ffffff;
+#     }
+#     </style>
+#     """
+#     st.markdown(custom_sidebar , unsafe_allow_html=True)
+
+
+# page_css()
+
 title_color_1 = '#282229' # dark purple
 title_color_2 = '#0e1117' # dark blue
 background_color_1 = '#2c3333' # dark grey
 background_color_2 = '#35363C' # dark grey
+
 
 # set session states for color pallette
 st.session_state['title_color_1'] = title_color_1
@@ -249,68 +304,4 @@ Thanks for using the NBA Player Analytics Toolkit!
 
 
 
-
-############
-
-
-
-# Total
-custom_background = """
-<style>
-[data-testid="stAppViewContainer"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
-st.markdown(custom_background, unsafe_allow_html=True)
-
-
-# Define custom CSS for the gradient background
-custom_header = """
-<style>
-[data-testid="stHeader"] {
-background: linear-gradient(to right, #2c3333, #35363C);
-}
-</style>
-"""
-
-st.markdown(custom_header, unsafe_allow_html=True)
-
-
-custom_metric = """
-<style>
-[data-testid="metric-container"] {
-background: linear-gradient(to right, #35363C, #0e1117);
-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add 3D shadow effect */
-text-align: center;
-max-width: 80%;
-}
-</style>
-"""
-st.markdown(custom_metric, unsafe_allow_html=True)
-
-
-
-custom_sidebar = """
-<style>
-section[data-testid="stSidebar"]{
-background-image: linear-gradient(#35363C, #0e1117);
-color: white;
-}
-</style>
-"""
-st.markdown(custom_sidebar , unsafe_allow_html=True)
-
-
-custom_selectbox = """
-<style>
-[data-baseweb="select"]{
-background-image: linear-gradient(#35363C, #0e1117);
-border-radius: 30px;  /* Adjust this value to change the rounding of corners */
-text-align: center;  /* Center the text inside the metric box */
-color: white;
-}
-</style>
-"""
-st.markdown(custom_selectbox , unsafe_allow_html=True)
 
