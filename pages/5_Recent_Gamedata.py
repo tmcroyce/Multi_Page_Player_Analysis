@@ -316,7 +316,7 @@ season_ts = player_gbg_22['adv_ts%'].mean()
 season_usg = player_gbg_22['adv_usg%'].mean()
 
 # compare, using metrics
-col1, col2, col3, col4, col5, col6, col7, col8, col9 = st.columns(9)
+col1, col2, col3, col4, col5, col6, col7, col8, col9 = st.columns([.11, .11, .11, .11, .11, .11, .11, .11, .11])
 col1.metric(label = 'Points Per Game', value = round(last_10_ppg, 1), delta = round(last_10_ppg - season_ppg, 1))
 col2.metric(label = 'Points Per Minute', value = round(last_10_ppm, 1), delta = round(last_10_ppm - season_ppm, 1))
 col3.metric(label = '3P%', value = round(last_10_3p, 1), delta = round(last_10_3p - season_3p, 1))
